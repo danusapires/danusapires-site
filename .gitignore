@@ -1,3 +1,9 @@
+# Astro build output
+.astro/
+
+# macOS
+.DS_Store
+
 # Logs
 logs
 *.log
