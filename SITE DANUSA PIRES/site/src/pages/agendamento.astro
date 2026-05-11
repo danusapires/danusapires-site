@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+---
+
+<BaseLayout
+  title="Agendar avaliação"
+  description="Agende sua avaliação com a Dra. Danusa Pires. Investigação do ciclo folicular, inflamação e eixo hormonal — Edifício Moinhos 180, Porto Alegre."
+  robots="noindex,follow"
+  currentPage="agendamento"
+  breadcrumbs={[{ name: 'Agendamento', url: '/agendamento' }]}
+>
+
+  <section class="hero" style="min-height:auto;padding-top:140px;padding-bottom:var(--section-py)">
+    <div class="form-wrap">
+      <p class="lbl r">agendar avaliação</p>
+      <h1 class="r d1">Conte sobre o seu <em>quadro</em>.</h1>
+      <p class="r d2 form-lead">A equipe organiza a triagem e define se a primeira avaliação será presencial ou remota. Resposta variável conforme padrão fisiológico individual.</p>
+
+      <div id="match-banner" class="r match-banner" style="display:none">
+        <strong>Profissional recomendado:</strong> <span id="match-name"></span>
+      </div>
+
+      <form class="ecooa-form r d2 dh-form" action={SITE.gasUrl} method="POST">
+        <input type="hidden" name="_formType" value="agendamento" />
+        <input type="hidden" name="matchProfessional" id="match-prof" />
+        <input type="hidden" name="matchIntent" id="match-intent" />
+
+        <label class="dh-field">
+          <span>Nome</span>
+          <input type="text" name="nome" required autocomplete="name" />
+        </label>
+
+        <label class="dh-field">
+          <span>WhatsApp</span>
+          <input type="tel" name="whatsapp" required autocomplete="tel" placeholder="(00) 00000-0000" />
+        </label>
+
+        <label class="dh-field">
+          <span>E-mail</span>
+          <input type="email" name="email" autocomplete="email" />
+        </label>
+
+        <label class="dh-field">
+          <span>Quadro / queixa principal</span>
+          <textarea name="mensagem" rows="4" placeholder="Há quanto tempo, o que percebe, tratamentos anteriores..."></textarea>
+        </label>
+
+        <button type="submit" class="btn btn-primary" style="margin-top:var(--space-sm);width:100%">Enviar para triagem</button>
+
+        <p class="dh-form-disclaimer">
+          Conduta definida conforme avaliação clínica. Evolução dependente de causa, adesão, tempo e resposta individual.
+        </p>
+      </form>
+
+      <div class="ecooa-form-ok" style="display:none;text-align:center;padding:var(--space-xl) 0">
+        <p style="font-family:var(--font-serif);font-size:24px;font-weight:400;color:var(--c-beige)">Recebemos seus dados.</p>
+        <p style="font-size:13px;color:var(--color-ink-soft);margin-top:12px">Nossa equipe entrará em contato em breve.</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  const params = new URLSearchParams(window.location.search);
+  const prof = params.get('profissional');
+  const intent = params.get('intent');
+  if (prof) {
+    const banner = document.getElementById('match-banner');
+    const nameEl = document.getElementById('match-name');
+    const profInput = document.getElementById('match-prof') as HTMLInputElement;
+    const intentInput = document.getElementById('match-intent') as HTMLInputElement;
+    if (banner) banner.style.display = 'block';
+    if (nameEl) nameEl.textContent = prof.replace(/-/g, ' ');
+    if (profInput) profInput.value = prof;
+    if (intentInput && intent) intentInput.value = intent;
+  }
+  </script>
+
+  <style>
+    .form-wrap {
+      max-width: 600px;
+      width: 100%;
+    }
+    .form-lead {
+      font-size: 15px;
+      line-height: 1.85;
+      max-width: 56ch;
+      color: var(--color-ink-soft);
+      margin-bottom: var(--space-xl);
+    }
+    .match-banner {
+      background: rgba(198, 168, 90, 0.08);
+      border-left: 3px solid var(--c-gold);
+      padding: 16px 20px;
+      margin-bottom: var(--space-md);
+      font-size: 13px;
+      color: var(--c-beige);
+    }
+    .match-banner strong { color: var(--c-gold); font-weight: 500; }
+
+    .dh-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .dh-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .dh-field span {
+      font-family: var(--font-primary);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+    }
+    .dh-field input,
+    .dh-field textarea {
+      width: 100%;
+      padding: 14px 18px;
+      font-family: var(--font-primary);
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--c-beige);
+      background: var(--c-graphite);
+      border: 1px solid rgba(232, 227, 220, 0.12);
+      outline: none;
+      transition: border-color var(--transition-fast), background var(--transition-fast);
+      resize: vertical;
+    }
+    .dh-field input::placeholder,
+    .dh-field textarea::placeholder {
+      color: var(--color-ink-ghost);
+    }
+    .dh-field input:focus,
+    .dh-field textarea:focus {
+      border-color: var(--c-gold);
+      background: rgba(198, 168, 90, 0.05);
+    }
+    .dh-form-disclaimer {
+      font-size: 11px;
+      line-height: 1.7;
+      color: var(--color-ink-ghost);
+      max-width: 56ch;
+      margin-top: var(--space-md);
+      font-style: italic;
+    }
+  </style>
+
+</BaseLayout>

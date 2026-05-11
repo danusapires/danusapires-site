@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { SITE } from '../data/site';
+---
+
+<BaseLayout
+  title="Sobre · Da emergência à tricologia clínica"
+  description="A trajetória da Dra. Danusa Pires: 18 anos em saúde, especialização em tricologia avançada. Por que diagnóstico clínico antecede protocolo na clínica do Edifício Moinhos 180."
+  currentPage="sobre"
+  breadcrumbs={[{ name: 'Sobre', url: '/sobre' }]}
+>
+
+  <section class="hero" style="min-height:60vh">
+    <div class="hero-content">
+      <p class="lbl r">a trajetória</p>
+      <h1 class="r d1">Da urgência à <em>escuta clínica</em>.</h1>
+      <p class="r d2">A clínica nasceu de uma decisão deliberada: trocar o ritmo da urgência pelo tempo necessário para diagnosticar, planejar e acompanhar.</p>
+    </div>
+  </section>
+
+  <section class="section-cream">
+    <div class="g2" style="align-items:center;gap:var(--space-2xl)">
+      <div>
+        <h2 class="section-title r">{SITE.foundedYear ? '18 anos em saúde, agora em ' : ''}<em>tricologia avançada</em>.</h2>
+        <p class="section-subtitle r d1" style="max-width:none;margin-bottom:var(--space-md)">Antes da clínica, foram quase duas décadas atuando em emergências. Esse percurso ensinou algo que se tornaria a base do trabalho atual: <strong>diagnóstico correto antecede qualquer conduta</strong>. Em sala de urgência, errar essa ordem é grave. Em tricologia, é desperdiçar o tempo do paciente.</p>
+        <p class="section-subtitle r d2" style="max-width:none;margin-bottom:var(--space-md)">Desde {SITE.foundedYear}, a clínica dedica-se exclusivamente à tricologia avançada — investigação do ciclo folicular, inflamação do couro cabeludo, eixo hormonal e padrão individual de resposta.</p>
+        <p class="section-subtitle r d3" style="max-width:none">Atuamos dentro do que o conselho determina, com responsabilidade técnica registrada — {SITE.registroProfissional}.</p>
+      </div>
+      <picture class="r d2" style="aspect-ratio:4/5;display:block;overflow:hidden">
+        <source srcset="/images/space/clinic-interior.avif" type="image/avif" />
+        <source srcset="/images/space/clinic-interior.webp" type="image/webp" />
+        <img src="/images/space/clinic-interior.webp" alt="Interior da clínica · Edifício Moinhos 180" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover" />
+      </picture>
+    </div>
+  </section>
+
+  <section>
+    <div style="max-width:840px">
+      <p class="lbl r">o método</p>
+      <h2 class="section-title r d1">Diagnóstico antes de <em>protocolo</em>.</h2>
+      <p class="section-subtitle r d2">Cada paciente passa por avaliação estruturada antes de qualquer protocolo. Em tricologia, isso inclui análise instrumental do couro cabeludo, leitura do ciclo folicular e investigação dirigida quando o quadro pede. O retorno traz o plano. O acompanhamento garante que o plano funcione ou seja ajustado a tempo.</p>
+    </div>
+
+    <div class="g3" style="margin-top:var(--space-xl);gap:18px">
+      <div class="pillar-card r">
+        <h3>Avaliação estruturada</h3>
+        <p>Anamnese, leitura clínica e exames pertinentes ao caso. Sem conduta antes de hipótese.</p>
+      </div>
+      <div class="pillar-card r d1">
+        <h3>Protocolo individualizado</h3>
+        <p>Combinação de condutas conforme mecanismo dominante. Janela terapêutica definida.</p>
+      </div>
+      <div class="pillar-card r d2">
+        <h3>Controle evolutivo</h3>
+        <p>Reavaliação programada. Ajuste conforme resposta individual e padrão fisiológico.</p>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection
+    heading="Avaliação <em>capilar</em> com método clínico estruturado."
+    subtext="Protocolo definido conforme leitura individual. Conversa pelo WhatsApp adianta a triagem antes da avaliação presencial."
+  />
+
+</BaseLayout>

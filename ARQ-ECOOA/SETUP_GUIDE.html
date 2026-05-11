@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tier 5+ Playbook v2 — Operação interna</title>
+  <style>
+    :root {
+      --ink: #1a1816;
+      --ink-soft: #4a423d;
+      --ink-mute: #756a64;
+      --line: #d8cfc8;
+      --paper: #f7f3ef;
+      --paper-2: #efe8e1;
+      --accent: #8b6f5c;
+      --warn: #a8541a;
+      --ok: #4a6b3a;
+      --code-bg: #2a2522;
+      --code-ink: #e8dfd5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: 'Iowan Old Style', 'Palatino', Georgia, serif;
+      line-height: 1.55;
+      color: var(--ink);
+      background: var(--paper);
+      padding: 32px 16px 96px;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; }
+
+    /* Front matter */
+    .meta {
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 0.78rem;
+      color: var(--ink-mute);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    h1 {
+      font-size: 2.6rem;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .sub {
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      font-style: italic;
+      margin-bottom: 40px;
+      max-width: 56ch;
+    }
+
+    /* Command card */
+    .command {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 28px 32px;
+      border-radius: 4px;
+      margin: 32px 0 56px;
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .command h2 {
+      font-family: inherit;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--paper-2);
+      margin-bottom: 18px;
+      font-weight: 500;
+      border: 0;
+    }
+    .command-row {
+      display: grid;
+      grid-template-columns: 32px 90px 1fr 80px;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      align-items: baseline;
+    }
+    .command-row:last-child { border-bottom: 0; }
+    .command-row .num { color: var(--ink-mute); }
+    .command-row .phase { color: var(--paper); }
+    .command-row .desc { color: var(--paper-2); font-size: 0.86rem; }
+    .command-row .time { color: var(--accent); text-align: right; font-size: 0.82rem; }
+
+    /* Sections */
+    h2 {
+      font-size: 1.55rem;
+      letter-spacing: -0.01em;
+      margin: 56px 0 4px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--ink);
+      font-weight: 600;
+    }
+    h2 .phase-num {
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 0.85rem;
+      color: var(--ink-mute);
+      margin-right: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+    }
+    h2 .timebox {
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      float: right;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+    .lead {
+      color: var(--ink-soft);
+      font-size: 1.02rem;
+      margin: 16px 0 20px;
+    }
+    .lead strong { color: var(--ink); }
+
+    h3 {
+      font-size: 1.05rem;
+      margin: 24px 0 8px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    p { margin: 10px 0; color: var(--ink-soft); }
+    ul, ol { margin: 12px 0 12px 24px; color: var(--ink-soft); }
+    li { margin: 6px 0; }
+
+    /* Code */
+    code {
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 0.86em;
+      background: var(--paper-2);
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: var(--ink);
+    }
+    pre {
+      background: var(--code-bg);
+      color: var(--code-ink);
+      padding: 18px 22px;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 0.84rem;
+      line-height: 1.55;
+      margin: 14px 0;
+    }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: inherit; }
+
+    /* Filters / boxes */
+    .filter {
+      background: var(--paper-2);
+      border-left: 3px solid var(--ink);
+      padding: 18px 22px;
+      margin: 20px 0;
+    }
+    .filter h4 {
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+    .filter ol, .filter ul { margin-left: 18px; }
+    .filter li { font-size: 0.96rem; }
+
+    .done {
+      border-left-color: var(--ok);
+    }
+    .warn {
+      border-left-color: var(--warn);
+      background: #fbf3eb;
+    }
+    .schlep {
+      border-left-color: var(--accent);
+      background: #f4ede5;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 0.94rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    th {
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      font-weight: 500;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    /* Quote */
+    blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 6px 0 6px 18px;
+      margin: 18px 0;
+      color: var(--ink-soft);
+      font-style: italic;
+    }
+    blockquote cite {
+      display: block;
+      font-style: normal;
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-top: 8px;
+    }
+
+    /* Anchors */
+    .anchor {
+      display: block;
+      position: relative;
+      top: -20px;
+      visibility: hidden;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 0.78rem;
+      color: var(--ink-mute);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Print */
+    @media print {
+      body { padding: 0; background: white; }
+      .command { background: #f4f4f4; color: black; }
+      .command-row .num,
+      .command-row .desc,
+      .command-row .time { color: #444; }
+      .command-row .phase { color: black; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="meta">
+      <span>Tier 5+ Playbook · v2 · 2026-05-01</span>
+      <span>Uso interno — não distribuir a cliente</span>
+    </div>
+
+    <h1>Tier 5+ Playbook</h1>
+    <p class="sub">Operação canônica para construir um site premium para um cliente, do briefing ao pós-launch. Cada fase tem prazo, definição de pronto e filtro do fundador. Atualizar a cada cliente novo.</p>
+
+    <!-- Doctrina Jobs + Graham -->
+    <div class="filter">
+      <h4>Doutrina operacional</h4>
+      <ol>
+        <li><strong>Foco antes de adicionar.</strong> Toda inclusão exige uma exclusão equivalente. (Jobs)</li>
+        <li><strong>Artesanal nos primeiros 10 clientes.</strong> Você mesmo faz. Aprendizado &gt; eficiência. (Graham — Do Things That Don't Scale)</li>
+        <li><strong>Bloco maker é sagrado.</strong> Construção real exige meio dia mínimo, sem reunião. (Graham — Maker's Schedule)</li>
+        <li><strong>Schlep é moat.</strong> A tarefa que ninguém quer fazer é o diferencial. (Graham — Schlep Blindness)</li>
+        <li><strong>Métrica única.</strong> Sites Tier 5+ entregues por mês — meta declarada. (Graham — Startup = Growth)</li>
+        <li><strong>Filtro do fundador em cada fase.</strong> Sem checkpoint, qualidade desliza. (Jobs — Soul of the Founder)</li>
+      </ol>
+    </div>
+
+    <!-- COMMAND CARD -->
+    <div class="command">
+      <h2>Cartão de comando — sequência completa</h2>
+      <div class="command-row"><span class="num">0</span><span class="phase">Qualificação</span><span class="desc">Briefing inicial + filtro de aceite</span><span class="time">90 min</span></div>
+      <div class="command-row"><span class="num">1</span><span class="phase">Setup</span><span class="desc">Fork, clone, Node, dev server</span><span class="time">30 min</span></div>
+      <div class="command-row"><span class="num">2</span><span class="phase">Identidade</span><span class="desc">site.ts — marca, contato, pilares</span><span class="time">90 min</span></div>
+      <div class="command-row"><span class="num">3</span><span class="phase">Equipe</span><span class="desc">professionals.ts + fotos otimizadas</span><span class="time">2h / 6 pessoas</span></div>
+      <div class="command-row"><span class="num">4</span><span class="phase">Conteúdo</span><span class="desc">Páginas .astro (TODOs → copy real)</span><span class="time">4h</span></div>
+      <div class="command-row"><span class="num">5</span><span class="phase">Blog</span><span class="desc">3 posts seed + categorias</span><span class="time">2h ou cliente</span></div>
+      <div class="command-row"><span class="num">6</span><span class="phase">Assets</span><span class="desc">Fontes, favicon, OG, manifest</span><span class="time">3h</span></div>
+      <div class="command-row"><span class="num">7</span><span class="phase">QA Lighthouse</span><span class="desc">Build local + thresholds</span><span class="time">2h</span></div>
+      <div class="command-row"><span class="num">8</span><span class="phase">Deploy</span><span class="desc">Domínio, Pages, Cloudflare, HSTS</span><span class="time">1h</span></div>
+      <div class="command-row"><span class="num">9</span><span class="phase">Handoff</span><span class="desc">Documento, vídeo Loom, agenda revisão</span><span class="time">90 min</span></div>
+      <div class="command-row"><span class="num">∞</span><span class="phase">Pós-launch</span><span class="desc">Manutenção mensal + posts trimestrais</span><span class="time">2h/mês</span></div>
+    </div>
+    <p class="lead"><strong>Total ativo: ~17h por cliente Tier 5+</strong> (sem briefing prolongado nem revisão de copy externa). Imprimir este cartão e fixar acima do monitor.</p>
+
+    <!-- ========== FASE 0 ========== -->
+    <h2><span class="phase-num">FASE 0</span>Qualificação <span class="timebox">90 min</span></h2>
+    <p class="lead">Antes de aceitar, decidir se o cliente cabe em Tier 5+. <strong>Aceitar errado é mais caro que recusar.</strong> Esta fase é gratuita até "passa no filtro"; a partir daí, contrato.</p>
+
+    <h3>Roteiro de briefing (22 perguntas — Graham: Do Things That Don't Scale)</h3>
+    <p>Reunião 1:1 (Zoom focado, sem terceiros, 60 min). Você conduz. Pergunta-pivô no fim: <em>"Qual é a frase de duas sentenças que um paciente seu fala quando finalmente decide entrar?"</em> Anote palavra por palavra. Essa frase vira a headline do site.</p>
+    <ol>
+      <li>Qual é o nome legal e o nome de uso da marca?</li>
+      <li>Qual problema do paciente vocês resolvem que ninguém mais resolve em &lt;100km?</li>
+      <li>Qual é o ticket médio do paciente alvo?</li>
+      <li>Quantos pacientes ativos hoje?</li>
+      <li>Qual a taxa de conversão do primeiro contato → primeira consulta?</li>
+      <li>Quem são os 3 concorrentes que mais te incomodam — e por quê?</li>
+      <li>Qual é a "frase de 2 sentenças"? (a pergunta-pivô)</li>
+      <li>Quais são os pilares (3 a 5) — nomes que aparecem no menu?</li>
+      <li>Quem são os profissionais? Foto, formação, especialidade.</li>
+      <li>Existe blog hoje? Quem escreve? Frequência?</li>
+      <li>Existem fotos profissionais da equipe? E do espaço?</li>
+      <li>Existe mood board, identidade visual, manual de marca?</li>
+      <li>Quais cores e tipografias estão definidas?</li>
+      <li>Qual domínio? Já comprado? DNS em qual registrador?</li>
+      <li>Existe GTM, Pixel, Analytics? IDs?</li>
+      <li>Existe formulário de agendamento — para onde vai o lead?</li>
+      <li>Existe LGPD/política de privacidade redigida por advogado?</li>
+      <li>Quem aprova copy do lado do cliente? Uma pessoa ou comitê?</li>
+      <li>Prazo desejado para go-live?</li>
+      <li>Orçamento aprovado — número, não faixa.</li>
+      <li>O que NÃO pode aparecer no site (compliance, ética, CFM)?</li>
+      <li>Como vai medir sucesso 90 dias pós-launch?</li>
+    </ol>
+
+    <div class="filter">
+      <h4>Filtro do fundador — passa ou não passa</h4>
+      <ol>
+        <li>Ticket médio do cliente está em ≥ R$ 35k? Se não, é projeto Tier 3, não Tier 5+.</li>
+        <li>Tem aprovador único do lado do cliente, com decisão final? Se é comitê, recusar ou cobrar +50%.</li>
+        <li>Domínio já está registrado e DNS é controlável? Se não, dia 1 é resolver isso.</li>
+        <li>Cliente entrega copy ou eu produzo? Definir agora — muda preço em 2x.</li>
+        <li>Cliente tem identidade visual mínima (logo, paleta, tipografia)? Se não, projeto começa por brand book separado.</li>
+      </ol>
+    </div>
+
+    <div class="filter warn">
+      <h4>Sinais de recusa — não aceitar mesmo com cheque na mesa</h4>
+      <ul>
+        <li>Cliente quer "site igual ao da clínica X" — copia, não premium.</li>
+        <li>Cliente quer área de membro, e-commerce, agendamento online complexo, integração com prontuário. Fora de escopo Tier 5+.</li>
+        <li>Cliente trabalha com seguradora popular como canal principal — desalinhamento de tier.</li>
+        <li>Comitê de 4+ aprovadores. Tempo de revisão vai matar margem.</li>
+        <li>Prazo &lt; 21 dias corridos.</li>
+      </ul>
+    </div>
+
+    <!-- ========== FASE 1 ========== -->
+    <h2><span class="phase-num">FASE 1</span>Setup <span class="timebox">30 min</span></h2>
+    <p class="lead">Ambiente local pronto. Se passar de 30 min, há problema externo (Node, conflitos de merge, repositório errado) — diagnosticar antes de seguir.</p>
+
+    <pre><code># 1. Fork via interface GitHub. Clonar localmente:
+git clone git@github.com:&lt;sua-org&gt;/&lt;cliente-slug&gt;.git
+cd &lt;cliente-slug&gt;
+
+# 2. Garantir Node ≥ 22.12.0 ANTES de npm install.
+node --version  # se &lt;22, usar nvm:
+nvm install 22 && nvm use 22
+
+# 3. Instalar e subir dev:
+npm install
+npm run dev      # http://localhost:4321</code></pre>
+
+    <div class="filter done">
+      <h4>Definição de pronto — fase 1</h4>
+      <ul>
+        <li><code>npm run dev</code> sobe sem erro.</li>
+        <li><code>http://localhost:4321/</code> renderiza homepage com placeholders TODO_*.</li>
+        <li>Repositório em branch <code>setup/&lt;cliente&gt;</code>, não main.</li>
+      </ul>
+    </div>
+
+    <!-- ========== FASE 2 ========== -->
+    <h2><span class="phase-num">FASE 2</span>Identidade — site.ts <span class="timebox">90 min</span></h2>
+    <p class="lead">Único arquivo de verdade da marca. Tudo (Nav, Footer, schema.org, meta tags, GTM, Pixel) lê daqui. Editar com taste — esta é a alma do projeto.</p>
+
+    <pre><code>export const SITE = {
+  name: 'Clínica Aurora',
+  tagline: 'Medicina preventiva premium',
+  url: 'https://clinicaaurora.com.br',
+  phone: '+55 11 99999-9999',
+  email: 'contato@clinicaaurora.com.br',
+  whatsapp: '5511999999999',
+  instagram: '@clinicaaurora',
+  address: { street: 'Rua X, 123', city: 'São Paulo', state: 'SP', zip: '01000-000' },
+  coordinates: { lat: -23.5505, lng: -46.6333 },
+  gtmId: 'GTM-XXXXXXX',
+  metaPixelId: '123456789',
+  gasUrl: 'https://script.google.com/macros/s/XXX/exec',
+};
+
+export const PILLARS = [
+  { slug: 'longevidade', name: 'Longevidade', desc: '...' },
+  { slug: 'metabolismo', name: 'Metabolismo', desc: '...' },
+  { slug: 'hormonal',    name: 'Hormonal',    desc: '...' },
+];</code></pre>
+
+    <div class="filter">
+      <h4>Filtro do fundador — fase 2</h4>
+      <ol>
+        <li>A tagline é a "frase de 2 sentenças" do briefing, ou genérica?</li>
+        <li>Cores e tipografias em <code>tokens.css</code> refletem o brand book do cliente, não os defaults?</li>
+        <li>Os pilares têm nomes que um paciente entende, ou jargão clínico?</li>
+        <li>O endereço está completo o bastante para o Google Maps gerar pin correto?</li>
+        <li>Daqui a 5 anos, estes pilares ainda fazem sentido para a marca?</li>
+      </ol>
+    </div>
+
+    <div class="filter done">
+      <h4>Definição de pronto — fase 2</h4>
+      <ul>
+        <li>Zero <code>TODO_*</code> em <code>src/data/site.ts</code>.</li>
+        <li>Tokens (cor, tipografia, espaço) em <code>src/styles/tokens.css</code> revisados.</li>
+        <li>Schema.org JSON-LD validado em <a href="https://search.google.com/test/rich-results" target="_blank">Rich Results Test</a> (rodando via build preview).</li>
+      </ul>
+    </div>
+
+    <!-- ========== FASE 3 ========== -->
+    <h2><span class="phase-num">FASE 3</span>Equipe — professionals.ts <span class="timebox">2h / 6 pessoas</span></h2>
+    <p class="lead">Cada profissional é um card. Foto ruim → marca degrada. Esta é fase de schlep: ninguém quer otimizar foto. Você faz.</p>
+
+    <pre><code>{
+  slug: 'dra-maria-silva',
+  name: 'Dra. Maria Silva',
+  role: 'Endocrinologista',
+  unit: 'longevidade',          // slug do pilar
+  photo: '/team/dra-maria.webp',
+  bg: '#C4BBB8',
+  description: 'Especialista em...',
+  tags: ['Endocrinologia', 'Metabolismo'],
+  education: { graduation: 'USP', postgrad: ['Residência HC'] },
+  specialties: ['Diabetes', 'Tireoide'],
+  mainComplaints: ['Cansaço', 'Ganho de peso'],
+}</code></pre>
+
+    <h3>Padrão fotográfico — sem exceção</h3>
+    <ul>
+      <li>Fundo neutro (branco, cinza claro ou cor da marca). Sem fundo de paisagem, sem janela atrás.</li>
+      <li>Recorte de meio-busto. Olhar direto. Sorriso natural, não performado.</li>
+      <li>Resolução fonte: ≥ 2000px lado maior. Você reduz para entrega.</li>
+      <li>Entrega: <code>nome.webp</code> (480px, &lt;100KB) + <code>nome.avif</code> (480px, &lt;80KB).</li>
+      <li>Ferramenta: <a href="https://squoosh.app/" target="_blank">Squoosh</a> ou <code>sharp</code> via npx.</li>
+    </ul>
+
+    <div class="filter schlep">
+      <h4>Schlep alert — onde está o moat</h4>
+      <p>Concorrentes deixam foto em JPG 800KB direto do iPhone. Você gasta 15 min por pessoa otimizando. <strong>Cliente não percebe diretamente, mas o Lighthouse percebe</strong> — e o Google rankeia. Aqui é onde Tier 5+ se separa de Tier 3.</p>
+    </div>
+
+    <div class="filter done">
+      <h4>Definição de pronto — fase 3</h4>
+      <ul>
+        <li>Toda foto carrega em &lt;100ms na rede 4G simulada (Lighthouse).</li>
+        <li>Toda foto tem <code>alt</code> descritivo (não "imagem de Dra. Maria").</li>
+        <li>Card renderiza com <code>bg</code> correto da marca.</li>
+        <li>Campo <code>unit</code> bate com algum slug em <code>PILLARS</code>.</li>
+      </ul>
+    </div>
+
+    <!-- ========== FASE 4 ========== -->
+    <h2><span class="phase-num">FASE 4</span>Conteúdo — páginas .astro <span class="timebox">4h</span></h2>
+    <p class="lead">Substituir todos os <code>TODO_*</code> em <code>src/pages/</code> por copy real. Esta é a fase mais sensível à voz da marca. Bloco maker — sem reunião nesse dia.</p>
+
+    <h3>Ordem de ataque</h3>
+    <ol>
+      <li><code>index.astro</code> — homepage. Headline, sub, CTAs, depoimentos.</li>
+      <li>Páginas de pilar — duplicar <code>pilar-template.astro</code> uma vez por pilar.</li>
+      <li><code>sobre.astro</code> — história curta. 3 parágrafos máximo.</li>
+      <li><code>profissionais.astro</code> — gerada do <code>professionals.ts</code>; só ajustar texto de abertura.</li>
+      <li><code>contato.astro</code>, <code>agendamento.astro</code> — formulários + texto de apoio.</li>
+    </ol>
+
+    <pre><code># Duplicar template de pilar:
+cp src/pages/pilar-template.astro src/pages/longevidade.astro
+# Editar TODOs do novo arquivo + adicionar entry em PILLARS e NAV_LINKS.</code></pre>
+
+    <div class="filter">
+      <h4>Filtro do fundador — fase 4 (voz da marca)</h4>
+      <ol>
+        <li>Eu, como paciente do tier do cliente, leria isso e marcaria a consulta?</li>
+        <li>A homepage promete uma transformação concreta, ou descreve o que a clínica faz?</li>
+        <li>Existe pelo menos uma frase no site que NENHUM concorrente local conseguiria copiar sem soar falso?</li>
+        <li>O texto fala "você" para o paciente, ou "nós oferecemos"?</li>
+        <li>Tem jargão clínico desnecessário ("abordagem multidisciplinar integrativa")? Cortar.</li>
+      </ol>
+    </div>
+
+    <div class="filter done">
+      <h4>Definição de pronto — fase 4</h4>
+      <ul>
+        <li>Zero <code>TODO_*</code> em qualquer <code>src/pages/*.astro</code>.</li>
+        <li>Cada pilar tem sua página dedicada e aparece em <code>NAV_LINKS</code>.</li>
+        <li>Homepage testada em mobile real (não emulador) — headline cabe sem quebra estranha.</li>
+      </ul>
+    </div>
+
+    <!-- ========== FASE 5 ========== -->
+    <h2><span class="phase-num">FASE 5</span>Blog — seed inicial <span class="timebox">2h ou cliente entrega</span></h2>
+    <p class="lead">3 posts mínimos no go-live. Menos que isso, blog parece abandonado. Decisão Default Alive: se cliente não vai produzir conteúdo, não inclua blog no Tier — deixe oculto.</p>
+
+    <h3>Configuração</h3>
+    <p>Editar enum em <code>src/content.config.ts</code> com categorias reais (3 a 5):</p>
+    <pre><code>category: z.enum(['Longevidade', 'Metabolismo', 'Hormonal'])</code></pre>
+
+    <h3>Frontmatter padrão</h3>
+    <pre><code>---
+title: "Título claro de 6-9 palavras"
+description: "Resumo de 1 frase, &lt;160 chars, com keyword."
+date: "2026-05-01"
+author: "Dra. Maria Silva"
+category: "Longevidade"
+tags: ["sono", "envelhecimento"]
+draft: false
+---
+
+Conteúdo em markdown. Headings H2/H3.</code></pre>
+
+    <div class="filter warn">
+      <h4>Decisão Default Alive — incluir blog?</h4>
+      <p>Se o cliente não tem rotina editorial confirmada (autor + frequência + revisão), <strong>blog vai apodrecer em 6 meses</strong> e prejudica SEO. Opções:</p>
+      <ul>
+        <li><strong>Sim:</strong> 3 posts seed + agenda editorial assinada por cliente.</li>
+        <li><strong>Não:</strong> remover rota <code>/blog</code> e link do nav. Mais honesto que blog morto.</li>
+        <li><strong>Adicional Tier 5+ premium:</strong> 12 posts produzidos por copywriter (R$ 6-12k extra).</li>
+      </ul>
+    </div>
+
+    <!-- ========== FASE 6 ========== -->
+    <h2><span class="phase-num">FASE 6</span>Assets <span class="timebox">3h</span></h2>
+    <p class="lead">Fontes, favicon, OG image, manifest. Pequeno em volume, alto em impacto. <strong>Aqui o Lighthouse mata projetos descuidados.</strong></p>
+
+    <h3>Fontes self-hosted</h3>
+    <ul>
+      <li>Arquivos em <code>public/fonts/</code>: <code>arboria-300.woff2</code>, <code>arboria-400.woff2</code>, <code>arboria-500.woff2</code>, <code>playfair-italic.woff2</code> (ou família escolhida no brand book).</li>
+      <li>Licença comprada em <a href="https://www.myfonts.com/" target="_blank">MyFonts</a> ou <a href="https://www.fonts.com/" target="_blank">Fonts.com</a> — guardar PDF da licença na pasta do projeto.</li>
+      <li>Sem essas, <code>BaseLayout.astro</code> 404 nos preloads e CLS sobe.</li>
+    </ul>
+
+    <h3>Favicon, OG, manifest</h3>
+    <ul>
+      <li><code>public/favicon/favicon.svg</code> — minimal, 1 cor, escalável.</li>
+      <li><code>public/og-default.jpg</code> — 1200×630, &lt;200KB, com logo + tagline.</li>
+      <li><code>public/manifest.json</code> — atualizar <code>name</code>, <code>short_name</code>, <code>theme_color</code>.</li>
+      <li><code>public/robots.txt</code> — apontar para sitemap real.</li>
+    </ul>
+
+    <div class="filter done">
+      <h4>Definição de pronto — fase 6 (auditável)</h4>
+      <ul>
+        <li>Favicon visível na aba do iOS Safari (testar no iPhone real).</li>
+        <li>OG image renderiza no preview do WhatsApp e no <a href="https://www.opengraph.xyz/" target="_blank">opengraph.xyz</a>.</li>
+        <li>Fontes carregam em &lt;100ms (Lighthouse → Network).</li>
+        <li>Manifest validado em <a href="https://manifest-validator.appspot.com/" target="_blank">manifest-validator</a>.</li>
+        <li>Lighthouse PWA score ≥ 90.</li>
+      </ul>
+    </div>
+
+    <!-- ========== FASE 7 ========== -->
+    <h2><span class="phase-num">FASE 7</span>QA Lighthouse <span class="timebox">2h</span></h2>
+    <p class="lead">Build local + thresholds. Sem isso, deploy é roleta. <strong>Bloco maker — não interromper.</strong></p>
+
+    <pre><code>npm run build       # gera dist/
+npm run preview     # serve dist em :4321
+
+# Lighthouse CLI:
+npm install -g @lhci/cli@latest
+lhci autorun        # usa lighthouserc.json do repo</code></pre>
+
+    <div class="filter done">
+      <h4>Definição de pronto — fase 7 (thresholds Tier 5+)</h4>
+      <ul>
+        <li>Performance ≥ 0.90 (mobile e desktop).</li>
+        <li>Accessibility ≥ 0.90.</li>
+        <li>SEO ≥ 0.95.</li>
+        <li>Best Practices ≥ 0.95.</li>
+        <li>LCP ≤ 2500ms · CLS ≤ 0.1 · TBT ≤ 300ms.</li>
+        <li>Zero erros de console no preview.</li>
+        <li>Todas as páginas testadas (não só home).</li>
+      </ul>
+    </div>
+
+    <div class="filter warn">
+      <h4>Se falhar — onde olhar primeiro</h4>
+      <ol>
+        <li>LCP alto → imagem hero não otimizada ou não preload.</li>
+        <li>CLS alto → fonte sem <code>font-display: swap</code> ou imagem sem <code>width</code>/<code>height</code>.</li>
+        <li>TBT alto → script de terceiro carregando síncrono. CSP pode estar permitindo isso.</li>
+        <li>SEO &lt; 0.95 → meta description faltando, alt em imagem, hreflang errado.</li>
+      </ol>
+    </div>
+
+    <!-- ========== FASE 8 ========== -->
+    <h2><span class="phase-num">FASE 8</span>Deploy <span class="timebox">1h</span></h2>
+    <p class="lead">Domínio + GitHub Pages + Cloudflare + HSTS. Cada passo tem ponto de falha — checar.</p>
+
+    <h3>Sequência</h3>
+    <ol>
+      <li>Em <code>astro.config.mjs</code>: substituir <code>site:</code> pela URL real (sem trailing slash).</li>
+      <li><code>git push origin main</code> — workflow <code>deploy.yml</code> dispara.</li>
+      <li>GitHub → Settings → Pages → confirmar source = branch <code>gh-pages</code>.</li>
+      <li>Domínio custom: adicionar <code>CNAME</code> em <code>public/</code> com domínio nu.</li>
+      <li>Cloudflare: SSL/TLS = Full (strict), Always Use HTTPS = On, HSTS max-age = 31536000.</li>
+      <li>DNS: A record para IPs do GitHub Pages (185.199.108.153 …) ou CNAME para <code>&lt;org&gt;.github.io</code>.</li>
+      <li>Aguardar propagação (até 24h, geralmente &lt;30 min via Cloudflare).</li>
+    </ol>
+
+    <div class="filter done">
+      <h4>Definição de pronto — fase 8</h4>
+      <ul>
+        <li>HTTPS verde no domínio final.</li>
+        <li>Redirect <code>http://</code> → <code>https://</code> automático.</li>
+        <li>Redirect <code>www</code> → apex (ou apex → www, decidido na fase 0).</li>
+        <li>Sitemap acessível em <code>/sitemap-index.xml</code>.</li>
+        <li>Lighthouse rodado contra produção (não localhost) — thresholds mantidos.</li>
+      </ul>
+    </div>
+
+    <!-- ========== FASE 9 ========== -->
+    <h2><span class="phase-num">FASE 9</span>Handoff <span class="timebox">90 min</span></h2>
+    <p class="lead">Cliente recebe não só o site — recebe o playbook de manutenção. Esta fase garante que o cliente não vai te ligar em 30 dias com pergunta básica.</p>
+
+    <h3>Entregáveis no handoff</h3>
+    <ul>
+      <li><strong>Vídeo Loom (15-20 min):</strong> tour pelo repositório, como editar copy, como adicionar post de blog, como publicar.</li>
+      <li><strong>Documento PDF (3-5 páginas):</strong> domínio, registrador, DNS, GitHub, Cloudflare, GTM, Pixel — todos os logins/IDs.</li>
+      <li><strong>Agenda de revisão:</strong> reunião de 30 min em D+30, D+90 — revisar métricas e ajustes.</li>
+      <li><strong>Contrato de manutenção:</strong> opcional, R$ 1,5-3k/mês, inclui 2h/mês de updates.</li>
+    </ul>
+
+    <!-- ========== FASE ∞ ========== -->
+    <h2><span class="phase-num">FASE ∞</span>Pós-launch <span class="timebox">2h/mês</span></h2>
+    <p class="lead">Manutenção contínua. Aqui é onde a maioria abandona — e por isso há moat (Schlep Blindness).</p>
+
+    <ul>
+      <li><strong>D+7:</strong> Submeter sitemap ao <a href="https://search.google.com/search-console/" target="_blank">Search Console</a>. Validar schema em <a href="https://search.google.com/test/rich-results" target="_blank">Rich Results</a>.</li>
+      <li><strong>D+30:</strong> Revisar Core Web Vitals (Search Console). Testar formulários end-to-end. Confirmar GTM e Pixel disparando eventos corretos.</li>
+      <li><strong>D+90:</strong> Lighthouse run contra produção. Backup do repo + Apps Script.</li>
+      <li><strong>Mensal:</strong> 1 post de blog (ou cliente). Update de pacotes não-breaking. Verificar erros 404 em logs.</li>
+      <li><strong>Trimestral:</strong> Revisão de copy obsoleta. Análise de queries do Search Console — ajustar headings.</li>
+    </ul>
+
+    <!-- ========== TIER MATRIX ========== -->
+    <h2>Tier matrix — o que cada faixa entrega</h2>
+    <p class="lead">Antes da fase 0, decidir em qual coluna o cliente cai. Coluna define escopo, prazo e preço.</p>
+
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Tier 3 — R$ 12-18k</th><th>Tier 5 — R$ 25-40k</th><th>Tier 5+ — R$ 60-90k</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Páginas</td><td>Home + 4 fixas</td><td>Home + pilares + 6 fixas</td><td>Home + pilares + 8 fixas + landing campanha</td></tr>
+        <tr><td>Profissionais</td><td>Até 6, fotos cliente</td><td>Até 12, fotos cliente otimizadas</td><td>Sem limite, sessão fotográfica produzida</td></tr>
+        <tr><td>Blog</td><td>Estrutura, sem posts</td><td>3 posts seed</td><td>12 posts produzidos por copywriter</td></tr>
+        <tr><td>Brand</td><td>Cliente entrega tudo</td><td>Cliente entrega, eu otimizo</td><td>Brand book + paleta + tipografia inclusos</td></tr>
+        <tr><td>Lighthouse</td><td>≥ 0.85</td><td>≥ 0.90</td><td>≥ 0.95 garantido por contrato</td></tr>
+        <tr><td>Prazo</td><td>21 dias</td><td>30 dias</td><td>45-60 dias</td></tr>
+        <tr><td>Manutenção</td><td>30 dias garantia</td><td>90 dias + agenda revisão</td><td>12 meses incluso</td></tr>
+        <tr><td>Vídeo institucional</td><td>—</td><td>—</td><td>60s incluso (R$ 8-12k de produção)</td></tr>
+      </tbody>
+    </table>
+
+    <!-- ========== NÃO FAZEMOS ========== -->
+    <h2>Não fazemos — escopo fechado</h2>
+    <p class="lead">Lista canônica do "fora de escopo Tier 5+". Comunicar na fase 0. Atualizar a cada cliente que tentou empurrar item novo.</p>
+
+    <ol>
+      <li>Área de membro / portal do paciente autenticado.</li>
+      <li>E-commerce (gateway, carrinho, checkout).</li>
+      <li>Agendamento online com integração de calendário do médico.</li>
+      <li>Integração com sistema de prontuário eletrônico (Tasy, MV, Doctoralia).</li>
+      <li>Aplicativo nativo iOS/Android.</li>
+      <li>Sistema de cupom, programa de fidelidade.</li>
+      <li>Multi-idioma além de pt-BR (custo separado).</li>
+      <li>Integração com seguradora popular (Amil, Bradesco Saúde popular, etc.).</li>
+      <li>Site para grupo de clínicas com mais de 3 unidades.</li>
+      <li>Marketplace de profissionais (cliente vende espaço para outros médicos).</li>
+      <li>Newsletter com sistema próprio (usar Resend, Substack, ConvertKit).</li>
+      <li>Telemedicina embarcada (vídeo-consulta).</li>
+    </ol>
+
+    <!-- ========== INCIDENTES ========== -->
+    <h2>Registro de incidentes — atualizar a cada projeto</h2>
+    <p class="lead">Toda surpresa vira aprendizado composto. Anotar incidente + causa + fix + prevenção. Crescer playbook a cada cliente.</p>
+
+    <table>
+      <thead>
+        <tr><th>Cliente</th><th>Data</th><th>Incidente</th><th>Causa raiz</th><th>Fix</th><th>Prevenção</th></tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="6" style="text-align:center; color: var(--ink-mute); font-style: italic;">— preencher conforme uso real —</td></tr>
+      </tbody>
+    </table>
+
+    <!-- ========== MÉTRICA ========== -->
+    <h2>Métrica única — Startup = Growth</h2>
+    <div class="filter">
+      <h4>O número que importa</h4>
+      <p><strong>Sites Tier 5+ entregues por mês.</strong> Tudo o que faz esse número subir é prioridade. Tudo que não faz é distração.</p>
+      <ul>
+        <li>Mês atual: <code>__</code> (preencher).</li>
+        <li>Trimestre: <code>__</code>.</li>
+        <li>Meta 12 meses: <code>__</code>.</li>
+        <li>Receita por site (média): <code>R$ __</code>.</li>
+        <li>Default alive check: caixa atual / (custo mensal − margem) = <code>__</code> meses de runway.</li>
+      </ul>
+    </div>
+
+    <!-- ========== SCHEDULE ========== -->
+    <h2>Schedule do builder — Maker's vs Manager's</h2>
+    <p class="lead">Construir site é trabalho maker. Atender cliente é manager. Misturar mata os dois.</p>
+
+    <table>
+      <thead>
+        <tr><th>Dia</th><th>Modo</th><th>Atividade</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Segunda</td><td>Maker</td><td>Fases 1-4 do projeto ativo (setup, identidade, equipe, conteúdo).</td></tr>
+        <tr><td>Terça</td><td>Manager</td><td>Briefings (fase 0), reuniões com clientes existentes, revisões.</td></tr>
+        <tr><td>Quarta</td><td>Maker</td><td>Fases 5-7 (blog, assets, QA Lighthouse).</td></tr>
+        <tr><td>Quinta</td><td>Manager</td><td>Handoff (fase 9), pós-launch (fase ∞), pipeline novo.</td></tr>
+        <tr><td>Sexta</td><td>Maker</td><td>Deploy (fase 8) + atualização do playbook + estudo.</td></tr>
+        <tr><td>Sáb/Dom</td><td>Off</td><td>Sem exceção. Recuperação real.</td></tr>
+      </tbody>
+    </table>
+
+    <!-- ========== PERGUNTAS ESPELHO ========== -->
+    <h2>Perguntas-espelho antes de cada projeto</h2>
+    <div class="filter">
+      <h4>Filtrar antes de aceitar</h4>
+      <ol>
+        <li>Este cliente cabe em qual coluna do Tier? Decidi antes de cotar?</li>
+        <li>O que vai SAIR da minha agenda para este projeto entrar?</li>
+        <li>Qual fase deste projeto é o schlep — onde construo moat?</li>
+        <li>Estou cotando para mostrar atividade, ou para entregar transformação?</li>
+        <li>Daqui a 12 meses, este site vai parecer prematuro ou correto?</li>
+        <li>Se eu não pudesse aprovar pessoalmente, alguém da equipe defenderia esta entrega com o mesmo rigor?</li>
+        <li>Ecooa-builder está default alive ou default dead se eu aceitar este projeto na margem cotada?</li>
+      </ol>
+    </div>
+
+    <!-- ========== REFERÊNCIAS ========== -->
+    <h2>Origem deste playbook</h2>
+    <blockquote>
+      "Foco é dizer não a 100 boas ideias. Estratégia é escolha, e escolha tem custo de oportunidade real."
+      <cite>Steve Jobs · MacWorld 1997</cite>
+    </blockquote>
+    <blockquote>
+      "Startups don't start as smaller versions of large companies. They start as something that looks artisanal, manual, embarrassing — and frequently is."
+      <cite>Paul Graham · Do Things That Don't Scale, 2013</cite>
+    </blockquote>
+    <p>Este playbook é a versão operacional dessas duas teses aplicadas à entrega de sites Tier 5+. Atualizar com aprendizado real a cada cliente. v1 vira v2 vira v6 — em 6 meses, este documento será 30% diferente.</p>
+
+    <footer>
+      <span>Tier 5+ Playbook · v2 · uso interno</span>
+      <span>Construído sob doutrina Jobs (Focus Cut) + Graham (Don't Scale, Maker's, Schlep)</span>
+    </footer>
+
+  </div>
+</body>
+</html>

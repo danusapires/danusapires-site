@@ -1,0 +1,41 @@
+---
+import { SITE, NAV_LINKS } from '../data/site';
+
+interface Props {
+  currentPage?: string;
+}
+
+const { currentPage } = Astro.props;
+---
+
+<nav class="nav" role="navigation" aria-label="Menu principal">
+  <a class="nav-brand" href="/" aria-label={SITE.name}>
+    <span class="nav-brand-prefix">DRA. DANUSA PIRES</span>
+    <span class="nav-brand-divider" aria-hidden="true"></span>
+    <span class="nav-brand-suffix">tricologia avançada</span>
+  </a>
+
+  <ul class="nav-links" role="list">
+    {NAV_LINKS.map(link => (
+      <li role="listitem">
+        <a
+          href={link.href}
+          aria-current={currentPage === link.label ? 'page' : undefined}
+        >{link.label}</a>
+      </li>
+    ))}
+  </ul>
+
+  <a href="/agendamento" class="nav-cta">agendar</a>
+
+  <button
+    class="nav-toggle"
+    aria-label="Abrir menu"
+    aria-expanded="false"
+    type="button"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
