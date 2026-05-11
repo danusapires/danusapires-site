@@ -1,0 +1,67 @@
+---
+/**
+ * Galeria editorial — layout magazine assimétrico.
+ * Usa imagens clínicas premium do brand-system Obsidian Clinical.
+ */
+const photos = [
+  { src: 'clinical/scalp-male-closeup', alt: 'Análise tricológica · couro cabeludo masculino' },
+  { src: 'clinical/scalp-female-closeup', alt: 'Análise tricológica · couro cabeludo feminino' },
+  { src: 'clinical/trichoscopy-exam', alt: 'Exame de tricoscopia em consultório clínico' },
+  { src: 'clinical/procedure-mesotherapy', alt: 'Procedimento clínico controlado' },
+  { src: 'space/clinic-interior', alt: 'Interior da clínica · Edifício Moinhos 180' },
+  { src: 'clinical/serum-application', alt: 'Aplicação de protocolo capilar' },
+];
+---
+
+<div class="galeria-grid">
+  {photos.map((p, i) => (
+    <picture class:list={['gx', `gx-${i + 1}`, 'r']} style={`transition-delay:${i * 0.06}s`}>
+      <source srcset={`/images/${p.src}.avif`} type="image/avif" />
+      <source srcset={`/images/${p.src}.webp`} type="image/webp" />
+      <img src={`/images/${p.src}.webp`} alt={p.alt} loading="lazy" decoding="async" />
+    </picture>
+  ))}
+</div>
+
+<style>
+  .galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 220px;
+    gap: 12px;
+  }
+  .gx {
+    overflow: hidden;
+    background: var(--c-graphite);
+    display: block;
+    position: relative;
+  }
+  .gx img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s var(--ease-out), filter 0.5s var(--ease-out);
+    filter: contrast(1.04) saturate(0.92);
+  }
+  .gx:hover img {
+    transform: scale(1.05);
+    filter: contrast(1.06) saturate(1);
+  }
+
+  .gx-1 { grid-column: span 4; grid-row: span 2; }
+  .gx-2 { grid-column: span 2; grid-row: span 1; }
+  .gx-3 { grid-column: span 2; grid-row: span 1; }
+  .gx-4 { grid-column: span 2; grid-row: span 1; }
+  .gx-5 { grid-column: span 2; grid-row: span 1; }
+  .gx-6 { grid-column: span 2; grid-row: span 1; }
+
+  @media (max-width: 900px) {
+    .galeria-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 180px; }
+    .gx-1 { grid-column: span 4; grid-row: span 2; }
+  }
+  @media (max-width: 560px) {
+    .galeria-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
+    .gx-1 { grid-column: span 2; grid-row: span 2; }
+    .gx-2, .gx-3, .gx-4, .gx-5, .gx-6 { grid-column: span 1; grid-row: span 1; }
+  }
+</style>

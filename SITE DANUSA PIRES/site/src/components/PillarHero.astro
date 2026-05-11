@@ -1,0 +1,128 @@
+---
+/**
+ * Hero editorial para páginas de pilar.
+ * Foto fullbleed à direita + texto à esquerda em fundo charcoal.
+ */
+interface Props {
+  eyebrow: string;
+  title: string;
+  emphasis?: string;
+  lead: string;
+  bgImage: string;          // ex: '/images/galeria/galeria-2'
+  ctaPrimaryHref: string;
+  ctaPrimaryLabel?: string;
+}
+const {
+  eyebrow,
+  title,
+  emphasis,
+  lead,
+  bgImage,
+  ctaPrimaryHref,
+  ctaPrimaryLabel = 'agendar avaliação',
+} = Astro.props;
+
+const titleHtml = emphasis
+  ? title.replace(emphasis, `<em>${emphasis}</em>`)
+  : title;
+---
+
+<section class="pillar-hero">
+  <div class="pillar-hero-content">
+    <p class="pillar-hero-eyebrow r">{eyebrow}</p>
+    <h1 class="pillar-hero-title r d1" set:html={titleHtml} />
+    <p class="pillar-hero-lead r d2">{lead}</p>
+    <a href={ctaPrimaryHref} target="_blank" rel="noopener noreferrer" class="btn btn-white r d3">{ctaPrimaryLabel}</a>
+  </div>
+
+  <div class="pillar-hero-image" aria-hidden="true">
+    <picture>
+      <source srcset={`${bgImage}.avif`} type="image/avif" />
+      <source srcset={`${bgImage}.webp`} type="image/webp" />
+      <img src={`${bgImage}.webp`} alt="" fetchpriority="high" decoding="async" />
+    </picture>
+  </div>
+</section>
+
+<style>
+  .pillar-hero {
+    position: relative;
+    min-height: 78vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--color-ink);
+    color: #fff;
+    overflow: hidden;
+  }
+  .pillar-hero-content {
+    padding: clamp(7rem, 14vh, 10rem) clamp(2rem, 6vw, 5rem) clamp(3rem, 8vh, 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 720px;
+    position: relative;
+    z-index: 2;
+  }
+  .pillar-hero-eyebrow {
+    font-family: var(--font-primary);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-brand-light);
+    margin-bottom: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .pillar-hero-eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--color-brand);
+  }
+  .pillar-hero-title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(36px, 5.4vw, 78px);
+    line-height: 1.02;
+    letter-spacing: -0.018em;
+    color: #fff;
+    margin: 0 0 32px;
+  }
+  .pillar-hero-title em {
+    font-style: italic;
+    color: var(--color-brand-light);
+  }
+  .pillar-hero-lead {
+    font-size: 16px;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 540px;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+  .pillar-hero-image {
+    position: relative;
+    overflow: hidden;
+  }
+  .pillar-hero-image picture,
+  .pillar-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pillar-hero-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(270deg, transparent 70%, rgba(28, 25, 23, 0.85) 100%);
+    pointer-events: none;
+  }
+  @media (max-width: 960px) {
+    .pillar-hero { grid-template-columns: 1fr; min-height: auto; }
+    .pillar-hero-image { aspect-ratio: 4 / 3; order: -1; }
+    .pillar-hero-content { padding-top: 5rem; }
+  }
+</style>
