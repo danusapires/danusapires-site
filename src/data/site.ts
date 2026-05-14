@@ -1,19 +1,88 @@
 /**
  * SITE · Danusa Pires · Tricologia & Saúde Integrativa
- * Sistema: Obsidian Clinical
- * Posicionamento: o cabelo é reflexo do organismo. Lemos o reflexo antes de tratar.
+ * Sistema de marca: Vignelli Discipline
+ * Posicionamento: Saúde capilar através da leitura sistêmica. Protocolo clínico individualizado.
  */
+
+/**
+ * PALETA VIGNELLI (4 cores + preto/branco)
+ * Documentada em hex, RGB, CMYK, Pantone
+ */
+export const PALETTE = {
+  primary: {
+    name: 'Obsidian',
+    hex: '#0B0B0B',
+    rgb: 'rgb(11, 11, 11)',
+    cmyk: '0, 0, 0, 96',
+    pantone: 'PMS Black 6 C',
+  },
+  secondary: {
+    name: 'Alabaster',
+    hex: '#F5F5F5',
+    rgb: 'rgb(245, 245, 245)',
+    cmyk: '0, 0, 0, 4',
+    pantone: 'PMS Warm Gray 1 C',
+  },
+  accent1: {
+    name: 'Copper',
+    hex: '#B8860B',
+    rgb: 'rgb(184, 134, 11)',
+    cmyk: '0, 27, 94, 28',
+    pantone: 'PMS 871 C',
+  },
+  accent2: {
+    name: 'Sage',
+    hex: '#7A8B7F',
+    rgb: 'rgb(122, 139, 127)',
+    cmyk: '12, 0, 9, 45',
+    pantone: 'PMS 555 C',
+  },
+  text: {
+    name: 'Charcoal',
+    hex: '#2A2A2A',
+    rgb: 'rgb(42, 42, 42)',
+    cmyk: '0, 0, 0, 84',
+  },
+};
+
+/**
+ * TIPOGRAFIA VIGNELLI
+ * Duas famílias serif: títulos e corpo
+ */
+export const TYPOGRAPHY = {
+  display: {
+    family: 'Playfair Display',
+    weights: ['400', '700'],
+    usage: 'Headlines, serviços principais, seções de destaque',
+  },
+  body: {
+    family: 'DM Sans',
+    weights: ['400', '500', '700'],
+    usage: 'Body text, navegação, formulários, detalhes',
+  },
+  hierarchy: {
+    h1: { size: '3.5rem', weight: '700', family: 'display', lineHeight: '1.1' },
+    h2: { size: '2.5rem', weight: '700', family: 'display', lineHeight: '1.2' },
+    h3: { size: '1.75rem', weight: '700', family: 'display', lineHeight: '1.3' },
+    h4: { size: '1.25rem', weight: '700', family: 'body', lineHeight: '1.4' },
+    body: { size: '1rem', weight: '400', family: 'body', lineHeight: '1.6' },
+    small: { size: '0.875rem', weight: '400', family: 'body', lineHeight: '1.5' },
+  },
+};
 
 export const SITE = {
   name: 'Danusa Pires',
-  shortName: 'Danusa Pires',
+  shortName: 'Danusa',
   brandSpecialty: 'Tricologia & Saúde Integrativa',
-  tagline: 'O cabelo é reflexo do organismo. Lemos o reflexo antes de tratar.',
+  mission: 'Saúde capilar através da leitura sistêmica do organismo. Protocolos clínicos individualizados que tratam a causa, não apenas o sintoma.',
+  tagline: 'O cabelo reflete o organismo. Lemos o reflexo antes de tratar.',
+
   url: 'https://dradanusa.com.br',
   phone: '+55 51 98016-4433',
   email: 'TODO_EMAIL',
   instagram: '@dradanusa',
   whatsapp: '5551980164433',
+
   address: {
     street: 'Rua Mariante',
     number: '180',
@@ -28,16 +97,46 @@ export const SITE = {
     lat: -30.0277,
     lng: -51.2068,
   },
+
   cnpj: 'TODO_CNPJ',
   responsavelTecnico: 'Danusa Pires',
   registroProfissional: 'COREN-RS 395164',
+
   gtmId: 'TODO_GTM_ID',
   metaPixelId: 'TODO_PIXEL_ID',
   gasUrl: 'TODO_GOOGLE_APPS_SCRIPT_URL',
+
   mapsUrl: 'https://maps.google.com/?q=Rua+Mariante+180+Moinhos+de+Vento+Porto+Alegre',
   foundedYear: 2022,
-  employeeCount: 4,
-  onlineCare: 'Avaliação online para casos selecionados em todo o Brasil',
+  teamSize: 4,
+
+  hours: {
+    weekday: { open: '09:00', close: '20:00' },
+    saturday: { open: '09:00', close: '14:00' },
+    sunday: 'Fechado',
+  },
+
+  onlineCare: true,
+  onlineCareDescription: 'Avaliação online para casos selecionados em todo o Brasil',
+
+  /** Schulze Service Excellence: Daily Lineup themes */
+  dailyLineup: {
+    enabled: true,
+    language: 'pt-BR',
+    themes: [
+      'Leitura antes de tratar',
+      'Protocolo individualizado',
+      'Acompanhamento estruturado',
+      'Continuidade clínica',
+      'Autonomia técnica',
+    ],
+  },
+
+  /** Schulze Empowerment Policy */
+  empowermentPolicy: {
+    description: 'Cada membro da equipe tem autonomia para decisões clínicas dentro do protocolo aprovado.',
+    empowermentBudget: 'R$ 500-1000 por membro/mês para desenvolvimento e resolução de problemas.',
+  },
 };
 
 export const WA_BASE = `https://wa.me/${SITE.whatsapp}`;
@@ -46,95 +145,234 @@ export const WA_DEFAULT = `${WA_BASE}?text=${encodeURIComponent(
 )}`;
 
 /**
- * Método ESPELHO. Assinatura clínica proprietária.
- * Tagline: "O cabelo reflete o organismo. Lemos o reflexo antes de tratar."
+ * Método ESPELHO. Sistema clínico proprietário Vignelli-structured.
+ * Cada fase é independente mas integrada. Transparência clínica total.
  */
 export const METHOD = {
   name: 'Método ESPELHO',
+  philosophy: 'Leitura estruturada → Reflexão sistêmica → Protocolo individualizado → Refração objetiva.',
   steps: [
     {
-      letter: '01',
+      number: '01',
       title: 'Leitura',
-      desc: 'Anamnese clínica de 60 minutos, tricoscopia digital, exames de tração, dermatoscopia, fototricograma e solicitação de exames laboratoriais quando indicado.',
+      subtitle: 'Diagnóstico clínico estruturado',
+      description:
+        'Anamnese clínica de 60 minutos. Tricoscopia digital de alta resolução. Exames de tração (pull test). Dermatoscopia. Fototricograma baseline. Solicitação de exames laboratoriais sistêmicos quando indicado (hormônios, ferro, vitaminas, imunologia).',
+      tools: [
+        'Anamnese estruturada',
+        'Tricoscopia digital',
+        'Dermatoscopia',
+        'Fototricograma',
+        'Análise laboratorial',
+      ],
     },
     {
-      letter: '02',
+      number: '02',
       title: 'Reflexo',
-      desc: 'Devolutiva clínica. Mostramos o que o cabelo reflete sobre eixo hormonal, ferritina, vitamina D, sono, microbioma, estresse e nutrição. Avaliação do TrichoTest quando justificado.',
+      subtitle: 'Síntese diagnóstica',
+      description:
+        'Devolutiva clínica detalhada ao paciente. Interpretação integrada de achados clínicos e laboratoriais. Identificação do mecanismo dominante (hormonal, inflamatório, carencial, relacionado ao estresse, microbioma). Avaliação de genética capilar (TrichoTest) quando indicado.',
+      tools: [
+        'Análise integrada',
+        'Interpretação de exames',
+        'Genética capilar (TrichoTest)',
+        'Identificação de mecanismo',
+      ],
     },
     {
-      letter: '03',
+      number: '03',
       title: 'Protocolo',
-      desc: 'Plano individualizado por mecanismo dominante. Ativos tópicos, fototerapia, intradermo, exossomas, peptídeos, MMP quando indicado e smart.soro sistêmica.',
+      subtitle: 'Plano individualizado',
+      description:
+        'Tratamento multi-modal customizado por mecanismo dominante. Ativos tópicos prescritos. Fototerapia (laser, LED). Procedimentos intradermo (mesoterapia capilar). Bioestimuladores (exossomas, peptídeos). Moduladores (MMP, inibidores de 5-alfa-redutase). Suporte sistêmico (soroterapia smart.soro prescrita).',
+      tools: [
+        'Ativos tópicos',
+        'Fototerapia',
+        'Mesoterapia capilar',
+        'Bioestimuladores',
+        'Soroterapia sistêmica',
+      ],
     },
     {
-      letter: '04',
+      number: '04',
       title: 'Refração',
-      desc: 'Reavaliação no terceiro mês com nova fototricografia e comparação fotográfica. Ajuste de protocolo e plano de manutenção.',
+      subtitle: 'Acompanhamento estruturado',
+      description:
+        'Reavaliação clínica no 3º mês. Fototricografia comparativa. Análise fotográfica de evolução. Ajustes de protocolo conforme resposta individual. Plano de manutenção. Continuidade indefinida com reavalições periódicas.',
+      tools: [
+        'Fototricografia comparativa',
+        'Análise fotográfica',
+        'Ajuste de protocolo',
+        'Plano de manutenção',
+      ],
     },
   ],
 };
 
 /**
- * SERVIÇOS, organizados por lógica clínica. 7 linhas conforme BRAND.md v4.
+ * SERVIÇOS CLÍNICOS. Estrutura por mecanismo dominante + casos especiais.
+ * Cada serviço oferece linha de crédito clínico independente dentro do protocolo ESPELHO.
  */
 export const PILLARS = [
   {
     slug: 'queda-feminina',
     name: 'Queda capilar feminina',
-    description: 'Avaliação dos padrões femininos: pós-parto, menopausa, deficiências, estresse crônico, fases hormonais.',
+    subtitle: 'Protocolos estruturados para padrões femininos',
+    description:
+      'Avaliação especializada de padrões de queda específicos do feminino. Pós-parto (eflúvio pós-partum). Menopausa (deficiência estrogênica). Distúrbios hormonais (PCOS, tireoide, hiperprolactinemia). Deficiências (ferro, vitamina D, zinco, vitamina B12). Estresse crônico. Fases do ciclo menstrual.',
     href: '/servicos/queda-feminina',
   },
   {
     slug: 'alopecia-androgenetica',
     name: 'Alopecia androgenética',
-    description: 'Conduta clínica para homens e mulheres, complementar pré e pós cirurgia capilar.',
+    subtitle: 'Conduta clínica para homens e mulheres',
+    description:
+      'Tratamento de alopecia androgenética (calvície) com protocolo estruturado. Indicação pré-cirúrgica para estabilização. Suporte pós-cirúrgico (60-90 dias). Respeitamos o direito do paciente em decidir: tratar farmacologicamente, esperar, ou combinar com cirurgia.',
     href: '/servicos/alopecia-androgenetica',
   },
   {
     slug: 'pos-transplante',
-    name: 'Pós-transplante',
-    description: 'Manutenção técnica do resultado da cirurgia capilar entre 60 e 90 dias do pós-operatório.',
+    name: 'Acompanhamento pós-transplante',
+    subtitle: 'Continuidade técnica da cirurgia capilar',
+    description:
+      'Protocolos estruturados entre 60-90 dias pós-cirurgia. Otimização da integração dos enxertos. Redução de queda pós-operatória. Estimulação da vascularização. Preparação do couro cabeludo para fase de crescimento final. Avaliar estabilidade da área doadora.',
     href: '/servicos/pos-transplante',
   },
   {
     slug: 'fortalecimento',
     name: 'Fortalecimento e densidade',
-    description: 'Protocolos para quem não tem queda ativa e busca densidade, brilho e força da haste.',
+    subtitle: 'Protocolo preventivo e otimização',
+    description:
+      'Pacientes sem queda ativa que buscam otimização. Densidade. Brilho e força da haste. Prevenção de futuros problemas baseada em genética ou histórico familiar. Protocolo de manutenção de saúde capilar estruturado.',
     href: '/servicos/fortalecimento',
   },
   {
     slug: 'trichotest',
-    name: 'TrichoTest',
-    description: 'Genética capilar aplicada. Protocolo premium individualizado por DNA quando justificado.',
+    name: 'Análise genética capilar (TrichoTest)',
+    subtitle: 'Genômica aplicada à tricologia',
+    description:
+      'Sequenciamento genético direcionado a marcadores de predisposição capilar. Resposta farmacogenômica (responsividade a finasterida, minoxidil). Metabolismo de ativos. Protocolo premium de precisão quando genética é fator central.',
     href: '/servicos/trichotest',
   },
   {
     slug: 'soroterapia',
-    name: 'Soroterapia (smart.soro)',
-    description: 'Suporte sistêmico sob prescrição clínica. Vitamina C, trio metilador, coenzima Q10 e ativos individualizados.',
-    href: '/soroterapia',
+    name: 'Soroterapia sistêmica (smart.soro)',
+    subtitle: 'Suporte nutritivo prescrito',
+    description:
+      'Prescrição clínica de soros intramusculares. Vitamina C. Trio metilador (metionina, colina, inositol). Coenzima Q10. Ativos individualizados conforme análise laboratorial. Suporte sistêmico que complementa protocolo local.',
+    href: '/servicos/soroterapia',
   },
   {
     slug: 'diagnostico',
-    name: 'Diagnóstico capilar avançado',
-    description: 'Segunda opinião e leitura clínica estruturada para outros profissionais.',
+    name: 'Segunda opinião clínica',
+    subtitle: 'Leitura independente estruturada',
+    description:
+      'Para profissionais de saúde ou pacientes. Reavaliação do diagnóstico clínico usando protocolo ESPELHO. Leitura de exames externos. Sugestão de ajustes de protocolo. Relatório clínico estruturado de volta ao profissional referenciador.',
     href: '/servicos/diagnostico',
+  },
+  {
+    slug: 'saude-integrativa',
+    name: 'Consultas de saúde integrativa',
+    subtitle: 'Leitura sistêmica do organismo',
+    description:
+      'Avaliação integrada além do cabelo. Nutrição. Sono. Estresse. Microbioma. Inflamação sistêmica. Hormônios. Quando o cabelo reflete um problema sistêmico, tratamos a causa. Direcionamento a especialistas quando indicado.',
+    href: '/servicos/saude-integrativa',
   },
 ];
 
+/**
+ * NAVEGAÇÃO VIGNELLI: Hierarquia clara, espaço em branco, sem ruído visual.
+ */
 export const NAV_LINKS = [
-  { label: 'home', href: '/' },
-  { label: 'sobre', href: '/sobre' },
-  { label: 'método ESPELHO', href: '/#metodo' },
-  { label: 'serviços', href: '/#servicos' },
-  { label: 'soroterapia', href: '/soroterapia' },
-  { label: 'terapias integrativas', href: '/terapias-integrativas' },
-  { label: 'blog', href: '/blog' },
-  { label: 'contato', href: '/contato' },
+  { label: 'Home', href: '/' },
+  { label: 'Sobre', href: '/sobre' },
+  { label: 'Profissionais', href: '/profissionais' },
+  { label: 'Serviços', href: '/servicos' },
+  { label: 'Método ESPELHO', href: '/metodo' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Agendamento', href: '/agendamento', cta: true },
 ];
 
 /**
- * Serviços principais, lista clínica para schema MedicalSpecialty
+ * Lista clínica de serviços para schema.org MedicalSpecialty
  */
 export const SERVICES_FLAT = PILLARS.map(p => p.name);
+
+/**
+ * TIPOS DE FORMULÁRIO: Segmentação para rastreamento de conversão e UX.
+ * Cada tipo tem missão diferente no funil de conversão.
+ */
+export const FORM_TYPES = {
+  scheduling: {
+    id: 'agendamento',
+    label: 'Agendamento de consulta',
+    description: 'Paciente novo ou reciclagem',
+    fbqEvent: 'Lead',
+    fields: [
+      'nome',
+      'email',
+      'telefone',
+      'tipoConsulta',
+      'descricaoQueixa',
+      'modalidade', // presencial ou online
+      'dataPreferencia',
+    ],
+  },
+  secondOpinion: {
+    id: 'segunda-opiniao',
+    label: 'Segunda opinião clínica',
+    description: 'Reavaliação diagnóstica',
+    fbqEvent: 'Lead',
+    fields: [
+      'nome',
+      'email',
+      'telefone',
+      'profissao', // se profissional de saúde
+      'descricaoClinica',
+      'examesAnexados',
+      'modalidade',
+    ],
+  },
+  onlineConsultation: {
+    id: 'consulta-online',
+    label: 'Consulta online',
+    description: 'Avaliação remota para casos selecionados',
+    fbqEvent: 'Lead',
+    fields: [
+      'nome',
+      'email',
+      'telefone',
+      'estado', // qual estado mora
+      'descricaoQueixa',
+      'dataPreferencia',
+    ],
+  },
+  professionalInquiry: {
+    id: 'profissional',
+    label: 'Contato profissional',
+    description: 'Médicos, dermatologistas, estéticos',
+    fbqEvent: 'Lead',
+    fields: [
+      'nome',
+      'profissao',
+      'especializacao',
+      'email',
+      'telefone',
+      'descricaoInteresse',
+    ],
+  },
+  generalContact: {
+    id: 'contato',
+    label: 'Contato geral',
+    description: 'Dúvidas, informações, parcerias',
+    fbqEvent: 'Contact',
+    fields: ['nome', 'email', 'telefone', 'assunto', 'mensagem'],
+  },
+  newsletter: {
+    id: 'newsletter',
+    label: 'Newsletter',
+    description: 'Inscrição em artigos e atualizações clínicas',
+    fbqEvent: 'Subscribe',
+    fields: ['nome', 'email'],
+  },
+};
