@@ -9,8 +9,8 @@ import { professionals } from '../data/professionals';
 ---
 
 <BaseLayout
-  title="Tricologia avançada com método clínico"
-  description="Tratamento capilar baseado em diagnóstico, não tentativa e erro. Avaliação do ciclo folicular, inflamação e eixo hormonal para definição de protocolo individualizado. Edifício Moinhos 180, Porto Alegre."
+  title="Tricologia & Saúde Integrativa · Método ESPELHO"
+  description="O cabelo é reflexo do organismo. Investigamos hormônios, ferritina, vitamina D, microbioma, sono e história clínica antes de propor protocolo. Tricologia avançada e saúde integrativa no Edifício Moinhos 180, Porto Alegre."
   currentPage="inicio"
 >
 
@@ -19,16 +19,16 @@ import { professionals } from '../data/professionals';
     <div class="dh-hero-content">
       <p class="lbl r">Moinhos de Vento · Porto Alegre · {SITE.registroProfissional}</p>
       <h1 class="dh-hero-title r d1">
-        Diagnóstico capilar de precisão para <em>queda</em> e <em>afinamento</em>.
+        O cabelo é <em>reflexo</em> do nosso organismo.
       </h1>
       <p class="dh-hero-lead r d2">
-        Avaliação do ciclo folicular, inflamação e eixo hormonal para definição de protocolo individualizado. Tratamento capilar baseado em diagnóstico, não tentativa e erro.
+        Tricologia & saúde integrativa. Investigamos hormônios, ferritina, vitamina D, microbioma, sono e história clínica antes de propor qualquer protocolo. O fio é o sintoma mais visível, não o quadro inteiro.
       </p>
       <div class="dh-hero-actions r d3">
         <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="btn btn-primary">agendar avaliação</a>
-        <a href="#metodo" class="dh-hero-link">conhecer o Método DPC →</a>
+        <a href="#metodo" class="dh-hero-link">conhecer o Método ESPELHO →</a>
       </div>
-      <p class="dh-hero-credential r d4">{SITE.responsavelTecnico} · Enfermeira especialista · 18+ anos em saúde</p>
+      <p class="dh-hero-credential r d4">{SITE.responsavelTecnico} · Enfermeira especialista em tricologia avançada · {SITE.registroProfissional}</p>
     </div>
 
     <div class="dh-hero-image" aria-hidden="true">
@@ -44,8 +44,8 @@ import { professionals } from '../data/professionals';
   <section id="metodo" class="section-cream">
     <div class="dh-method-head">
       <p class="lbl r">{METHOD.name}</p>
-      <h2 class="section-title r d1">Diagnóstico, <em>protocolo</em>, controle.</h2>
-      <p class="section-subtitle r d2">Sistema clínico estruturado em três etapas. Reduz a percepção de procedimento isolado, aumenta autoridade e diferenciação. Cada paciente passa pela mesma estrutura, com protocolo individualizado.</p>
+      <h2 class="section-title r d1">Leitura, reflexo, <em>protocolo</em>, refração.</h2>
+      <p class="section-subtitle r d2">Sistema clínico estruturado em quatro fases. O cabelo reflete o organismo — lemos o reflexo antes de tratar. Cada paciente passa pela mesma estrutura, com protocolo individualizado por mecanismo.</p>
     </div>
 
     <div class="dh-method-grid">
@@ -270,7 +270,7 @@ import { professionals } from '../data/professionals';
     .dh-method-head { max-width: 720px; margin-bottom: var(--space-xl); }
     .dh-method-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 0;
       border-top: 1px solid rgba(11,11,11,.12);
     }
@@ -283,6 +283,10 @@ import { professionals } from '../data/professionals';
       gap: var(--space-sm);
     }
     .dh-method-step:last-child { border-right: 0; }
+    @media (max-width: 1100px) {
+      .dh-method-grid { grid-template-columns: repeat(2, 1fr); }
+      .dh-method-step:nth-child(2n) { border-right: 0; }
+    }
     .dh-method-letter {
       font-family: var(--font-serif);
       font-size: 86px;
@@ -306,7 +310,7 @@ import { professionals } from '../data/professionals';
       line-height: 1.85;
       max-width: 38ch;
     }
-    @media (max-width: 800px) {
+    @media (max-width: 700px) {
       .dh-method-grid { grid-template-columns: 1fr; }
       .dh-method-step { border-right: 0; }
     }

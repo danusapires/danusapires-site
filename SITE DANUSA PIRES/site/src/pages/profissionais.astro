@@ -7,12 +7,12 @@ import { professionals, getProfessionalBySlug } from '../data/professionals';
 
 const danusa = getProfessionalBySlug('danusa-pires');
 const adriana = getProfessionalBySlug('adriana-melo');
-const equipe = getProfessionalBySlug('equipe-tecnica');
+const equipe = getProfessionalBySlug('amanda-paz');
 ---
 
 <BaseLayout
   title="Profissionais"
-  description="A equipe clínica da Dra. Danusa Pires: tricologia avançada conduzida pela fundadora e abordagem integrativa em terapias holísticas com Adriana Melo. Cada profissional ocupa função clara dentro do protocolo."
+  description="A equipe clínica de Danusa Pires: tricologia conduzida pela fundadora, soroterapia smart.soro e abordagem integrativa com Adriana Melo, suporte técnico com Amanda Paz. Cada profissional ocupa função clara dentro do protocolo."
   currentPage="profissionais"
   breadcrumbs={[{ name: 'Profissionais', url: '/profissionais' }]}
 >
@@ -40,7 +40,7 @@ const equipe = getProfessionalBySlug('equipe-tecnica');
     </div>
   </section>
 
-  <!-- TRICOLOGIA — Dra. Danusa Pires + equipe técnica -->
+  <!-- TRICOLOGIA — Danusa Pires + equipe técnica -->
   {danusa && (
     <section>
       <div style="max-width:780px">

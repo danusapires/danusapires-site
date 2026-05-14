@@ -5,7 +5,7 @@ import { SITE, NAV_LINKS, PILLARS } from '../data/site';
 <footer class="footer">
   <div class="footer-grid">
     <div class="footer-brand">
-      <p class="footer-logo-text">Dra. Danusa Pires<br><em>tricologia avançada</em></p>
+      <p class="footer-logo-text">Danusa <em class="footer-logo-italic">Pires</em><br><span class="footer-logo-desc">tricologia & saúde integrativa</span></p>
       <p class="footer-position">{SITE.tagline}</p>
     </div>
 
@@ -71,14 +71,19 @@ import { SITE, NAV_LINKS, PILLARS } from '../data/site';
     letter-spacing: -0.012em;
     margin-bottom: 16px;
   }
-  .footer-brand .footer-logo-text em {
+  .footer-brand .footer-logo-italic {
     font-style: italic;
     color: var(--c-gold);
-    font-size: 14px;
-    letter-spacing: 0.14em;
+  }
+  .footer-brand .footer-logo-desc {
+    font-family: var(--font-primary);
+    font-style: normal;
+    color: rgba(232,227,220,.55);
+    font-size: 11px;
+    letter-spacing: 0.42em;
     text-transform: uppercase;
     display: inline-block;
-    margin-top: 4px;
+    margin-top: 8px;
   }
   .footer-brand .footer-position {
     font-size: 13px;

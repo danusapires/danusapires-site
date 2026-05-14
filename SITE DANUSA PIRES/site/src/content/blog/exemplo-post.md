@@ -2,7 +2,7 @@
 title: "Queda capilar: por que a leitura do ciclo folicular antecede o protocolo"
 description: "A queda capilar tem múltiplas causas. Investigação do ciclo folicular, inflamação e contexto hormonal antecede qualquer conduta."
 date: "2026-04-28"
-author: "Dra. Danusa Pires"
+author: "Danusa Pires"
 category: "Tricologia"
 tags: ["queda capilar", "ciclo folicular", "diagnóstico"]
 draft: false
