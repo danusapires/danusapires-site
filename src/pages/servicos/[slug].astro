@@ -1,0 +1,322 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { services } from '../../data/services-content';
+import { PILLARS, WA_DEFAULT } from '../../data/site';
+
+export async function getStaticPaths() {
+  return Object.values(services).map(s => ({
+    params: { slug: s.slug },
+    props: { service: s },
+  }));
+}
+
+const { service: s } = Astro.props as any;
+const titleHtml = s.hero.emphasis
+  ? s.hero.title.replace(s.hero.emphasis, `<em>${s.hero.emphasis}</em>`)
+  : s.hero.title;
+
+// Outros serviços para link cruzado no fim
+const others = PILLARS.filter(p => p.slug !== s.slug).slice(0, 3);
+---
+
+<BaseLayout
+  title={s.hero.title.replace('.','')}
+  description={s.hero.lead}
+  currentPage="serviços"
+  breadcrumbs={[
+    { name: 'Serviços', url: '/#servicos' },
+    { name: s.hero.title.replace('.',''), url: `/servicos/${s.slug}` },
+  ]}
+>
+
+  <!-- HERO -->
+  <section class="sv-hero">
+    <div class="sv-hero-content">
+      <p class="lbl r">{s.hero.eyebrow}</p>
+      <h1 class="sv-hero-title r d1" set:html={titleHtml} />
+      <p class="sv-hero-lead r d2">{s.hero.lead}</p>
+      <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="btn btn-primary r d3">agendar avaliação</a>
+    </div>
+    <div class="sv-hero-image" aria-hidden="true">
+      <picture>
+        <source srcset={`/images/${s.hero.image}.avif`} type="image/avif" />
+        <source srcset={`/images/${s.hero.image}.webp`} type="image/webp" />
+        <img src={`/images/${s.hero.image}.webp`} alt="" fetchpriority="high" decoding="async" />
+      </picture>
+    </div>
+  </section>
+
+  <!-- PROBLEMA · MECANISMO · INTERVENÇÃO · RESULTADO (estrutura obrigatória do brandbook) -->
+  <section>
+    <div class="sv-flow">
+      <article class="sv-block r">
+        <p class="lbl">01 · problema</p>
+        <p class="sv-text">{s.problem}</p>
+      </article>
+
+      <article class="sv-block r d1">
+        <p class="lbl">02 · mecanismo</p>
+        <p class="sv-text">{s.mechanism}</p>
+      </article>
+
+      <article class="sv-block r d2">
+        <p class="lbl">03 · intervenção</p>
+        <ul class="sv-list">
+          {s.intervention.map((step: string) => <li>{step}</li>)}
+        </ul>
+      </article>
+
+      <article class="sv-block r d3">
+        <p class="lbl">04 · resultado possível</p>
+        <p class="sv-text">{s.outcome}</p>
+        <p class="sv-disclaimer">Resposta variável conforme padrão fisiológico individual. Conduta definida conforme avaliação. Evolução dependente de causa, adesão, tempo e resposta individual.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- INDICAÇÕES -->
+  <section class="section-cream">
+    <div style="max-width:780px">
+      <p class="lbl r">para quem é indicado</p>
+      <h2 class="section-title r d1">Quadros que <em>respondem</em> a este protocolo.</h2>
+    </div>
+    <ul class="sv-indications r d2">
+      {s.indications.map((i: string) => <li>{i}</li>)}
+    </ul>
+  </section>
+
+  <!-- FAQ -->
+  {s.faqs && s.faqs.length > 0 && (
+    <section>
+      <div style="max-width:760px">
+        <p class="lbl r">dúvidas frequentes</p>
+        <h2 class="section-title r d1">Antes de <em>agendar</em>.</h2>
+      </div>
+
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": s.faqs.map((f: any) => ({
+          "@type": "Question",
+          "name": f.q,
+          "acceptedAnswer": { "@type": "Answer", "text": f.a }
+        }))
+      })} />
+
+      <div class="sv-faq">
+        {s.faqs.map((f: any, i: number) => (
+          <details class="sv-faq-item r" open={i === 0} style={`transition-delay:${i*0.06}s`}>
+            <summary><span>{f.q}</span><span class="ic">+</span></summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- OUTROS SERVIÇOS -->
+  <section class="section-cream">
+    <div style="max-width:780px">
+      <p class="lbl r">outros serviços</p>
+      <h2 class="section-title r d1">Quadros relacionados.</h2>
+    </div>
+    <div class="g3" style="margin-top:var(--space-xl);gap:18px">
+      {others.map(o => (
+        <a href={o.href} class="pillar-card r" style="display:flex;flex-direction:column;gap:var(--space-sm);text-decoration:none">
+          <h3>{o.name}</h3>
+          <p>{o.description}</p>
+          <span style="font-family:var(--font-primary);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--c-gold);border-bottom:1px solid var(--c-gold);padding-bottom:3px;align-self:flex-start;margin-top:8px">conhecer →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <CtaSection
+    heading={`Avaliação <em>${s.hero.emphasis.toLowerCase()}</em> com método clínico.`}
+    subtext="Conduta definida conforme leitura individual. A primeira conversa pelo WhatsApp adianta a triagem antes da avaliação presencial."
+  />
+
+  <style>
+    /* HERO */
+    .sv-hero {
+      min-height: 78vh;
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      background: var(--c-black);
+      overflow: hidden;
+    }
+    .sv-hero-content {
+      padding: clamp(7rem, 14vh, 10rem) clamp(2rem, 6vw, 5rem) clamp(3rem, 8vh, 5rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 720px;
+      position: relative;
+      z-index: 2;
+    }
+    .sv-hero-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(36px, 5.4vw, 76px);
+      line-height: 1.04;
+      letter-spacing: -0.018em;
+      color: var(--c-beige);
+      margin: 0 0 var(--space-md);
+    }
+    .sv-hero-title em { font-style: italic; color: var(--c-gold); }
+    .sv-hero-lead {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--color-ink-soft);
+      max-width: 560px;
+      margin-bottom: var(--space-lg);
+    }
+    .sv-hero-image { position: relative; overflow: hidden; }
+    .sv-hero-image picture, .sv-hero-image img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .sv-hero-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(270deg, transparent 60%, rgba(11,11,11,0.7) 100%);
+    }
+    @media (max-width: 960px) {
+      .sv-hero { grid-template-columns: 1fr; min-height: auto; }
+      .sv-hero-image { aspect-ratio: 4/5; order: -1; }
+      .sv-hero-content { padding-top: 6rem; }
+    }
+
+    /* FLOW */
+    .sv-flow {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(232,227,220,.1);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .sv-block {
+      padding: var(--space-xl) var(--space-lg);
+      border-right: 1px solid rgba(232,227,220,.1);
+      border-bottom: 1px solid rgba(232,227,220,.1);
+    }
+    .sv-block:nth-child(even) { border-right: 0; }
+    .sv-block .lbl { margin-bottom: var(--space-md); }
+    .sv-text {
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--color-ink-soft);
+      max-width: 56ch;
+    }
+    .sv-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sv-list li {
+      padding-left: 26px;
+      position: relative;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--color-ink-soft);
+    }
+    .sv-list li::before {
+      content: '';
+      position: absolute;
+      top: 11px;
+      left: 0;
+      width: 14px;
+      height: 1px;
+      background: var(--c-gold);
+    }
+    .sv-disclaimer {
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: 1px solid rgba(232,227,220,.1);
+      font-size: 11px;
+      line-height: 1.7;
+      color: var(--color-ink-ghost);
+      max-width: 56ch;
+      font-style: italic;
+    }
+    @media (max-width: 760px) {
+      .sv-flow { grid-template-columns: 1fr; }
+      .sv-block { border-right: 0; }
+    }
+
+    /* INDICAÇÕES */
+    .sv-indications {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-xl) 0 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(11,11,11,.12);
+    }
+    .sv-indications li {
+      padding: var(--space-md) var(--space-lg) var(--space-md) calc(var(--space-lg) + 32px);
+      border-bottom: 1px solid rgba(11,11,11,.08);
+      font-size: 15px;
+      color: var(--c-black);
+      position: relative;
+      font-family: var(--font-serif);
+      font-weight: 400;
+    }
+    .sv-indications li:nth-child(odd) { border-right: 1px solid rgba(11,11,11,.08); }
+    .sv-indications li::before {
+      content: '·';
+      position: absolute;
+      left: var(--space-lg);
+      color: var(--c-gold);
+      font-size: 22px;
+      line-height: 1;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    @media (max-width: 720px) {
+      .sv-indications { grid-template-columns: 1fr; }
+      .sv-indications li:nth-child(odd) { border-right: 0; }
+    }
+
+    /* FAQ */
+    .sv-faq { max-width: 780px; margin: var(--space-xl) auto 0; }
+    .sv-faq-item { border-bottom: 1px solid rgba(232,227,220,.1); }
+    .sv-faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      font-family: var(--font-primary);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--c-beige);
+      transition: color var(--transition-fast);
+    }
+    .sv-faq-item summary::-webkit-details-marker { display: none; }
+    .sv-faq-item summary:hover { color: var(--c-gold); }
+    .sv-faq-item .ic {
+      color: var(--c-gold);
+      font-size: 22px;
+      font-weight: 300;
+      transition: transform var(--transition-base);
+    }
+    .sv-faq-item[open] .ic { transform: rotate(45deg); }
+    .sv-faq-item p {
+      padding-bottom: var(--space-md);
+      padding-right: 40px;
+      font-size: 14px;
+      color: var(--color-ink-soft);
+      line-height: 1.85;
+      max-width: 60ch;
+    }
+  </style>
+
+</BaseLayout>
