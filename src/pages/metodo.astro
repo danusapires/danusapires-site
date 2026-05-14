@@ -1,0 +1,226 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { METHOD, WA_DEFAULT } from '../data/site';
+---
+
+<BaseLayout
+  title="Método ESPELHO | Diagnóstico estruturado em tricologia"
+  description="Conheça o Método ESPELHO, sistema clínico próprio de diagnóstico e tratamento capilar. Leitura, reflexo, protocolo, refração. Transparência clínica total."
+  currentPage="metodo"
+  breadcrumbs={[
+    { name: 'Método ESPELHO', url: '/metodo' }
+  ]}
+>
+
+  <!-- HERO METODO -->
+  <section class="metodo-hero">
+    <div class="metodo-hero-content">
+      <p class="lbl r">assinatura clínica</p>
+      <h1 class="metodo-hero-title r d1">
+        {METHOD.name}
+      </h1>
+      <p class="metodo-hero-lead r d2">
+        {METHOD.philosophy}
+      </p>
+    </div>
+  </section>
+
+  <!-- 4 FASES DETALHADAS -->
+  <section style="padding:var(--section-py) var(--section-px)">
+    <div style="max-width:1080px;margin:0 auto">
+      {METHOD.steps.map((step, i) => (
+        <article class="metodo-step r" style={`transition-delay:${i*0.1}s`}>
+          <div class="metodo-step-number">{step.number}</div>
+
+          <div class="metodo-step-content">
+            <h2>{step.title}</h2>
+            <p class="metodo-step-subtitle">{step.subtitle}</p>
+            <p class="metodo-step-description">{step.description}</p>
+
+            {step.tools && step.tools.length > 0 && (
+              <div class="metodo-step-tools">
+                <strong>Ferramentas e procedimentos:</strong>
+                <ul>
+                  {step.tools.map(tool => (
+                    <li>{tool}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- DIFERENÇAS VIGNELLI -->
+  <section class="section-cream">
+    <div style="max-width:960px;margin:0 auto">
+      <p class="lbl r">o que diferencia</p>
+      <h2 class="section-title r d1">Estrutura antes de tratamento.</h2>
+      <p class="section-subtitle r d2">Não prescrevemos protocolo sem leitura. Não fazemos procedimento sem diagnóstico diferencial. Cada sessão é assinada por dados clínicos reais.</p>
+
+      <div class="dh-diff-grid">
+        <article class="dh-diff-card r" style="transition-delay:0.1s">
+          <span class="dh-diff-icon">📋</span>
+          <h3>Diagnóstico estruturado</h3>
+          <p>Anamnese de 60 minutos. Tricoscopia digital de alta resolução. Dermatoscopia. Fototricograma baseline. Exames laboratoriais quando indicado.</p>
+        </article>
+
+        <article class="dh-diff-card r" style="transition-delay:0.2s">
+          <span class="dh-diff-icon">🔬</span>
+          <h3>Leitura integrada</h3>
+          <p>Interpretação de achados clínicos e laboratoriais em conjunto. Identificação do mecanismo dominante. Genética capilar (TrichoTest) quando pertinente.</p>
+        </article>
+
+        <article class="dh-diff-card r" style="transition-delay:0.3s">
+          <span class="dh-diff-icon">🎯</span>
+          <h3>Protocolo customizado</h3>
+          <p>Tratamento multi-modal respeitando mecanismo dominante. Topical, fototerapia, procedimentos intradermo, bioestimuladores, suporte sistêmico.</p>
+        </article>
+
+        <article class="dh-diff-card r" style="transition-delay:0.4s">
+          <span class="dh-diff-icon">📊</span>
+          <h3>Acompanhamento estruturado</h3>
+          <p>Reavaliação no 3º mês com fototricografia comparativa. Análise fotográfica de evolução. Ajustes conforme resposta individual. Manutenção contínua.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding:var(--section-py) var(--section-px);text-align:center">
+    <div style="max-width:760px;margin:0 auto">
+      <h2 class="section-title r d1">Pronto para <em>ler estruturadamente</em>?</h2>
+      <p class="section-subtitle r d2">Agende uma avaliação inicial. Você saíra da consulta com diagnóstico preciso e protocolo definido conforme seu mecanismo dominante.</p>
+      <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="btn btn-primary r d3">agendar avaliação</a>
+    </div>
+  </section>
+
+  <style is:inline>
+    /* HERO ========================================== */
+    .metodo-hero {
+      min-height: 50vh;
+      background: var(--c-black);
+      padding: clamp(5rem, 12vh, 8rem) var(--section-px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .metodo-hero-content {
+      max-width: 760px;
+    }
+    .metodo-hero-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(44px, 5.6vw, 80px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--c-beige);
+      margin: 0 0 var(--space-lg);
+    }
+    .metodo-hero-lead {
+      font-size: 16px;
+      line-height: 1.9;
+      color: var(--color-ink-soft);
+      margin: 0;
+    }
+
+    /* STEPS ========================================= */
+    .metodo-step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: var(--space-xl);
+      padding: var(--space-xl) 0;
+      border-bottom: 1px solid rgba(11,11,11,.1);
+      align-items: start;
+    }
+    .metodo-step:last-child { border-bottom: 0; }
+    .metodo-step-number {
+      font-family: var(--font-serif);
+      font-size: 64px;
+      font-weight: 400;
+      color: var(--c-gold);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+    }
+    .metodo-step h2 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--c-black);
+      margin: 0 0 6px;
+    }
+    .metodo-step-subtitle {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--c-gold);
+      margin: 0 0 var(--space-md);
+      letter-spacing: .03em;
+    }
+    .metodo-step-description {
+      font-size: 15px;
+      line-height: 1.85;
+      color: rgba(11,11,11,.75);
+      margin: 0 0 var(--space-lg);
+      max-width: 68ch;
+    }
+    .metodo-step-tools {
+      font-size: 14px;
+      color: rgba(11,11,11,.7);
+    }
+    .metodo-step-tools strong {
+      display: block;
+      color: var(--c-black);
+      margin-bottom: 8px;
+    }
+    .metodo-step-tools ul {
+      list-style: disc;
+      margin: 0;
+      padding-left: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .metodo-step-tools li {
+      margin: 0;
+    }
+
+    /* DIFERENCIADORES =============================== */
+    .dh-diff-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+    .dh-diff-card {
+      background: var(--c-white);
+      padding: var(--space-lg);
+      border: 1px solid rgba(11,11,11,.08);
+      text-align: center;
+    }
+    .dh-diff-icon {
+      font-size: 42px;
+      display: block;
+      margin-bottom: var(--space-md);
+    }
+    .dh-diff-card h3 {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--c-black);
+      margin: 0 0 var(--space-sm);
+    }
+    .dh-diff-card p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(11,11,11,.7);
+      margin: 0;
+    }
+    @media (max-width: 800px) {
+      .metodo-step { grid-template-columns: 1fr; gap: var(--space-lg); }
+      .dh-diff-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+</BaseLayout>
