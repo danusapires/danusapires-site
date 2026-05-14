@@ -2,6 +2,6 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://dradanusa.com.br',
+  site: 'https://www.danusapires.com.br',
   integrations: [sitemap()],
 });

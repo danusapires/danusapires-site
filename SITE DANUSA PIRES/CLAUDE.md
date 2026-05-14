@@ -5,7 +5,7 @@ Este arquivo é a entrada principal para qualquer instância do Claude Code que 
 ## Operadora do projeto
 
 - Cliente: Danusa Pires (não usar prefixo "Dra." na marca principal — ver BRAND.md)
-- Domínio: dradanusa.com.br
+- Domínio: www.danusapires.com.br (deploy via Cloudflare Pages)
 - Email operacional do projeto: danusa.gic@gmail.com
 - Direção criativa: GJORA Intelligence
 - Mirror do site antigo: `/Users/gustavogehrke/Desktop/site-cliente-mirror`
