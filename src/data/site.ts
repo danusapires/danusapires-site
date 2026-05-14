@@ -83,31 +83,31 @@ export const PILLARS = [
     slug: 'queda-feminina',
     name: 'Queda capilar feminina',
     description: 'Avaliação dos padrões femininos: pós-parto, menopausa, deficiências, estresse crônico, fases hormonais.',
-    href: '/servicos/queda-feminina',
+    href: '/#servicos',
   },
   {
     slug: 'alopecia-androgenetica',
     name: 'Alopecia androgenética',
     description: 'Conduta clínica para homens e mulheres, complementar pré e pós cirurgia capilar.',
-    href: '/servicos/alopecia-androgenetica',
+    href: '/#servicos',
   },
   {
     slug: 'pos-transplante',
     name: 'Pós-transplante',
     description: 'Manutenção técnica do resultado da cirurgia capilar entre 60 e 90 dias do pós-operatório.',
-    href: '/servicos/pos-transplante',
+    href: '/#servicos',
   },
   {
     slug: 'fortalecimento',
     name: 'Fortalecimento e densidade',
     description: 'Protocolos para quem não tem queda ativa e busca densidade, brilho e força da haste.',
-    href: '/servicos/fortalecimento',
+    href: '/#servicos',
   },
   {
     slug: 'trichotest',
     name: 'TrichoTest',
     description: 'Genética capilar aplicada. Protocolo premium individualizado por DNA quando justificado.',
-    href: '/servicos/trichotest',
+    href: '/#servicos',
   },
   {
     slug: 'soroterapia',
@@ -119,7 +119,7 @@ export const PILLARS = [
     slug: 'diagnostico',
     name: 'Diagnóstico capilar avançado',
     description: 'Segunda opinião e leitura clínica estruturada para outros profissionais.',
-    href: '/servicos/diagnostico',
+    href: '/#servicos',
   },
 ];
 

@@ -35,8 +35,8 @@ Status em Maio/2026. Tudo aqui bloqueia ou condiciona partes específicas do sit
 
 ### 6. Hex code exato da Sálvia
 - **Bloqueia:** integração visual fiel com Instagram e papelaria existentes
-- **Status:** cor aprovada para entrar na paleta, hex não enviado
-- **Provisório:** `#8A9B8E` (definido pela GJORA Intelligence como referência aproximada)
+- **Status:** cor aprovada para entrar na paleta, hex oficial não enviado
+- **Provisório aplicado:** `#8A9B8E` já está vivo em `src/styles/tokens.css` como `--c-salvia` (referência aproximada da GJORA, será trocada quando a cliente enviar o hex exato)
 
 ---
 
@@ -88,15 +88,23 @@ Tudo que já foi confirmado no brandbook v4 está implementável imediatamente. 
 
 Lista resumida do que destrava sem ela:
 
-- Atualizar `site/src/data/site.ts` com CNPJ, razão social, Meta Pixel
-- Atualizar `site/src/data/professionals.ts` com COREN de Adriana (1.255.019) e Amanda (127.286)
-- Atualizar `/sobre` com história real (concursada → tricologia)
-- Atualizar formação na página da Danusa (datas e instituições reais)
+### Já feito (v1.0 → v1.1)
+- [x] Marca v4 aplicada em `src/data/site.ts`, `Footer`, `Nav`, `BaseLayout`
+- [x] Método ESPELHO substituiu DPC em toda a copy
+- [x] smart.soro como gancho de identidade na soroterapia
+- [x] `/sobre` reescrito com história real (emergências → tricologia)
+- [x] Página `/profissionais` removida (site é marca pessoal da Danusa)
+- [x] Terapias holísticas → terapias integrativas (página renomeada, Adriana abordada)
+- [x] Cor Sálvia adicionada ao sistema de tokens em `tokens.css` (provisório `#8A9B8E`)
+- [x] Em-dashes eliminados de todo o código (linguagem-IA)
+- [x] COREN removido do footer (mantido em `/sobre` e jurídicas)
+
+### Ainda destravável sem nova resposta da cliente
+- Atualizar `site.ts` com CNPJ, razão social, Meta Pixel ID quando vier
+- Atualizar formação na página da Danusa (datas e instituições reais do briefing)
 - Atualizar `/contato` com horários reais por dia da semana
 - Atualizar `/soroterapia` com 33 ativos reais por categoria
-- Reformular `/servicos/inflamacoes-couro` com tom de "leves + encaminhar"
+- Reformular conteúdo de inflamações com tom "leves + encaminhar"
 - Adicionar página `/servicos/trichotest` como 7º serviço
-- Implementar Método ESPELHO em substituição ao DPC em toda copy
 - Implementar Meta Pixel 1326953349366151 (consent-gated)
 - Adicionar Google Meu Negócio link no rodapé/contato
-- Adicionar cor Sálvia ao sistema de tokens (provisório até receber hex real)
