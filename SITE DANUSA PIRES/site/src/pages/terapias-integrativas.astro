@@ -10,7 +10,7 @@ const adriana = getProfessionalBySlug('adriana-melo');
 const faqs = [
   {
     q: 'Como a biorressonância se integra ao tratamento capilar?',
-    a: 'A leitura energético-funcional é uma camada complementar à investigação tricológica. Identifica padrões sistêmicos que podem influenciar o ciclo folicular — desequilíbrios funcionais, padrões hormonais, sinais de inflamação difusa. A indicação é integrativa, não substitutiva.',
+    a: 'A leitura energético-funcional é uma camada complementar à investigação tricológica. Identifica padrões sistêmicos que podem influenciar o ciclo folicular, desequilíbrios funcionais, padrões hormonais, sinais de inflamação difusa. A indicação é integrativa, não substitutiva.',
   },
   {
     q: 'É uma terapia clínica ou alternativa?',
@@ -28,21 +28,21 @@ const faqs = [
 ---
 
 <BaseLayout
-  title="Terapias holísticas"
+  title="Terapias integrativas"
   description="Biorressonância e abordagem energético-funcional integrada à tricologia. Leitura complementar conduzida por Adriana Melo, terapeuta integrativa, dentro do protocolo clínico da Danusa Pires."
-  currentPage="terapias-holisticas"
-  breadcrumbs={[{ name: 'Terapias holísticas', url: '/terapias-holisticas' }]}
+  currentPage="terapias-integrativas"
+  breadcrumbs={[{ name: 'Terapias integrativas', url: '/terapias-integrativas' }]}
 >
 
   <!-- HERO -->
   <section class="th-hero">
     <div class="th-hero-content">
-      <p class="lbl r">terapias holísticas</p>
+      <p class="lbl r">terapias integrativas</p>
       <h1 class="th-hero-title r d1">
         Camada <em>energético-funcional</em><br>do cuidado capilar.
       </h1>
       <p class="th-hero-lead r d2">
-        Biorressonância como leitura complementar à investigação tricológica. Identifica padrões sistêmicos — funcionais, hormonais, inflamatórios — que podem influenciar o ciclo folicular. Abordagem integrativa, conduzida dentro do plano clínico.
+        Biorressonância como leitura complementar à investigação tricológica. Identifica padrões sistêmicos, funcionais, hormonais, inflamatórios, que podem influenciar o ciclo folicular. Abordagem integrativa, conduzida dentro do plano clínico.
       </p>
       <div class="th-hero-actions r d3">
         <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="btn btn-primary">conversar sobre indicação</a>
@@ -70,7 +70,7 @@ const faqs = [
     <div class="g3" style="margin-top:var(--space-xl);gap:18px">
       <article class="pillar-card r">
         <h3>Leitura funcional</h3>
-        <p>Identifica padrões de desequilíbrio que podem se traduzir em sintomas capilares — estresse oxidativo crônico, fadiga sistêmica, padrões hormonais.</p>
+        <p>Identifica padrões de desequilíbrio que podem se traduzir em sintomas capilares, estresse oxidativo crônico, fadiga sistêmica, padrões hormonais.</p>
       </article>
       <article class="pillar-card r d1">
         <h3>Integração ao plano</h3>
@@ -83,7 +83,7 @@ const faqs = [
     </div>
   </section>
 
-  <!-- COMO FUNCIONA — split editorial -->
+  <!-- COMO FUNCIONA, split editorial -->
   <section class="section-cream">
     <div class="g2" style="align-items:center;gap:var(--space-2xl)">
       <picture class="r" style="aspect-ratio:4/5;display:block;overflow:hidden">
@@ -98,7 +98,7 @@ const faqs = [
         <ol class="dh-flow">
           <li class="r d1"><span>01</span><div><strong>Leitura inicial</strong>Sessão de 60 a 90 minutos. Mapeamento energético-funcional cruzado com histórico clínico já levantado em tricologia.</div></li>
           <li class="r d2"><span>02</span><div><strong>Integração de achados</strong>Padrões identificados são discutidos com a Danusa Pires e incorporados ao protocolo capilar quando pertinentes.</div></li>
-          <li class="r d3"><span>03</span><div><strong>Retornos programados</strong>Sessões de acompanhamento alinhadas ao ciclo do plano clínico. Sem cronograma rígido — adapta-se à evolução individual.</div></li>
+          <li class="r d3"><span>03</span><div><strong>Retornos programados</strong>Sessões de acompanhamento alinhadas ao ciclo do plano clínico. Sem cronograma rígido, adapta-se à evolução individual.</div></li>
         </ol>
       </div>
     </div>
@@ -166,7 +166,7 @@ const faqs = [
 
   <CtaSection
     heading="Vamos conversar sobre <em>indicação</em>."
-    subtext="Não é uma terapia isolada — é uma camada de leitura dentro do plano clínico. A primeira conversa pelo WhatsApp adianta a triagem."
+    subtext="Não é uma terapia isolada, é uma camada de leitura dentro do plano clínico. A primeira conversa pelo WhatsApp adianta a triagem."
   />
 
   <style>
@@ -196,7 +196,12 @@ const faqs = [
       color: var(--c-beige);
       margin: 0 0 var(--space-md);
     }
-    .th-hero-title em { font-style: italic; color: var(--c-gold); }
+    .th-hero-title em { font-style: italic; color: var(--c-salvia-soft); }
+    /* Sálvia como accent editorial desta página (3-5% conforme brandbook v4) */
+    section .lbl { color: var(--c-salvia-soft); }
+    section h2.section-title em { color: var(--c-salvia); font-style: italic; }
+    .dh-hero-link { border-bottom-color: var(--c-salvia-soft); }
+    .dh-hero-link:hover { color: var(--c-salvia-soft); }
     .th-hero-lead {
       font-size: 16px;
       line-height: 1.85;

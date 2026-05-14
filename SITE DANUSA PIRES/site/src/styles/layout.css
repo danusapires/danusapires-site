@@ -1,5 +1,5 @@
 /* ============================================================
-   LAYOUT — Obsidian Clinical
+   LAYOUT, Obsidian Clinical
    Base preta, blocos bege alternados, dourado em microacento
    ============================================================ */
 
@@ -80,7 +80,7 @@ section {
 .d3 { transition-delay: .3s; }
 .d4 { transition-delay: .4s; }
 
-/* === Labels — eyebrow editorial dourado === */
+/* === Labels, eyebrow editorial dourado === */
 .lbl {
   display: inline-flex;
   align-items: center;

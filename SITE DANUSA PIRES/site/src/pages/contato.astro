@@ -18,11 +18,11 @@ import { SITE, WA_DEFAULT } from '../data/site';
       <div class="g2" style="margin-top:var(--space-xl);gap:var(--space-xl);align-items:start">
         <div class="r">
           <p class="lbl" style="margin-bottom:var(--space-sm)">sede · porto alegre</p>
-          <h2 style="font-family:var(--font-serif);font-style:italic;font-size:24px;font-weight:400;margin-bottom:var(--space-md)">{SITE.address.complement.split('—')[1]?.trim() || 'Edifício Moinhos 180'}</h2>
+          <h2 style="font-family:var(--font-serif);font-style:italic;font-size:24px;font-weight:400;margin-bottom:var(--space-md)">{SITE.address.complement.split('-')[1]?.trim() || 'Edifício Moinhos 180'}</h2>
           <address style="font-size:14px;line-height:2;color:var(--color-ink-soft);font-style:normal">
             <p>{SITE.address.street}, {SITE.address.number}</p>
             <p>{SITE.address.complement}</p>
-            <p>{SITE.address.neighborhood} · {SITE.address.city} — {SITE.address.state}</p>
+            <p>{SITE.address.neighborhood} · {SITE.address.city}, {SITE.address.state}</p>
             <p style="margin-top:var(--space-sm)"><strong style="color:var(--color-ink)">{SITE.phone}</strong></p>
           </address>
 
@@ -39,7 +39,7 @@ import { SITE, WA_DEFAULT } from '../data/site';
 
         <div class="r d1" style="aspect-ratio:4/5;border-radius:2px;overflow:hidden;background:var(--color-cream)">
           <iframe
-            title="Localização da Sede — Edifício Moinhos 180, Porto Alegre"
+            title="Localização da Sede, Edifício Moinhos 180, Porto Alegre"
             src="https://www.google.com/maps?q=Rua+Mariante+180+Moinhos+de+Vento+Porto+Alegre&output=embed"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"

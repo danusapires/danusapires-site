@@ -10,11 +10,11 @@ draft: false
 
 ## Problema
 
-Queda capilar acima do habitual, em volume nitidamente maior que o esperado, persistente por mais de 8 a 12 semanas. O quadro pode parecer único — fios saindo no banho, no travesseiro, na escova — mas a leitura clínica revela mecanismos distintos.
+Queda capilar acima do habitual, em volume nitidamente maior que o esperado, persistente por mais de 8 a 12 semanas. O quadro pode parecer único, fios saindo no banho, no travesseiro, na escova, mas a leitura clínica revela mecanismos distintos.
 
 ## Mecanismo
 
-O ciclo folicular tem três fases: anágena (crescimento), catágena (transição) e telógena (queda). Em condições normais, cerca de 85% dos folículos estão em anágena. Quando algo desloca essa proporção — estresse agudo, deficiência nutricional, alteração hormonal, processo inflamatório do couro cabeludo — a fração em telógena aumenta. Resultado: aumento da queda 2 a 4 meses após o evento gatilho.
+O ciclo folicular tem três fases: anágena (crescimento), catágena (transição) e telógena (queda). Em condições normais, cerca de 85% dos folículos estão em anágena. Quando algo desloca essa proporção, estresse agudo, deficiência nutricional, alteração hormonal, processo inflamatório do couro cabeludo, a fração em telógena aumenta. Resultado: aumento da queda 2 a 4 meses após o evento gatilho.
 
 A leitura instrumental do couro cabeludo identifica densidade folicular, presença de inflamação, padrão de afinamento e proporção entre fios em diferentes fases. Sem essa investigação, a conduta vira tentativa.
 
@@ -22,9 +22,9 @@ A leitura instrumental do couro cabeludo identifica densidade folicular, presen�
 
 A avaliação na clínica investiga, em sequência:
 
-- Histórico — tempo de evolução, eventos gatilho, padrão hereditário, medicamentos.
-- Exame visual e instrumental — leitura do couro cabeludo, da haste capilar e da densidade.
-- Quando indicado, exames laboratoriais — função tireoidiana, ferro, vitamina D, perfil hormonal.
+- Histórico, tempo de evolução, eventos gatilho, padrão hereditário, medicamentos.
+- Exame visual e instrumental, leitura do couro cabeludo, da haste capilar e da densidade.
+- Quando indicado, exames laboratoriais, função tireoidiana, ferro, vitamina D, perfil hormonal.
 
 Com esse mapa, define-se o protocolo: cuidados clínicos, indicações domiciliares, integração com outros profissionais quando necessário, e marcadores de reavaliação programada.
 
