@@ -1,0 +1,41 @@
+{
+  "brand": "Danusa Tricologia Avançada",
+  "system": "Obsidian Clinical",
+  "positioning": "Tratamento capilar baseado em diagnóstico, não tentativa e erro.",
+  "colors": {
+    "black_deep": "#0B0B0B",
+    "beige_light": "#E8E3DC",
+    "graphite_gray": "#2A2A2A",
+    "matte_gold": "#C6A85A",
+    "technical_white": "#FFFFFF"
+  },
+  "color_distribution": {
+    "black_deep": "60-70%",
+    "beige_light": "20-30%",
+    "graphite_gray": "5-10%",
+    "matte_gold": "max 5%"
+  },
+  "copy_structure": [
+    "problema",
+    "mecanismo",
+    "intervenção",
+    "resultado possível"
+  ],
+  "method": {
+    "name": "Método DPC",
+    "steps": [
+      "Diagnóstico",
+      "Protocolo",
+      "Controle"
+    ]
+  },
+  "forbidden": [
+    "clichês de estética",
+    "promessa absoluta de resultado",
+    "dourado dominante",
+    "cores fora da paleta",
+    "visual de salão",
+    "visual Instagram",
+    "imagem stock genérica"
+  ]
+}
