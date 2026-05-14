@@ -10,7 +10,7 @@ export const SITE = {
   brandSpecialty: 'Tricologia & Saúde Integrativa',
   tagline: 'O cabelo é reflexo do nosso organismo.',
   positioning: 'Tratamento capilar baseado em diagnóstico sistêmico, não tentativa e erro.',
-  url: 'https://dradanusa.com.br',
+  url: 'https://www.danusapires.com.br',
   phone: '+55 51 98016-4433',
   email: 'TODO_EMAIL_COMERCIAL',
   instagram: '@dradanusa',
