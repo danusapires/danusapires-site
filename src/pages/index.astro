@@ -2,12 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import CtaSection from '../components/CtaSection.astro';
-import { SITE, PILLARS, METHOD, WA_DEFAULT } from '../data/site';
+import { SITE, PILLARS, METHOD, WA_DEFAULT, PALETTE, TYPOGRAPHY } from '../data/site';
+import { professionals } from '../data/professionals';
 ---
 
 <BaseLayout
-  title="Tricologia & Saúde Integrativa com método clínico"
-  description="O cabelo é reflexo do organismo. Investigação do ciclo folicular, eixo hormonal, ferritina, vitamina D, sono, microbioma e estresse antes do protocolo individualizado. Edifício Moinhos 180, Porto Alegre."
+  title="Saúde Capilar & Integrativa | Método ESPELHO"
+  description="Saúde capilar através da leitura sistêmica. Investigação de hormônios, eixo adrenal, ferro, vitaminas, sono, microbioma e estresse. Protocolo clínico individualizado conforme mecanismo dominante. Edifício Moinhos 180, Porto Alegre."
   currentPage="home"
 >
 
@@ -16,10 +17,10 @@ import { SITE, PILLARS, METHOD, WA_DEFAULT } from '../data/site';
     <div class="dh-hero-content">
       <p class="lbl r">Moinhos de Vento · Porto Alegre</p>
       <h1 class="dh-hero-title r d1">
-        O cabelo é reflexo do <em>organismo</em>.
+        Saúde capilar através da <em>leitura sistêmica</em>.
       </h1>
       <p class="dh-hero-lead r d2">
-        A tricologia praticada aqui não isola o fio do sistema. Investigamos hormônios, ferritina, vitamina D, microbioma, sono e estresse antes de qualquer protocolo individualizado.
+        O cabelo reflete o organismo. Antes de qualquer protocolo, lemos estruturadamente: eixo hormonal, ferritina, vitamina D, sono, microbioma, estresse. Diagnóstico preciso precede tratamento efetivo.
       </p>
       <div class="dh-hero-actions r d3">
         <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="btn btn-primary">agendar avaliação</a>
@@ -48,9 +49,10 @@ import { SITE, PILLARS, METHOD, WA_DEFAULT } from '../data/site';
     <div class="dh-method-grid">
       {METHOD.steps.map((s, i) => (
         <article class="dh-method-step r" style={`transition-delay:${(i+1)*0.1}s`}>
-          <span class="dh-method-letter">{s.letter}</span>
+          <span class="dh-method-letter">{s.number}</span>
           <h3>{s.title}</h3>
-          <p>{s.desc}</p>
+          <p class="dh-method-subtitle">{s.subtitle}</p>
+          <p>{s.description}</p>
         </article>
       ))}
     </div>
@@ -68,9 +70,86 @@ import { SITE, PILLARS, METHOD, WA_DEFAULT } from '../data/site';
       {PILLARS.map((p, i) => (
         <article class="pillar-card r" style={`transition-delay:${i*0.05}s`}>
           <h3>{p.name}</h3>
+          <p class="pillar-subtitle">{p.subtitle}</p>
           <p>{p.description}</p>
+          <a href={p.href} class="pillar-link">saber mais →</a>
         </article>
       ))}
+    </div>
+  </section>
+
+  <!-- EQUIPE, autoridade clínica com filosofia Schulze -->
+  <section class="section-cream">
+    <div style="max-width:840px">
+      <p class="lbl r">equipe</p>
+      <h2 class="section-title r d1">Autonomia, <em>credibilidade</em> e cuidado.</h2>
+      <p class="section-subtitle r d2">Cada membro da equipe traz expertise e capacidade de decisão dentro do protocolo clínico. Responsabilidade clínica e acolhimento andam juntos.</p>
+    </div>
+
+    <div class="dh-team-grid">
+      {professionals.slice(0, 2).map((prof, i) => {
+        const isFirst = i === 0;
+        return (
+          <article class="dh-team-card r" style={`
+            transition-delay:${i*0.1}s;
+            border-left: 4px solid ${prof.bg};
+          `}>
+            {prof.photo && (
+              <picture style="aspect-ratio:3/4;display:block;overflow:hidden;margin-bottom:var(--space-lg)">
+                <img
+                  src={prof.photo}
+                  alt={prof.name}
+                  loading="lazy"
+                  decoding="async"
+                  style="width:100%;height:100%;object-fit:cover"
+                />
+              </picture>
+            )}
+
+            <div>
+              <h3 style="margin:0 0 6px">{prof.name}</h3>
+              <p class="dh-team-title">{prof.title}</p>
+              <p class="dh-team-role">{prof.role}</p>
+            </div>
+
+            {isFirst && (
+              <>
+                <p style="margin:var(--space-md) 0 0;font-size:14px;line-height:1.85;color:rgba(11,11,11,.7)">
+                  <strong style="display:block;color:var(--c-black);margin-bottom:6px">Filosofia</strong>
+                  {prof.philosophy}
+                </p>
+                <p style="margin:var(--space-md) 0 0;font-size:14px;line-height:1.85;color:rgba(11,11,11,.7)">
+                  <strong style="display:block;color:var(--c-black);margin-bottom:6px">Autonomia clínica</strong>
+                  {prof.autonomy}
+                </p>
+              </>
+            )}
+
+            {!isFirst && (
+              <>
+                <p style="margin:var(--space-md) 0 0;font-size:14px;line-height:1.85;color:rgba(11,11,11,.7)">
+                  <strong style="display:block;color:var(--c-black);margin-bottom:6px">Abordagem</strong>
+                  {prof.philosophy}
+                </p>
+                <p style="margin:var(--space-md) 0 0;font-size:14px;line-height:1.85;color:rgba(11,11,11,.7)">
+                  <strong style="display:block;color:var(--c-black);margin-bottom:6px">Responsabilidade</strong>
+                  {prof.autonomy}
+                </p>
+              </>
+            )}
+
+            <div style="margin-top:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid rgba(11,11,11,.1)">
+              <p style="font-size:12px;color:var(--color-ink-ghost);margin:0;letter-spacing:.04em">
+                {prof.registration && `${prof.registration}`}
+              </p>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    <div style="margin-top:var(--space-xl);max-width:840px;text-align:center">
+      <a href="/profissionais" class="btn btn-secondary">conhecer a equipe completa</a>
     </div>
   </section>
 
@@ -378,6 +457,86 @@ import { SITE, PILLARS, METHOD, WA_DEFAULT } from '../data/site';
       color: var(--color-ink-soft);
       line-height: 1.85;
       max-width: 56ch;
+    }
+
+    /* PILLAR CARDS ==================================== */
+    .pillar-card {
+      padding: var(--space-lg);
+      border: 1px solid rgba(11,11,11,.1);
+      background: var(--c-beige);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: all var(--transition-base);
+    }
+    .pillar-card:hover {
+      border-color: rgba(11,11,11,.2);
+      box-shadow: 0 8px 24px rgba(11,11,11,.08);
+    }
+    .pillar-card h3 {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--c-black);
+      margin: 0;
+    }
+    .pillar-subtitle {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--c-gold);
+      margin: 0;
+      letter-spacing: .03em;
+    }
+    .pillar-card p:not(.pillar-subtitle) {
+      font-size: 14px;
+      line-height: 1.8;
+      color: rgba(11,11,11,.7);
+      margin: 0;
+      flex-grow: 1;
+    }
+    .pillar-link {
+      font-family: var(--font-primary);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin-top: var(--space-sm);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+    .pillar-link:hover { color: var(--c-black); }
+
+    /* TEAM SECTION ==================================== */
+    .dh-team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-xl);
+      margin-top: var(--space-xl);
+    }
+    .dh-team-card {
+      background: var(--c-beige);
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+    }
+    .dh-team-title {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--c-black);
+      margin: 0;
+    }
+    .dh-team-role {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--c-gold);
+      margin: 4px 0 0;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 800px) {
+      .dh-team-grid { grid-template-columns: 1fr; }
     }
 
     /* FAQ ============================================== */
