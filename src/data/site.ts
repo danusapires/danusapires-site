@@ -1,14 +1,14 @@
 /**
- * SITE — Dra. Danusa Pires · Tricologia Avançada
+ * SITE · Danusa Pires · Tricologia & Saúde Integrativa
  * Sistema: Obsidian Clinical
- * Posicionamento: Tratamento capilar baseado em diagnóstico, não tentativa e erro.
+ * Posicionamento: o cabelo é reflexo do organismo. Lemos o reflexo antes de tratar.
  */
 
 export const SITE = {
-  name: 'Dra. Danusa Pires',
-  shortName: 'Dra. Danusa Pires',
-  brandSpecialty: 'Tricologia Avançada',
-  tagline: 'Tratamento capilar baseado em diagnóstico, não tentativa e erro.',
+  name: 'Danusa Pires',
+  shortName: 'Danusa Pires',
+  brandSpecialty: 'Tricologia & Saúde Integrativa',
+  tagline: 'O cabelo é reflexo do organismo. Lemos o reflexo antes de tratar.',
   url: 'https://dradanusa.com.br',
   phone: '+55 51 98016-4433',
   email: 'TODO_EMAIL',
@@ -17,7 +17,7 @@ export const SITE = {
   address: {
     street: 'Rua Mariante',
     number: '180',
-    complement: '9° andar — Edifício Moinhos 180',
+    complement: '9° andar, Edifício Moinhos 180',
     neighborhood: 'Moinhos de Vento',
     city: 'Porto Alegre',
     state: 'RS',
@@ -29,7 +29,7 @@ export const SITE = {
     lng: -51.2068,
   },
   cnpj: 'TODO_CNPJ',
-  responsavelTecnico: 'Dra. Danusa Pires',
+  responsavelTecnico: 'Danusa Pires',
   registroProfissional: 'COREN-RS 395164',
   gtmId: 'TODO_GTM_ID',
   metaPixelId: 'TODO_PIXEL_ID',
@@ -42,94 +42,99 @@ export const SITE = {
 
 export const WA_BASE = `https://wa.me/${SITE.whatsapp}`;
 export const WA_DEFAULT = `${WA_BASE}?text=${encodeURIComponent(
-  'Olá Dra. Danusa, vim pelo site e gostaria de agendar uma avaliação capilar.'
+  'Olá Danusa, vim pelo site e gostaria de agendar uma avaliação capilar.'
 )}`;
 
 /**
- * Método DPC — diferencial proprietário da clínica.
+ * Método ESPELHO. Assinatura clínica proprietária.
+ * Tagline: "O cabelo reflete o organismo. Lemos o reflexo antes de tratar."
  */
 export const METHOD = {
-  name: 'Método DPC',
+  name: 'Método ESPELHO',
   steps: [
     {
-      letter: 'D',
-      title: 'Diagnóstico',
-      desc: 'Leitura clínica e capilar para identificar padrão, causa e contexto. Avaliação do ciclo folicular, inflamação, eixo hormonal e histórico individual.',
+      letter: '01',
+      title: 'Leitura',
+      desc: 'Anamnese clínica de 60 minutos, tricoscopia digital, exames de tração, dermatoscopia, fototricograma e solicitação de exames laboratoriais quando indicado.',
     },
     {
-      letter: 'P',
+      letter: '02',
+      title: 'Reflexo',
+      desc: 'Devolutiva clínica. Mostramos o que o cabelo reflete sobre eixo hormonal, ferritina, vitamina D, sono, microbioma, estresse e nutrição. Avaliação do TrichoTest quando justificado.',
+    },
+    {
+      letter: '03',
       title: 'Protocolo',
-      desc: 'Combinação individualizada de condutas conforme mecanismo dominante. Definição da janela terapêutica, frequência e marcadores de resposta.',
+      desc: 'Plano individualizado por mecanismo dominante. Ativos tópicos, fototerapia, intradermo, exossomas, peptídeos, MMP quando indicado e smart.soro sistêmica.',
     },
     {
-      letter: 'C',
-      title: 'Controle',
-      desc: 'Acompanhamento, ajuste e avaliação evolutiva. Reavaliação programada, ajuste de conduta conforme resposta individual e padrão fisiológico.',
+      letter: '04',
+      title: 'Refração',
+      desc: 'Reavaliação no terceiro mês com nova fototricografia e comparação fotográfica. Ajuste de protocolo e plano de manutenção.',
     },
   ],
 };
 
 /**
- * SERVIÇOS — organizados por lógica clínica, não estética.
- * (Estrutura mantida no nome PILLARS por compatibilidade com componentes ecooa.)
+ * SERVIÇOS, organizados por lógica clínica. 7 linhas conforme BRAND.md v4.
  */
 export const PILLARS = [
   {
-    slug: 'diagnostico-capilar',
-    name: 'Diagnóstico capilar avançado',
-    description: 'Avaliação estruturada do ciclo folicular, inflamação, eixo hormonal e histórico individual.',
-    href: '/servicos/diagnostico-capilar',
-  },
-  {
     slug: 'queda-feminina',
     name: 'Queda capilar feminina',
-    description: 'Investigação dos padrões femininos de queda — eflúvio, alopecia androgenética, fases hormonais.',
+    description: 'Avaliação dos padrões femininos: pós-parto, menopausa, deficiências, estresse crônico, fases hormonais.',
     href: '/servicos/queda-feminina',
   },
   {
-    slug: 'queda-masculina',
-    name: 'Queda capilar masculina',
-    description: 'Avaliação clínica da alopecia androgenética masculina e protocolos individualizados.',
-    href: '/servicos/queda-masculina',
-  },
-  {
-    slug: 'inflamacoes-couro',
-    name: 'Inflamações do couro cabeludo',
-    description: 'Leitura de processos inflamatórios — dermatite seborreica, psoríase, foliculite e correlatos.',
-    href: '/servicos/inflamacoes-couro',
+    slug: 'alopecia-androgenetica',
+    name: 'Alopecia androgenética',
+    description: 'Conduta clínica para homens e mulheres, complementar pré e pós cirurgia capilar.',
+    href: '/servicos/alopecia-androgenetica',
   },
   {
     slug: 'pos-transplante',
-    name: 'Acompanhamento pós-transplante',
-    description: 'Manutenção técnica do resultado da cirurgia capilar — preservação e potencialização a longo prazo.',
+    name: 'Pós-transplante',
+    description: 'Manutenção técnica do resultado da cirurgia capilar entre 60 e 90 dias do pós-operatório.',
     href: '/servicos/pos-transplante',
   },
   {
     slug: 'fortalecimento',
     name: 'Fortalecimento e densidade',
-    description: 'Protocolos de melhora de densidade aparente e fortalecimento da haste capilar.',
+    description: 'Protocolos para quem não tem queda ativa e busca densidade, brilho e força da haste.',
     href: '/servicos/fortalecimento',
   },
   {
+    slug: 'trichotest',
+    name: 'TrichoTest',
+    description: 'Genética capilar aplicada. Protocolo premium individualizado por DNA quando justificado.',
+    href: '/servicos/trichotest',
+  },
+  {
     slug: 'soroterapia',
-    name: 'Soroterapia individualizada',
-    description: 'Formulação de soroterapia conforme avaliação clínica. Sistema soro-match orienta os ativos pertinentes ao quadro.',
+    name: 'Soroterapia (smart.soro)',
+    description: 'Suporte sistêmico sob prescrição clínica. Vitamina C, trio metilador, coenzima Q10 e ativos individualizados.',
     href: '/soroterapia',
+  },
+  {
+    slug: 'diagnostico',
+    name: 'Diagnóstico capilar avançado',
+    description: 'Segunda opinião e leitura clínica estruturada para outros profissionais.',
+    href: '/servicos/diagnostico',
   },
 ];
 
 export const NAV_LINKS = [
-  { label: 'inicio', href: '/' },
-  { label: 'método', href: '/#metodo' },
+  { label: 'home', href: '/' },
+  { label: 'sobre', href: '/sobre' },
+  { label: 'método ESPELHO', href: '/#metodo' },
   { label: 'serviços', href: '/#servicos' },
   { label: 'soroterapia', href: '/soroterapia' },
-  { label: 'terapias holísticas', href: '/terapias-holisticas' },
-  { label: 'sobre', href: '/sobre' },
-  { label: 'profissionais', href: '/profissionais' },
+  { label: 'terapias integrativas', href: '/terapias-integrativas' },
+  { label: 'blog', href: '/blog' },
   { label: 'contato', href: '/contato' },
 ];
 
 /**
- * Serviços principais — lista clínica para schema MedicalSpecialty
+ * Serviços principais, lista clínica para schema MedicalSpecialty
  */
 export const SERVICES_FLAT = PILLARS.map(p => p.name);

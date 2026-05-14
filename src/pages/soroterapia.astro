@@ -4,11 +4,11 @@ import CtaSection from '../components/CtaSection.astro';
 import { WA_DEFAULT, SITE } from '../data/site';
 
 /**
- * Soroterapia — sistema soro-match.
+ * Soroterapia, sistema smart.soro.
  * O paciente seleciona a queixa principal → recebe lista orientativa de ativos pertinentes.
  * IMPORTANTE: a lista é orientativa. A composição final só é definida em avaliação clínica.
  *
- * [PENDENTE: validar lista de ativos com a Dra. Danusa Pires antes do go-live]
+ * [PENDENTE: validar lista de ativos com a Danusa Pires antes do go-live]
  */
 
 interface Queixa {
@@ -43,7 +43,7 @@ const queixas: Queixa[] = [
     slug: 'pele-envelhecimento',
     label: 'Pele, envelhecimento e oxidação',
     ativos: [
-      { nome: 'Glutationa', mecanismo: 'Antioxidante mestre — desintoxicação' },
+      { nome: 'Glutationa', mecanismo: 'Antioxidante mestre, desintoxicação' },
       { nome: 'Ácido alfa lipoico', mecanismo: 'Antioxidante hidro e lipossolúvel' },
       { nome: 'Vitamina C', mecanismo: 'Cofator do colágeno' },
       { nome: 'Selenoproteína', mecanismo: 'Defesa antioxidante celular' },
@@ -82,8 +82,8 @@ const queixas: Queixa[] = [
 ---
 
 <BaseLayout
-  title="Soroterapia individualizada · Sistema soro-match"
-  description="Soroterapia conforme avaliação clínica. Sistema soro-match orienta os ativos pertinentes ao quadro. Composição final definida sempre em consulta. Sede em Porto Alegre — Edifício Moinhos 180."
+  title="Soroterapia individualizada · Sistema smart.soro"
+  description="Soroterapia conforme avaliação clínica. Sistema smart.soro orienta os ativos pertinentes ao quadro. Composição final definida sempre em consulta. Sede em Porto Alegre, Edifício Moinhos 180."
   currentPage="soroterapia"
   breadcrumbs={[{ name: 'Soroterapia', url: '/soroterapia' }]}
 >
@@ -91,16 +91,16 @@ const queixas: Queixa[] = [
   <!-- HERO -->
   <section class="sr-hero">
     <div class="sr-hero-content">
-      <p class="lbl r">soroterapia · sistema soro-match</p>
+      <p class="lbl r">soroterapia · sistema smart.soro</p>
       <h1 class="sr-hero-title r d1">
         Soroterapia <em>individualizada</em>,<br>
         não fórmula de prateleira.
       </h1>
       <p class="sr-hero-lead r d2">
-        Soroterapia faz parte do plano clínico apenas quando a avaliação justifica. A composição é definida conforme histórico, exames pertinentes e padrão fisiológico individual. O sistema soro-match abaixo orienta os ativos potencialmente pertinentes ao seu quadro — a fórmula final só é definida em consulta.
+        Soroterapia faz parte do plano clínico apenas quando a avaliação justifica. A composição é definida conforme histórico, exames pertinentes e padrão fisiológico individual. O sistema smart.soro abaixo orienta os ativos potencialmente pertinentes ao seu quadro, a fórmula final só é definida em consulta.
       </p>
       <div class="sr-hero-actions r d3">
-        <a href="#match" class="btn btn-primary">explorar soro-match</a>
+        <a href="#match" class="btn btn-primary">explorar smart.soro</a>
         <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="dh-hero-link">conversar pelo WhatsApp →</a>
       </div>
     </div>
@@ -116,7 +116,7 @@ const queixas: Queixa[] = [
   <!-- SISTEMA SORO-MATCH -->
   <section id="match" class="section-cream">
     <div style="max-width:780px">
-      <p class="lbl r">sistema soro-match</p>
+      <p class="lbl r">sistema smart.soro</p>
       <h2 class="section-title r d1">Selecione a queixa. <em>Veja</em> os ativos pertinentes.</h2>
       <p class="section-subtitle r d2">A leitura é orientativa, não prescritiva. Evita expectativa cega e dá referência técnica do que pode entrar na composição. A definição final acontece em avaliação clínica, conforme histórico, exames e padrão individual.</p>
     </div>
@@ -175,7 +175,7 @@ const queixas: Queixa[] = [
 
     <ol class="dh-flow r d1">
       <li><span>01</span><div><strong>Anamnese e indicação</strong>Levantamento clínico, leitura de exames quando houver, definição se a soroterapia faz sentido no plano.</div></li>
-      <li><span>02</span><div><strong>Composição individualizada</strong>Ativos, dose e via de administração definidos conforme o caso — não há fórmula única.</div></li>
+      <li><span>02</span><div><strong>Composição individualizada</strong>Ativos, dose e via de administração definidos conforme o caso, não há fórmula única.</div></li>
       <li><span>03</span><div><strong>Aplicação na sala dedicada</strong>Ambiente projetado para o tempo de cada sessão. Aplicação conduzida pela equipe técnica com monitoramento.</div></li>
       <li><span>04</span><div><strong>Plano de continuidade</strong>Quando há indicação de ciclo, frequência e marcadores de acompanhamento são definidos no protocolo.</div></li>
     </ol>
@@ -191,14 +191,14 @@ const queixas: Queixa[] = [
     <div class="sr-faq">
       <details class="sr-faq-item r" open>
         <summary><span>Qualquer pessoa pode fazer soroterapia?</span><span class="ic">+</span></summary>
-        <p>Não. Há contraindicações que precisam ser avaliadas em anamnese — função renal, função hepática, alergias específicas, gestação, uso de medicamentos. A primeira consulta é obrigatória antes de qualquer aplicação.</p>
+        <p>Não. Há contraindicações que precisam ser avaliadas em anamnese, função renal, função hepática, alergias específicas, gestação, uso de medicamentos. A primeira consulta é obrigatória antes de qualquer aplicação.</p>
       </details>
       <details class="sr-faq-item r d1">
         <summary><span>Quanto tempo dura uma sessão?</span><span class="ic">+</span></summary>
         <p>Em média entre 40 e 90 minutos, conforme a composição e o volume. A sala foi pensada para que esse tempo seja confortável.</p>
       </details>
       <details class="sr-faq-item r d2">
-        <summary><span>O sistema soro-match substitui a consulta?</span><span class="ic">+</span></summary>
+        <summary><span>O sistema smart.soro substitui a consulta?</span><span class="ic">+</span></summary>
         <p>Não. É uma ferramenta orientativa que mostra ativos potencialmente pertinentes. A composição final, dose, via de administração e frequência são definidas em avaliação clínica.</p>
       </details>
       <details class="sr-faq-item r d3">

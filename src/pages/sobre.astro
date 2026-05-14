@@ -6,7 +6,7 @@ import { SITE } from '../data/site';
 
 <BaseLayout
   title="Sobre · Da emergência à tricologia clínica"
-  description="A trajetória da Dra. Danusa Pires: 18 anos em saúde, especialização em tricologia avançada. Por que diagnóstico clínico antecede protocolo na clínica do Edifício Moinhos 180."
+  description="A trajetória da Danusa Pires: 18 anos em saúde, especialização em tricologia & saúde integrativa. Por que diagnóstico clínico antecede protocolo na clínica do Edifício Moinhos 180."
   currentPage="sobre"
   breadcrumbs={[{ name: 'Sobre', url: '/sobre' }]}
 >
@@ -22,10 +22,11 @@ import { SITE } from '../data/site';
   <section class="section-cream">
     <div class="g2" style="align-items:center;gap:var(--space-2xl)">
       <div>
-        <h2 class="section-title r">{SITE.foundedYear ? '18 anos em saúde, agora em ' : ''}<em>tricologia avançada</em>.</h2>
+        <p class="lbl r">{SITE.responsavelTecnico} · {SITE.registroProfissional}</p>
+        <h2 class="section-title r">18 anos em saúde, agora em <em>tricologia & saúde integrativa</em>.</h2>
         <p class="section-subtitle r d1" style="max-width:none;margin-bottom:var(--space-md)">Antes da clínica, foram quase duas décadas atuando em emergências. Esse percurso ensinou algo que se tornaria a base do trabalho atual: <strong>diagnóstico correto antecede qualquer conduta</strong>. Em sala de urgência, errar essa ordem é grave. Em tricologia, é desperdiçar o tempo do paciente.</p>
-        <p class="section-subtitle r d2" style="max-width:none;margin-bottom:var(--space-md)">Desde {SITE.foundedYear}, a clínica dedica-se exclusivamente à tricologia avançada — investigação do ciclo folicular, inflamação do couro cabeludo, eixo hormonal e padrão individual de resposta.</p>
-        <p class="section-subtitle r d3" style="max-width:none">Atuamos dentro do que o conselho determina, com responsabilidade técnica registrada — {SITE.registroProfissional}.</p>
+        <p class="section-subtitle r d2" style="max-width:none;margin-bottom:var(--space-md)">Desde {SITE.foundedYear}, a clínica dedica-se à tricologia & saúde integrativa. Investigação do ciclo folicular, inflamação do couro cabeludo, eixo hormonal, ferritina, vitamina D, sono, microbioma e estresse antes do protocolo individualizado.</p>
+        <p class="section-subtitle r d3" style="max-width:none">A clínica opera com equipe especializada, dentro do que o conselho determina, em ambiente projetado para o tempo de cada consulta.</p>
       </div>
       <picture class="r d2" style="aspect-ratio:4/5;display:block;overflow:hidden">
         <source srcset="/images/space/clinic-interior.avif" type="image/avif" />

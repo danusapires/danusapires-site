@@ -1,5 +1,5 @@
 /* ============================================================
-   DESIGN TOKENS — Dra. Danusa Pires · Tricologia Avançada
+   DESIGN TOKENS, Danusa Pires · Tricologia & Saúde Integrativa
    Sistema: OBSIDIAN CLINICAL
    Fonte de verdade: danusa-brand/branding.md + danusa_master.md
    ============================================================
@@ -19,7 +19,7 @@
   --c-white: #FFFFFF;        /* Branco técnico · legibilidade */
 
   /* ============= ALIASES SEMÂNTICOS ============= */
-  /* Mantenho nomes ecooa pra compat de componentes — só os VALORES mudam */
+  /* Mantenho nomes ecooa pra compat de componentes, só os VALORES mudam */
   --color-brand: var(--c-gold);
   --color-brand-light: #D4BB7A;     /* tom dourado clarificado para hover/dark */
   --color-brand-mid: var(--c-gold);

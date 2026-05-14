@@ -1,34 +1,31 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PillarCard from '../components/PillarCard.astro';
-import ProfessionalCard from '../components/ProfessionalCard.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import CtaSection from '../components/CtaSection.astro';
 import { SITE, PILLARS, METHOD, WA_DEFAULT } from '../data/site';
-import { professionals } from '../data/professionals';
 ---
 
 <BaseLayout
-  title="Tricologia avançada com método clínico"
-  description="Tratamento capilar baseado em diagnóstico, não tentativa e erro. Avaliação do ciclo folicular, inflamação e eixo hormonal para definição de protocolo individualizado. Edifício Moinhos 180, Porto Alegre."
-  currentPage="inicio"
+  title="Tricologia & Saúde Integrativa com método clínico"
+  description="O cabelo é reflexo do organismo. Investigação do ciclo folicular, eixo hormonal, ferritina, vitamina D, sono, microbioma e estresse antes do protocolo individualizado. Edifício Moinhos 180, Porto Alegre."
+  currentPage="home"
 >
 
-  <!-- HERO — fullbleed editorial dark + tricoscopia -->
+  <!-- HERO, fullbleed editorial dark + tricoscopia -->
   <section class="dh-hero">
     <div class="dh-hero-content">
-      <p class="lbl r">Moinhos de Vento · Porto Alegre · {SITE.registroProfissional}</p>
+      <p class="lbl r">Moinhos de Vento · Porto Alegre</p>
       <h1 class="dh-hero-title r d1">
-        Diagnóstico capilar de precisão para <em>queda</em> e <em>afinamento</em>.
+        O cabelo é reflexo do <em>organismo</em>.
       </h1>
       <p class="dh-hero-lead r d2">
-        Avaliação do ciclo folicular, inflamação e eixo hormonal para definição de protocolo individualizado. Tratamento capilar baseado em diagnóstico, não tentativa e erro.
+        A tricologia praticada aqui não isola o fio do sistema. Investigamos hormônios, ferritina, vitamina D, microbioma, sono e estresse antes de qualquer protocolo individualizado.
       </p>
       <div class="dh-hero-actions r d3">
         <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="btn btn-primary">agendar avaliação</a>
-        <a href="#metodo" class="dh-hero-link">conhecer o Método DPC →</a>
+        <a href="#metodo" class="dh-hero-link">conhecer o Método ESPELHO →</a>
       </div>
-      <p class="dh-hero-credential r d4">{SITE.responsavelTecnico} · Enfermeira especialista · 18+ anos em saúde</p>
+      <p class="dh-hero-credential r d4">{SITE.responsavelTecnico} · {SITE.brandSpecialty}</p>
     </div>
 
     <div class="dh-hero-image" aria-hidden="true">
@@ -40,12 +37,12 @@ import { professionals } from '../data/professionals';
     </div>
   </section>
 
-  <!-- MÉTODO DPC — coração da diferenciação -->
+  <!-- MÉTODO ESPELHO, coração da diferenciação -->
   <section id="metodo" class="section-cream">
     <div class="dh-method-head">
       <p class="lbl r">{METHOD.name}</p>
-      <h2 class="section-title r d1">Diagnóstico, <em>protocolo</em>, controle.</h2>
-      <p class="section-subtitle r d2">Sistema clínico estruturado em três etapas. Reduz a percepção de procedimento isolado, aumenta autoridade e diferenciação. Cada paciente passa pela mesma estrutura, com protocolo individualizado.</p>
+      <h2 class="section-title r d1">Leitura, <em>reflexo</em>, protocolo, refração.</h2>
+      <p class="section-subtitle r d2">Assinatura clínica em quatro fases. O cabelo é o sintoma mais visível de um quadro sistêmico. Lemos o reflexo antes de tratar.</p>
     </div>
 
     <div class="dh-method-grid">
@@ -59,7 +56,7 @@ import { professionals } from '../data/professionals';
     </div>
   </section>
 
-  <!-- PROBLEMAS TRATADOS — serviços por lógica clínica -->
+  <!-- PROBLEMAS TRATADOS, serviços por lógica clínica -->
   <section id="servicos">
     <div style="max-width:840px">
       <p class="lbl r">problemas tratados</p>
@@ -77,7 +74,7 @@ import { professionals } from '../data/professionals';
     </div>
   </section>
 
-  <!-- COMO FUNCIONA — split editorial: foto + steps -->
+  <!-- COMO FUNCIONA, split editorial: foto + steps -->
   <section class="section-cream">
     <div class="g2" style="align-items:center;gap:var(--space-2xl)">
       <picture class="r" style="aspect-ratio:4/5;display:block;overflow:hidden">
@@ -133,7 +130,7 @@ import { professionals } from '../data/professionals';
         role="Pós-transplante"
       />
       <TestimonialCard
-        quote="A avaliação investigou questões hormonais que outros profissionais não consideraram. O protocolo ajustou conforme a resposta — não foi padrão."
+        quote="A avaliação investigou questões hormonais que outros profissionais não consideraram. O protocolo ajustou conforme a resposta, não foi padrão."
         author="[PENDENTE]"
         role="Eflúvio crônico"
       />
@@ -157,7 +154,7 @@ import { professionals } from '../data/professionals';
       </details>
       <details class="dh-faq-item r d1">
         <summary><span>Vou precisar de exames de sangue ou de outros profissionais?</span><span class="ic">+</span></summary>
-        <p>Em parte dos casos sim. Quando há suspeita de causa sistêmica — tireoide, deficiências, padrão hormonal — encaminhamos para o profissional adequado e integramos o cuidado.</p>
+        <p>Em parte dos casos sim. Quando há suspeita de causa sistêmica, tireoide, deficiências, padrão hormonal, encaminhamos para o profissional adequado e integramos o cuidado.</p>
       </details>
       <details class="dh-faq-item r d2">
         <summary><span>Atendem casos pós-transplante capilar?</span><span class="ic">+</span></summary>
@@ -311,7 +308,7 @@ import { professionals } from '../data/professionals';
       .dh-method-step { border-right: 0; }
     }
 
-    /* COMO FUNCIONA — fluxo numerado */
+    /* COMO FUNCIONA, fluxo numerado */
     .dh-flow { list-style: none; margin: var(--space-lg) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-md); }
     .dh-flow li {
       display: grid;
@@ -338,7 +335,7 @@ import { professionals } from '../data/professionals';
     }
     .dh-flow div { font-size: 14px; line-height: 1.8; color: rgba(11,11,11,.7); }
 
-    /* AMBIENTE — fullbleed dark com bg */
+    /* AMBIENTE, fullbleed dark com bg */
     .dh-environment {
       position: relative;
       padding: clamp(5rem, 12vh, 8rem) var(--section-px);
