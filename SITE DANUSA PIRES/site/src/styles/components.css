@@ -1,5 +1,5 @@
 /* ============================================================
-   COMPONENTS — Obsidian Clinical
+   COMPONENTS, Obsidian Clinical
    ============================================================ */
 
 /* === Buttons === */
@@ -21,7 +21,7 @@
   border: 1px solid transparent;
 }
 
-/* CTA principal: dourado (ponto focal — máx 5%) */
+/* CTA principal: dourado (ponto focal, máx 5%) */
 .btn-primary {
   background: var(--c-gold);
   color: var(--c-black);
@@ -53,7 +53,7 @@
   color: var(--c-beige);
 }
 
-/* CTA terciário sobre dark — bege */
+/* CTA terciário sobre dark, bege */
 .btn-white {
   background: var(--c-beige);
   color: var(--c-black);
@@ -255,7 +255,7 @@
   border-bottom: 1px solid rgba(198, 168, 90, 0.12);
 }
 
-/* Wordmark editorial — Obsidian Clinical */
+/* Wordmark editorial, Obsidian Clinical */
 .nav-brand {
   display: inline-flex;
   align-items: center;

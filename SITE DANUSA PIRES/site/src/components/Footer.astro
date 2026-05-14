@@ -15,7 +15,7 @@ import { SITE, NAV_LINKS, PILLARS } from '../data/site';
         <strong style="color:var(--c-beige);font-weight:500">Sede · Porto Alegre</strong><br>
         {SITE.address.street}, {SITE.address.number}<br>
         {SITE.address.complement}<br>
-        {SITE.address.neighborhood} · {SITE.address.city} — {SITE.address.state}
+        {SITE.address.neighborhood} · {SITE.address.city}, {SITE.address.state}
       </p>
       <p style="line-height:1.85;margin-top:16px;color:var(--c-gold);font-size:11px;letter-spacing:.14em;text-transform:uppercase">{SITE.onlineCare}</p>
     </div>
@@ -47,8 +47,8 @@ import { SITE, NAV_LINKS, PILLARS } from '../data/site';
 
   <div class="footer-bottom">
     <p>
-      Responsável técnico: {SITE.responsavelTecnico}, {SITE.registroProfissional}.
-      <span style="color:var(--color-ink-ghost)">{SITE.cnpj && SITE.cnpj.startsWith('TODO') ? '' : `CNPJ ${SITE.cnpj}.`}</span>
+      {SITE.address.neighborhood} · {SITE.address.city}
+      <span style="color:var(--color-ink-ghost)">{SITE.cnpj && SITE.cnpj.startsWith('TODO') ? '' : ` · CNPJ ${SITE.cnpj}`}</span>
     </p>
     <p style="margin-top:10px">
       <a href="/politica-de-privacidade">política de privacidade</a>

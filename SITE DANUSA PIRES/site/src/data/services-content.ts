@@ -1,7 +1,7 @@
 /**
  * Conteúdo detalhado dos 6 serviços clínicos.
  * Estrutura obrigatória: problema · mecanismo · intervenção · resultado possível.
- * Brandbook proíbe promessas absolutas — usar "resposta variável conforme padrão fisiológico individual".
+ * Brandbook proíbe promessas absolutas, usar "resposta variável conforme padrão fisiológico individual".
  */
 
 export interface ServiceContent {
@@ -32,11 +32,11 @@ export const services: Record<string, ServiceContent> = {
       image: 'clinical/trichoscopy-exam',
     },
     problem:
-      'Quadros capilares — queda, afinamento, alterações do couro cabeludo — são rotineiramente tratados de forma genérica, sem investigação adequada da causa. Resultado: ciclos longos de tentativa e erro, com pouca evolução.',
+      'Quadros capilares, queda, afinamento, alterações do couro cabeludo, são rotineiramente tratados de forma genérica, sem investigação adequada da causa. Resultado: ciclos longos de tentativa e erro, com pouca evolução.',
     mechanism:
-      'O ciclo folicular tem fases reguladas por fatores hormonais, vasculares, inflamatórios e nutricionais. Quando algo desloca a proporção entre fases, surgem sintomas — queda, miniaturização, descamação. A leitura instrumental do couro cabeludo identifica densidade folicular, padrão de afinamento, sinais inflamatórios, condição da haste capilar e presença de processos secundários.',
+      'O ciclo folicular tem fases reguladas por fatores hormonais, vasculares, inflamatórios e nutricionais. Quando algo desloca a proporção entre fases, surgem sintomas, queda, miniaturização, descamação. A leitura instrumental do couro cabeludo identifica densidade folicular, padrão de afinamento, sinais inflamatórios, condição da haste capilar e presença de processos secundários.',
     intervention: [
-      'Anamnese estruturada — histórico, evolução, hábitos, eventos gatilho, medicamentos.',
+      'Anamnese estruturada, histórico, evolução, hábitos, eventos gatilho, medicamentos.',
       'Leitura visual e instrumental do couro cabeludo e dos fios.',
       'Solicitação de exames laboratoriais quando há suspeita de causa sistêmica (tireoide, ferro, vitamina D, perfil hormonal).',
       'Encaminhamento integrado a outros profissionais quando indicado.',
@@ -69,11 +69,11 @@ export const services: Record<string, ServiceContent> = {
       eyebrow: 'serviço · queda capilar',
       title: 'Queda capilar feminina.',
       emphasis: 'feminina',
-      lead: 'Investigação dos padrões femininos de queda — eflúvio agudo e crônico, alopecia androgenética feminina, fases hormonais. Conduta conforme mecanismo dominante.',
+      lead: 'Investigação dos padrões femininos de queda, eflúvio agudo e crônico, alopecia androgenética feminina, fases hormonais. Conduta conforme mecanismo dominante.',
       image: 'clinical/scalp-female-closeup',
     },
     problem:
-      'Mulheres em diferentes fases — pós-parto, menopausa, sob estresse crônico, em uso de medicamentos específicos — apresentam padrões distintos de queda capilar. Tratar todos os casos igual desperdiça tempo terapêutico.',
+      'Mulheres em diferentes fases, pós-parto, menopausa, sob estresse crônico, em uso de medicamentos específicos, apresentam padrões distintos de queda capilar. Tratar todos os casos igual desperdiça tempo terapêutico.',
     mechanism:
       'A queda feminina pode ser difusa (eflúvio, gatilhos sistêmicos), padronizada (alopecia androgenética com afinamento na linha central) ou cicatricial (mais raro, exige diagnóstico diferencial). Investigação hormonal, ferro sérico, ferritina, função tireoidiana e vitamina D são rotina nessa avaliação.',
     intervention: [
@@ -115,7 +115,7 @@ export const services: Record<string, ServiceContent> = {
     problem:
       'A alopecia androgenética masculina segue um padrão visualmente reconhecido, mas a evolução é variável entre indivíduos. Conduta sem leitura clínica subestima a velocidade do quadro ou supervaloriza intervenções com pouco retorno.',
     mechanism:
-      'Sensibilidade folicular à di-hidrotestosterona (DHT) leva à miniaturização progressiva dos fios em áreas geneticamente determinadas — entradas, coroa, vértice. A leitura instrumental quantifica miniaturização e identifica fase do quadro.',
+      'Sensibilidade folicular à di-hidrotestosterona (DHT) leva à miniaturização progressiva dos fios em áreas geneticamente determinadas, entradas, coroa, vértice. A leitura instrumental quantifica miniaturização e identifica fase do quadro.',
     intervention: [
       'Leitura clínica do padrão e velocidade de evolução.',
       'Plano combinando cuidados clínicos e indicações domiciliares.',
@@ -134,7 +134,7 @@ export const services: Record<string, ServiceContent> = {
     faqs: [
       {
         q: 'A partir de que idade vale começar?',
-        a: 'A janela útil de intervenção é nas fases iniciais — quando o folículo ainda preserva atividade. Identificar precocemente o padrão é mais relevante do que a idade isolada.',
+        a: 'A janela útil de intervenção é nas fases iniciais, quando o folículo ainda preserva atividade. Identificar precocemente o padrão é mais relevante do que a idade isolada.',
       },
       {
         q: 'Preciso usar produto pra sempre?',
@@ -149,13 +149,13 @@ export const services: Record<string, ServiceContent> = {
       eyebrow: 'serviço · couro cabeludo',
       title: 'Inflamações do couro cabeludo.',
       emphasis: 'Inflamações',
-      lead: 'Leitura clínica de processos inflamatórios — dermatite seborreica, foliculite, descamações, prurido. Quando a inflamação alimenta a queda, tratar a causa precede o resto.',
+      lead: 'Leitura clínica de processos inflamatórios, dermatite seborreica, foliculite, descamações, prurido. Quando a inflamação alimenta a queda, tratar a causa precede o resto.',
       image: 'clinical/serum-application',
     },
     problem:
       'Inflamação do couro cabeludo é causa frequente de queda secundária e barreira à eficácia de qualquer protocolo capilar. Tratar a queda sem tratar a inflamação é insistir contra o terreno.',
     mechanism:
-      'Processos inflamatórios — dermatite seborreica, foliculite por Malassezia, psoríase, dermatites de contato — alteram a função da barreira do couro cabeludo, modificam o microbioma local e podem comprometer a fase de crescimento do folículo. Leitura clínica identifica padrão e gravidade.',
+      'Processos inflamatórios, dermatite seborreica, foliculite por Malassezia, psoríase, dermatites de contato, alteram a função da barreira do couro cabeludo, modificam o microbioma local e podem comprometer a fase de crescimento do folículo. Leitura clínica identifica padrão e gravidade.',
     intervention: [
       'Investigação clínica com diferenciação dos padrões inflamatórios.',
       'Conduta dirigida ao processo dominante.',
@@ -189,9 +189,9 @@ export const services: Record<string, ServiceContent> = {
       image: 'clinical/procedure-mesotherapy',
     },
     problem:
-      'Implante capilar é investimento. Sem cuidado pós-operatório técnico, parte do resultado pode ser perdida no longo prazo — fios doadores comportam-se como na origem, e fatores adjacentes precisam de gestão contínua.',
+      'Implante capilar é investimento. Sem cuidado pós-operatório técnico, parte do resultado pode ser perdida no longo prazo, fios doadores comportam-se como na origem, e fatores adjacentes precisam de gestão contínua.',
     mechanism:
-      'Os fios transplantados mantêm a programação genética da área doadora — geralmente preservados. Os fios circundantes na área receptora seguem o padrão original, e podem continuar miniaturizando. O cuidado de manutenção atua sobre essa segunda camada.',
+      'Os fios transplantados mantêm a programação genética da área doadora, geralmente preservados. Os fios circundantes na área receptora seguem o padrão original, e podem continuar miniaturizando. O cuidado de manutenção atua sobre essa segunda camada.',
     intervention: [
       'Avaliação pós-operatória integrada com a orientação do cirurgião.',
       'Cuidados clínicos adequados à fase (cicatrização, consolidação, manutenção).',
@@ -238,7 +238,7 @@ export const services: Record<string, ServiceContent> = {
       'Reavaliação programada com fotografia padronizada.',
     ],
     outcome:
-      'Melhora gradual da qualidade dos fios novos formados ao longo dos ciclos foliculares. Tempo de resposta variável — geralmente entre 3 e 6 meses para sinais consistentes.',
+      'Melhora gradual da qualidade dos fios novos formados ao longo dos ciclos foliculares. Tempo de resposta variável, geralmente entre 3 e 6 meses para sinais consistentes.',
     indications: [
       'Afinamento sem queda ativa',
       'Fios quebradiços ou pouco volume',

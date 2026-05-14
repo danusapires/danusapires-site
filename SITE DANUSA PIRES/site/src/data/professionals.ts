@@ -28,7 +28,7 @@ export const professionals: Professional[] = [
     bg: '#2A2A2A',
     ig: '@dradanusa',
     description:
-      'Enfermeira com 18 anos em saúde, dedicada exclusivamente à tricologia desde 2022. Conduz avaliações estruturadas de 60 minutos, planeja protocolos por mecanismo dominante e acompanha a evolução de cada paciente. O cabelo é lido como reflexo do organismo — hormônios, ferritina, vitamina D, microbioma intestinal, sono e história clínica antes de qualquer protocolo.',
+      'Enfermeira com 18 anos em saúde, dedicada exclusivamente à tricologia desde 2022. Conduz avaliações estruturadas de 60 minutos, planeja protocolos por mecanismo dominante e acompanha a evolução de cada paciente. O cabelo é lido como reflexo do organismo, hormônios, ferritina, vitamina D, microbioma intestinal, sono e história clínica antes de qualquer protocolo.',
     tags: ['Tricologia avançada', 'Diagnóstico sistêmico', 'Método ESPELHO', 'Nutracêuticos'],
     registration: 'COREN-RS 395164',
     education: {
@@ -82,7 +82,7 @@ export const professionals: Professional[] = [
     unit: 'tricologia',
     bg: '#4A453F',
     description:
-      'Amanda dá suporte direto a cada procedimento — da preparação do paciente à execução técnica dos protocolos. Treinada, alinhada à estrutura clínica e comprometida com a mesma exigência de cuidado em cada atendimento.',
+      'Amanda dá suporte direto a cada procedimento, da preparação do paciente à execução técnica dos protocolos. Treinada, alinhada à estrutura clínica e comprometida com a mesma exigência de cuidado em cada atendimento.',
     tags: ['Procedimentos', 'Preparo e esterilização', 'Execução técnica', 'Acolhimento'],
     registration: 'COREN-RS 127.286',
     specialties: ['Procedimentos clínicos', 'Suporte técnico'],

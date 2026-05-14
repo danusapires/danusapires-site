@@ -1,5 +1,5 @@
 /**
- * SITE — Danusa Pires · Tricologia & Saúde Integrativa
+ * SITE, Danusa Pires · Tricologia & Saúde Integrativa
  * Sistema: Obsidian Clinical · Brandbook v4 · Maio 2026
  * Manifesto: "O cabelo é reflexo do nosso organismo."
  */
@@ -18,7 +18,7 @@ export const SITE = {
   address: {
     street: 'Rua Mariante',
     number: '180',
-    complement: '9° andar — Edifício Moinhos 180',
+    complement: '9° andar, Edifício Moinhos 180',
     neighborhood: 'Moinhos de Vento',
     city: 'Porto Alegre',
     state: 'RS',
@@ -49,7 +49,7 @@ export const WA_DEFAULT = `${WA_BASE}?text=${encodeURIComponent(
 )}`;
 
 /**
- * MANIFESTO — frase fundadora da marca.
+ * MANIFESTO, frase fundadora da marca.
  * Premissa: a tricologia praticada aqui não isola o fio do sistema.
  * Investiga hormônios, ferritina, vitamina D, microbioma intestinal,
  * sono, estresse e história clínica antes de propor qualquer protocolo.
@@ -57,7 +57,7 @@ export const WA_DEFAULT = `${WA_BASE}?text=${encodeURIComponent(
 export const MANIFESTO = 'O cabelo é reflexo do nosso organismo.';
 
 /**
- * Método ESPELHO — assinatura clínica proprietária (substitui o antigo Método DPC).
+ * Método ESPELHO, assinatura clínica proprietária (substitui o antigo Método DPC).
  * Tagline: "O cabelo reflete o organismo. Lemos o reflexo antes de tratar."
  */
 export const METHOD = {
@@ -72,7 +72,7 @@ export const METHOD = {
     {
       letter: 'R',
       title: 'Reflexo',
-      desc: 'Devolutiva clínica: mostramos o que o cabelo está refletindo — qual deficiência, qual eixo hormonal, qual carência. Quando justificado, avaliação do TrichoTest (genética capilar).',
+      desc: 'Devolutiva clínica: mostramos o que o cabelo está refletindo, qual deficiência, qual eixo hormonal, qual carência. Quando justificado, avaliação do TrichoTest (genética capilar).',
     },
     {
       letter: 'P',
@@ -88,7 +88,7 @@ export const METHOD = {
 };
 
 /**
- * SERVIÇOS — 7 linhas clínicas conforme Brandbook v4.
+ * SERVIÇOS, 7 linhas clínicas conforme Brandbook v4.
  * (Estrutura mantida no nome PILLARS por compatibilidade com componentes.)
  *
  * Nota de pendência: TrichoTest e Alopecia androgenética ainda não têm
@@ -99,7 +99,7 @@ export const PILLARS = [
   {
     slug: 'queda-feminina',
     name: 'Queda capilar feminina',
-    description: 'Investigação dos padrões femininos de queda — eflúvio, alopecia androgenética feminina, fases hormonais (pós-parto, menopausa, perimenopausa).',
+    description: 'Investigação dos padrões femininos de queda, eflúvio, alopecia androgenética feminina, fases hormonais (pós-parto, menopausa, perimenopausa).',
     href: '/servicos/queda-feminina',
   },
   {
@@ -122,7 +122,7 @@ export const PILLARS = [
   },
   {
     slug: 'trichotest',
-    name: 'TrichoTest — genética capilar',
+    name: 'TrichoTest, genética capilar',
     description: 'Teste genético capilar para casos avançados. Orienta protocolo premium individualizado por marcadores moleculares.',
     href: '/agendamento',
   },
@@ -141,17 +141,17 @@ export const PILLARS = [
 ];
 
 export const NAV_LINKS = [
-  { label: 'inicio', href: '/' },
-  { label: 'método', href: '/#metodo' },
+  { label: 'home', href: '/' },
+  { label: 'sobre', href: '/sobre' },
+  { label: 'método ESPELHO', href: '/#metodo' },
   { label: 'serviços', href: '/#servicos' },
   { label: 'soroterapia', href: '/soroterapia' },
-  { label: 'terapias holísticas', href: '/terapias-holisticas' },
-  { label: 'sobre', href: '/sobre' },
-  { label: 'profissionais', href: '/profissionais' },
+  { label: 'terapias integrativas', href: '/terapias-integrativas' },
+  { label: 'blog', href: '/blog' },
   { label: 'contato', href: '/contato' },
 ];
 
 /**
- * Serviços principais — lista clínica para schema MedicalSpecialty
+ * Serviços principais, lista clínica para schema MedicalSpecialty
  */
 export const SERVICES_FLAT = PILLARS.map(p => p.name);

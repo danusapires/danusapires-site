@@ -1,5 +1,5 @@
 /* ============================================================
-   FONT FACES — Self-hosted (SIL OFL)
+   FONT FACES, Self-hosted (SIL OFL)
    DM Sans (sans primária) + Playfair Display (serif secundária)
    ============================================================ */
 
@@ -105,7 +105,7 @@ button {
   object-fit: cover;
 }
 
-/* Tipografia editorial — h1/h2 default em Playfair, micro em DM Sans uppercase */
+/* Tipografia editorial, h1/h2 default em Playfair, micro em DM Sans uppercase */
 h1, h2, h3 {
   font-family: var(--font-serif);
   font-weight: 400;
