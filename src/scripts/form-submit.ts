@@ -50,10 +50,48 @@ async function postForm(url: string, payload: Record<string, string>, attempt = 
   }
 }
 
+function validateForm(form: HTMLFormElement): string | null {
+  const requiredFields = form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]');
+
+  for (const field of requiredFields) {
+    const value = field.value.trim();
+    if (!value) {
+      return `${field.placeholder || field.name} é obrigatório`;
+    }
+
+    if (field.type === 'email' || field.name.includes('email')) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        return 'Email inválido';
+      }
+    }
+
+    if (field.type === 'tel' || field.name.includes('phone') || field.name.includes('telefone')) {
+      const phoneRegex = /^\(?[0-9]{2}\)?[\s-]?[0-9]{4,5}[\s-]?[0-9]{4}$/;
+      if (!phoneRegex.test(value.replace(/\D/g, ''))) {
+        return 'Telefone inválido. Use formato (XX) 9XXXX-XXXX';
+      }
+    }
+  }
+
+  return null;
+}
+
 document.querySelectorAll<HTMLFormElement>('.ecooa-form').forEach(form => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+    const validationError = validateForm(form);
+    if (validationError) {
+      if (btn) {
+        btn.textContent = validationError;
+        btn.disabled = false;
+        setTimeout(() => { btn.textContent = 'enviar'; }, 4000);
+      }
+      return;
+    }
+
     if (btn) { btn.disabled = true; btn.textContent = 'enviando...'; }
 
     const formData = new FormData(form);
