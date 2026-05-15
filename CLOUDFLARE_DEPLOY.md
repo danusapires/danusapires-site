@@ -15,7 +15,7 @@ Conectar o domínio `danusapires.com.br` (já registrado no Registro.br) ao Clou
 - Repositório GitHub: `danusapires/danusapires-site`
 - Build command: `npm run build`
 - Output directory: `dist/`
-- Root directory: `SITE DANUSA PIRES/site`
+- Root directory: `/` (raiz do repositório — Astro está na raiz)
 
 ### Fluxo de Setup
 
@@ -29,7 +29,7 @@ Conectar o domínio `danusapires.com.br` (já registrado no Registro.br) ao Clou
 6. **Build configuration:**
    - Build command: `npm run build`
    - Build output directory: `dist/`
-   - Root directory: `SITE DANUSA PIRES/site`
+   - Root directory: `/` (raiz do repositório — Astro está na raiz)
 7. Clique em **Save and Deploy**
 
 Cloudflare criará uma build inicial. Após completar (pode levar 2-5 minutos), você verá um domínio temporário como `https://<hash>.pages.dev`.
