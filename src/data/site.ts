@@ -77,9 +77,9 @@ export const SITE = {
   mission: 'Saúde capilar através da leitura sistêmica do organismo. Protocolos clínicos individualizados que tratam a causa, não apenas o sintoma.',
   tagline: 'O cabelo reflete o organismo. Lemos o reflexo antes de tratar.',
 
-  url: 'https://dradanusa.com.br',
+  url: 'https://danusapires.com.br',
   phone: '+55 51 98016-4433',
-  email: 'TODO_EMAIL',
+  email: 'contato@danusapires.com.br',
   instagram: '@dradanusa',
   whatsapp: '5551980164433',
 
