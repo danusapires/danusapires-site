@@ -2,23 +2,49 @@ const MAX_RETRIES = 2;
 const RETRY_DELAY_MS = 1500;
 const TIMEOUT_MS = 15000;
 
-async function postForm(url: string, data: FormData, attempt = 0): Promise<Response> {
+interface FormResponse {
+  success: boolean;
+  message: string;
+  code?: number;
+}
+
+function formDataToObject(formData: FormData): Record<string, string> {
+  const obj: Record<string, string> = {};
+  formData.forEach((value, key) => {
+    if (!key.startsWith('_')) {
+      obj[key] = String(value);
+    }
+  });
+  return obj;
+}
+
+async function postForm(url: string, payload: Record<string, string>, attempt = 0): Promise<FormResponse> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
   try {
-    const res = await fetch(url, { method: 'POST', body: data, signal: controller.signal });
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
     clearTimeout(timeout);
+
+    const json = (await res.json()) as FormResponse;
+
     if (!res.ok && attempt < MAX_RETRIES) {
       await new Promise(r => setTimeout(r, RETRY_DELAY_MS * (attempt + 1)));
-      return postForm(url, data, attempt + 1);
+      return postForm(url, payload, attempt + 1);
     }
-    return res;
+
+    if (!res.ok) throw new Error(json.message || `HTTP ${res.status}`);
+    return json;
   } catch (err) {
     clearTimeout(timeout);
     if (attempt < MAX_RETRIES) {
       await new Promise(r => setTimeout(r, RETRY_DELAY_MS * (attempt + 1)));
-      return postForm(url, data, attempt + 1);
+      return postForm(url, payload, attempt + 1);
     }
     throw err;
   }
@@ -30,19 +56,23 @@ document.querySelectorAll<HTMLFormElement>('.ecooa-form').forEach(form => {
     const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
     if (btn) { btn.disabled = true; btn.textContent = 'enviando...'; }
 
-    const data = new FormData(form);
-    const formType = data.get('_formType') as string || 'unknown';
-    const matchProf = data.get('matchProfessional') as string || '';
+    const formData = new FormData(form);
+    const formType = formData.get('_formType') as string || 'unknown';
+    const matchProf = formData.get('_matchProfessional') as string || '';
+    const payload = formDataToObject(formData);
+    payload.formType = formType;
 
     try {
-      await postForm(form.action, data);
+      const result = await postForm(form.action, payload);
+
+      if (!result.success) throw new Error(result.message);
 
       // Analytics
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'form_submit_success', { event_label: formType });
       }
 
-      const conversionTypes = ['agendamento', 'b2b-medicina', 'b2b-nutricao'];
+      const conversionTypes = ['agendamento', 'segunda-opiniao', 'consulta-online', 'profissional'];
       if (conversionTypes.includes(formType)) {
         if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
         const redirectUrl = `/obrigado?type=${formType}${matchProf ? `&profissional=${matchProf}` : ''}`;
@@ -59,8 +89,9 @@ document.querySelectorAll<HTMLFormElement>('.ecooa-form').forEach(form => {
       if (ok) ok.style.display = 'block';
 
     } catch (err) {
+      const errMsg = err instanceof Error ? err.message : String(err);
       if (typeof window.gtag === 'function') {
-        window.gtag('event', 'form_submit_error', { event_label: String(err) });
+        window.gtag('event', 'form_submit_error', { event_label: errMsg });
       }
       if (btn) {
         btn.textContent = 'erro, tente novamente';
