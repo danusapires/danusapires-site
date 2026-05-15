@@ -1,5 +1,5 @@
 ---
-import { SITE } from '../data/site';
+import { SITE, SERVICES_FLAT, METHOD } from '../data/site';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import CookieConsent from '../components/CookieConsent.astro';
@@ -82,7 +82,7 @@ import '../styles/responsive.css';
   <link rel="preload" href="/fonts/playfair-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/playfair-display-italic.woff2" as="font" type="font/woff2" crossorigin>
 
-  <!-- Structured Data: Organization -->
+  <!-- Structured Data: Organization, Services & FAQ -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [
@@ -90,16 +90,26 @@ import '../styles/responsive.css';
         "@type": "WebSite",
         "name": SITE.name,
         "url": SITE.url,
+        "description": SITE.mission,
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": `${SITE.url}/search?q={search_term_string}`
+          }
+        }
       },
       {
         "@type": "MedicalBusiness",
+        "@id": `${SITE.url}/#organization`,
         "name": SITE.name,
         "url": SITE.url,
         "telephone": SITE.phone,
         "email": SITE.email,
+        "description": SITE.mission,
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": `${SITE.address.street}, ${SITE.address.number}`,
+          "streetAddress": `${SITE.address.street}, ${SITE.address.number}${SITE.address.complement ? ` - ${SITE.address.complement}` : ''}`,
           "addressLocality": SITE.address.city,
           "addressRegion": SITE.address.state,
           "postalCode": SITE.address.zip,
@@ -110,16 +120,77 @@ import '../styles/responsive.css';
           "latitude": SITE.coordinates.lat,
           "longitude": SITE.coordinates.lng,
         },
-        "openingHoursSpecification": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-          "opens": "09:00",
-          "closes": "20:00",
-        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+            "opens": SITE.hours.weekday.open,
+            "closes": SITE.hours.weekday.close,
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": SITE.hours.saturday.open,
+            "closes": SITE.hours.saturday.close,
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Sunday",
+            "closes": "00:00",
+          }
+        ],
+        "medicalSpecialty": "Dermatology",
+        "knowsAbout": SERVICES_FLAT,
         "sameAs": [
           `https://instagram.com/${SITE.instagram.replace('@','')}`,
+          SITE.url,
         ],
       },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Qual é o Método ESPELHO?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `${METHOD.philosophy}. O método consiste em 4 fases: Leitura (diagnóstico), Reflexo (síntese), Protocolo (tratamento) e Refração (acompanhamento).`
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Qual é a diferença entre tricologia tradicional e saúde integrativa?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Enquanto a tricologia tradicional foca apenas no couro cabeludo e no cabelo, a saúde integrativa enxerga o cabelo como reflexo da saúde sistêmica. Analisamos hormônios, nutrição, inflamação e estresse para tratar a causa, não apenas o sintoma."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Posso fazer consulta online?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `Sim. ${SITE.onlineCareDescription}. A avaliação inicial é feita online, mas alguns procedimentos requerem consulta presencial.`
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quanto tempo leva para ver resultados?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A maioria dos pacientes vê primeiros resultados entre 3-6 meses, dependendo da condição. O acompanhamento estruturado (Refração) ocorre no 3º mês com reavaliação clínica e fototricografia comparativa."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Qual é o valor das consultas?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Os valores variam conforme o tipo de consulta e protocolo. Recomendamos agendar uma avaliação inicial para discussão personalizada de investimento clínico."
+            }
+          }
+        ]
+      }
     ]
   })} />
 
