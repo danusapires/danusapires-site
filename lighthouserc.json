@@ -3,7 +3,10 @@
     "collect": {
       "staticDistDir": "./dist",
       "url": [
-        "http://localhost/index.html"
+        "http://localhost:4321/",
+        "http://localhost:4321/agendamento/",
+        "http://localhost:4321/metodo/",
+        "http://localhost:4321/sobre/"
       ],
       "numberOfRuns": 1,
       "settings": {
