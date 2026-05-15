@@ -117,52 +117,44 @@ const queixas: Queixa[] = [
   <section id="match" class="section-cream">
     <div style="max-width:780px">
       <p class="lbl r">sistema smart.soro</p>
-      <h2 class="section-title r d1">Selecione a queixa. <em>Veja</em> os ativos pertinentes.</h2>
+      <h2 class="section-title r d1">Digite sua queixa. <em>Veja</em> os ativos pertinentes.</h2>
       <p class="section-subtitle r d2">A leitura é orientativa, não prescritiva. Evita expectativa cega e dá referência técnica do que pode entrar na composição. A definição final acontece em avaliação clínica, conforme histórico, exames e padrão individual.</p>
     </div>
 
-    <div class="sm-wrap r d2">
-      <div class="sm-queixas" role="tablist" aria-label="Queixas">
-        {queixas.map((q, i) => (
-          <button
-            class:list={['sm-queixa', { active: i === 0 }]}
-            type="button"
-            role="tab"
-            aria-selected={i === 0 ? 'true' : 'false'}
-            data-target={q.slug}
-            id={`tab-${q.slug}`}
-          >
-            <span class="sm-queixa-num">{String(i + 1).padStart(2, '0')}</span>
-            <span class="sm-queixa-label">{q.label}</span>
-          </button>
-        ))}
-      </div>
+    <div class="sm-search-container r d2" style="margin-top:var(--space-xl);max-width:780px">
+      <input
+        type="text"
+        id="sm-search"
+        class="sm-search-input"
+        placeholder="Ex: queda, fadiga, pele, imunidade..."
+        aria-label="Buscar queixa"
+        autocomplete="off"
+      />
+      <div class="sm-search-hint">Comece digitando para ver as sugestões</div>
+    </div>
 
-      <div class="sm-results">
-        {queixas.map((q, i) => (
-          <div
-            class:list={['sm-panel', { active: i === 0 }]}
-            data-panel={q.slug}
-            role="tabpanel"
-            aria-labelledby={`tab-${q.slug}`}
-            hidden={i !== 0}
-          >
-            <p class="sm-panel-eyebrow">ativos potencialmente pertinentes</p>
-            <h3 class="sm-panel-title">{q.label}</h3>
-            <ul class="sm-ativos">
-              {q.ativos.map(a => (
-                <li>
-                  <strong>{a.nome}</strong>
-                  <span>{a.mecanismo}</span>
-                </li>
-              ))}
-            </ul>
-            <p class="sm-disclaimer">
-              A combinação, doses e via de administração são definidas em avaliação clínica. Resposta variável conforme padrão fisiológico individual.
-            </p>
-          </div>
-        ))}
-      </div>
+    <div class="sm-results-container r d2" style="margin-top:var(--space-lg);max-width:780px">
+      {queixas.map((q, i) => (
+        <div class="sm-result-item" data-queixa={q.slug} data-label={q.label.toLowerCase()}>
+          <p class="sm-panel-eyebrow">ativos potencialmente pertinentes</p>
+          <h3 class="sm-panel-title">{q.label}</h3>
+          <ul class="sm-ativos">
+            {q.ativos.map(a => (
+              <li>
+                <strong>{a.nome}</strong>
+                <span>{a.mecanismo}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="sm-disclaimer">
+            A combinação, doses e via de administração são definidas em avaliação clínica. Resposta variável conforme padrão fisiológico individual.
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <div id="sm-no-results" class="sm-no-results" style="display:none;margin-top:var(--space-lg);text-align:center">
+      <p style="font-size:16px;color:rgba(11,11,11,.6)">Nenhuma queixa encontrada.</p>
     </div>
   </section>
 
@@ -214,27 +206,31 @@ const queixas: Queixa[] = [
   />
 
   <script>
-    const tabs = document.querySelectorAll('.sm-queixa');
-    const panels = document.querySelectorAll('.sm-panel');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.getAttribute('data-target');
-        tabs.forEach(t => {
-          t.classList.remove('active');
-          t.setAttribute('aria-selected', 'false');
-        });
-        panels.forEach(p => {
-          p.classList.remove('active');
-          p.setAttribute('hidden', '');
-        });
-        tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
-        const panel = document.querySelector(`[data-panel="${target}"]`);
-        if (panel) {
-          panel.classList.add('active');
-          panel.removeAttribute('hidden');
+    const searchInput = document.getElementById('sm-search');
+    const resultItems = document.querySelectorAll('.sm-result-item');
+    const noResultsDiv = document.getElementById('sm-no-results');
+
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      resultItems.forEach(item => {
+        const label = item.getAttribute('data-label');
+        const matches = !query || label.includes(query);
+
+        if (matches) {
+          item.style.display = 'block';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
         }
       });
+
+      if (visibleCount === 0 && query) {
+        noResultsDiv.style.display = 'block';
+      } else {
+        noResultsDiv.style.display = 'none';
+      }
     });
   </script>
 
@@ -417,10 +413,64 @@ const queixas: Queixa[] = [
       border-top: 1px solid rgba(11,11,11,.08);
     }
 
+    /* SEARCH INTERFACE */
+    .sm-search-container {
+      position: relative;
+    }
+    .sm-search-input {
+      width: 100%;
+      padding: 18px 20px;
+      font-family: var(--font-primary);
+      font-size: 16px;
+      border: 2px solid rgba(11,11,11,.12);
+      border-radius: 2px;
+      background: var(--c-white);
+      color: var(--c-black);
+      transition: border-color var(--transition-base);
+    }
+    .sm-search-input:focus {
+      outline: none;
+      border-color: var(--c-gold);
+    }
+    .sm-search-input::placeholder {
+      color: rgba(11,11,11,.45);
+    }
+    .sm-search-hint {
+      margin-top: 10px;
+      font-size: 13px;
+      color: rgba(11,11,11,.55);
+      font-style: italic;
+    }
+
+    .sm-results-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .sm-result-item {
+      padding: var(--space-lg);
+      background: var(--c-white);
+      border: 1px solid rgba(11,11,11,.08);
+      border-radius: 2px;
+      transition: border-color var(--transition-base), background var(--transition-base);
+    }
+    .sm-result-item:hover {
+      border-color: var(--c-gold);
+      background: rgba(198,168,90,.02);
+    }
+
+    .sm-no-results {
+      padding: var(--space-lg);
+      background: rgba(11,11,11,.03);
+      border-radius: 2px;
+      text-align: center;
+    }
+
     @media (max-width: 800px) {
       .sm-wrap { grid-template-columns: 1fr; }
       .sm-results { padding: 32px 28px; }
       .sm-ativos li { grid-template-columns: 1fr; gap: 4px; }
+      .sm-search-input { font-size: 16px; padding: 16px 18px; }
     }
 
     /* FLOW */
