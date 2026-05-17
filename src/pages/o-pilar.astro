@@ -1,0 +1,376 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, FORM_TYPES } from '../data/site';
+
+const formConfig = FORM_TYPES.newsletter;
+---
+
+<BaseLayout
+  title="O Pilar | newsletter clínica de Danusa Pires"
+  description="Triagem clínica em 7 dias por email + carta quinzenal sobre saúde capilar sistêmica. Leitura honesta do que de fato derruba o fio: hormônios, ferro, sono, microbioma, estresse. Sem promessa de produto. Sem hype. Você cancela quando quiser."
+  currentPage="o-pilar"
+  breadcrumbs={[{ name: 'O Pilar', url: '/o-pilar' }]}
+>
+
+  <!-- HERO ============================================ -->
+  <section class="pilar-hero">
+    <div class="pilar-hero-content">
+      <p class="lbl r">O Pilar · carta clínica quinzenal</p>
+      <h1 class="pilar-hero-title r d1">
+        A queda capilar quase nunca é sobre <em>o cabelo</em>.
+      </h1>
+      <p class="pilar-hero-lead r d2">
+        Se você já tentou shampoo caro, vitamina avulsa, mudou de dermatologista, e a queda continua: o problema não é resistência ao tratamento. É que a investigação não chegou ao mecanismo. Em <strong>7 dias</strong>, por email, você recebe a triagem clínica que deveria ter sido feita na primeira consulta da sua vida.
+      </p>
+    </div>
+  </section>
+
+  <!-- ACCUSATION AUDIT ================================= -->
+  <section class="pilar-section pilar-audit">
+    <div class="pilar-narrow">
+      <p class="lbl r">antes que você feche essa página</p>
+      <h2 class="r d1">Você provavelmente está pensando uma destas quatro coisas.</h2>
+      <ol class="pilar-audit-list r d2">
+        <li><strong>"Mais uma newsletter de clínica querendo me vender."</strong> Justo. A maior parte é. Esta carta nunca vende produto. Vende, no máximo, a possibilidade de investigar de verdade — e isso só faz sentido se a investigação for adequada para você.</li>
+        <li><strong>"Vão me dar dicas genéricas que já li no Instagram."</strong> Razoável. Carta quinzenal de 600 a 1.000 palavras com estudo lido, protocolo aplicado, dúvida em aberto. Densidade alta, formato fixo, sem clickbait.</li>
+        <li><strong>"Já tentei tudo, não vai funcionar comigo."</strong> Possível. Em consultório, 4 de cada 10 pacientes refratárias tinham um marcador sistêmico que nunca tinha sido medido. Antes de concluir que não funciona, vale checar se foi medido.</li>
+        <li><strong>"Não tenho cabeça pra entender esse nível clínico."</strong> Você tem. A carta é escrita para mulher inteligente, ocupada, cética. Não para paciente leiga. Quem subestima o leitor escreve para todo mundo e não chega em ninguém.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET ===================================== -->
+  <section class="pilar-section pilar-content">
+    <div class="pilar-narrow">
+      <p class="lbl r">o que você recebe</p>
+      <h2 class="r d1">Triagem clínica em 7 dias + carta quinzenal.</h2>
+      <p class="r d2 pilar-content-lead">
+        Sequência fechada de 7 emails ao longo de 7 dias, escrita pela Danusa, cobrindo o que precisaria estar mapeado antes de qualquer protocolo capilar funcionar. Depois, carta quinzenal com a mesma densidade.
+      </p>
+
+      <div class="pilar-week">
+        <article class="pilar-day r">
+          <span class="pilar-day-num">dia 1</span>
+          <h3>Por que a queda dura mais de 6 meses?</h3>
+          <p>As 4 categorias clínicas que diferenciam queda aguda recuperável de queda crônica progressiva. Como identificar em qual você está.</p>
+        </article>
+        <article class="pilar-day r d1">
+          <span class="pilar-day-num">dia 2</span>
+          <h3>Ferritina, não hemoglobina.</h3>
+          <p>Por que "exame normal" pode estar subótimo para o folículo. A faixa que importa para cabelo e por que poucos profissionais pedem.</p>
+        </article>
+        <article class="pilar-day r d2">
+          <span class="pilar-day-num">dia 3</span>
+          <h3>Tireoide silenciosa.</h3>
+          <p>TSH dentro da faixa não exclui disfunção. T4 livre, T3 reverso, anti-TPO: o que cada um diz sobre o seu fio.</p>
+        </article>
+        <article class="pilar-day r d3">
+          <span class="pilar-day-num">dia 4</span>
+          <h3>Sono, cortisol e queda em ondas.</h3>
+          <p>O eixo HPA explica por que estresse de 8 meses atrás aparece como queda agora. Como interromper o ciclo.</p>
+        </article>
+        <article class="pilar-day r d4">
+          <span class="pilar-day-num">dia 5</span>
+          <h3>O hormonal feminino além do "estou na menopausa".</h3>
+          <p>SOP subclínica, perimenopausa precoce, anticoncepcional cumulativo. Investigação dirigida em vez de "vamos repor estrogênio".</p>
+        </article>
+        <article class="pilar-day r d5">
+          <span class="pilar-day-num">dia 6</span>
+          <h3>O que minoxidil resolve e o que não resolve.</h3>
+          <p>Quando funciona, quando atrapalha, e por que parar 4 semanas pode ser a melhor decisão clínica.</p>
+        </article>
+        <article class="pilar-day r d6">
+          <span class="pilar-day-num">dia 7</span>
+          <h3>Decisão estruturada.</h3>
+          <p>Os 6 exames que você deveria ter em mão antes de marcar a próxima consulta — com qualquer profissional, em qualquer cidade.</p>
+        </article>
+      </div>
+
+      <p class="r pilar-after">
+        Depois dos 7 dias: <strong>carta quinzenal</strong> (quartas-feiras, 8h) com 1 insight clínico, 1 estudo comentado, 1 protocolo aplicável, 1 pergunta. Densidade Atomic Habits + Daily Stoic, aplicada à saúde capilar sistêmica.
+      </p>
+    </div>
+  </section>
+
+  <!-- FORM ============================================= -->
+  <section class="pilar-section pilar-form-wrap">
+    <div class="pilar-form-card r">
+      <p class="lbl">inscrição gratuita</p>
+      <h2 class="r d1">Comece amanhã de manhã.</h2>
+      <p class="r d2 pilar-form-lead">
+        Email #1 chega às 8h do dia útil seguinte. Sem hype, sem oferta, sem desinscrição escondida. Cancela em 1 clique no rodapé de qualquer carta.
+      </p>
+
+      <form class="ecooa-form" action={SITE.gasUrl} method="POST">
+        <input type="hidden" name="_formType" value={formConfig.id} />
+        <input type="hidden" name="_source" value="o-pilar-landing" />
+
+        <fieldset class="form-field r">
+          <label for="nome">Como te chamamos?</label>
+          <input type="text" id="nome" name="nome" placeholder="Primeiro nome" required autocomplete="given-name" />
+        </fieldset>
+
+        <fieldset class="form-field r d1">
+          <label for="email">Seu melhor email</label>
+          <input type="email" id="email" name="email" placeholder="onde você lê com atenção" required autocomplete="email" />
+        </fieldset>
+
+        <fieldset class="form-field r d2">
+          <label for="contexto">Em 1 frase: há quanto tempo a queda dura e o que já tentou? (opcional)</label>
+          <textarea id="contexto" name="contexto" rows="3" placeholder="Ex.: 9 meses de queda difusa, já fiz minoxidil 5% e ferro oral, ferritina nunca foi medida."></textarea>
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary r d3">receber o dia 1 amanhã às 8h</button>
+
+        <p class="form-notice r d4">
+          Sua resposta vai diretamente para a Danusa. Sem compartilhamento com terceiros. <a href="/politica-de-privacidade">Política de privacidade</a>.
+        </p>
+      </form>
+
+      <div class="ecooa-form-ok" style="display:none">
+        <div class="form-success">
+          <h3>Inscrição confirmada.</h3>
+          <p>O email #1 chega no seu inbox amanhã às 8h. Se não chegar, procure em <em>Promoções</em> ou <em>Spam</em> e marque como "Não é spam" para garantir os próximos 6.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTHOR ============================================ -->
+  <section class="pilar-section pilar-author">
+    <div class="pilar-narrow">
+      <p class="lbl r">quem escreve</p>
+      <h2 class="r d1">Danusa Pires.</h2>
+      <p class="r d2 pilar-author-lead">
+        Tricologia clínica integrativa. {SITE.registroProfissional}. Atende em consultório no Edifício Moinhos 180, Porto Alegre, e avaliação online para casos selecionados em todo o Brasil. Esta carta é escrita por ela, não por ghostwriter. As dúvidas que chegam por resposta de email são lidas (e quando possível, respondidas) por ela.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    import '../scripts/form-submit';
+  </script>
+
+  <style is:inline>
+    /* HERO ============================================ */
+    .pilar-hero {
+      background: var(--c-black);
+      padding: clamp(7rem, 14vh, 10rem) clamp(2rem, 6vw, 5rem) clamp(4rem, 10vh, 7rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pilar-hero-content {
+      max-width: 820px;
+    }
+    .pilar-hero-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(36px, 5.2vw, 76px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--c-beige);
+      margin: var(--space-md) 0;
+    }
+    .pilar-hero-title em { font-style: italic; color: var(--c-gold); }
+    .pilar-hero-lead {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--color-ink-soft);
+      max-width: 700px;
+      margin: 0;
+    }
+    .pilar-hero-lead strong { color: var(--c-beige); font-weight: 500; }
+
+    /* SECTIONS ========================================= */
+    .pilar-section {
+      padding: clamp(4rem, 9vh, 7rem) clamp(1.5rem, 6vw, 5rem);
+    }
+    .pilar-section + .pilar-section { border-top: 1px solid rgba(11,11,11,.06); }
+    .pilar-narrow { max-width: 760px; margin: 0 auto; }
+
+    .pilar-narrow h2,
+    .pilar-form-card h2,
+    .pilar-author h2 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(28px, 3.5vw, 44px);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--c-black);
+      margin: 8px 0 var(--space-md);
+    }
+
+    /* AUDIT ============================================ */
+    .pilar-audit-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-lg) 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      counter-reset: audit;
+    }
+    .pilar-audit-list li {
+      position: relative;
+      padding: var(--space-md) var(--space-md) var(--space-md) calc(var(--space-md) + 28px);
+      background: var(--c-beige);
+      border-left: 3px solid var(--c-gold);
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(11,11,11,.82);
+    }
+    .pilar-audit-list li::before {
+      counter-increment: audit;
+      content: counter(audit, decimal-leading-zero);
+      position: absolute;
+      left: var(--space-md);
+      top: var(--space-md);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--c-gold);
+      letter-spacing: .04em;
+    }
+    .pilar-audit-list strong { color: var(--c-black); font-weight: 500; }
+
+    /* CONTENT GRID ===================================== */
+    .pilar-content-lead {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(11,11,11,.7);
+      margin: 0 0 var(--space-xl);
+    }
+    .pilar-week {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-bottom: var(--space-xl);
+    }
+    @media (min-width: 720px) {
+      .pilar-week { grid-template-columns: 1fr 1fr; }
+    }
+    .pilar-day {
+      padding: var(--space-md);
+      background: var(--c-white);
+      border: 1px solid rgba(11,11,11,.08);
+      transition: border-color var(--transition-fast);
+    }
+    .pilar-day:hover { border-color: var(--c-gold); }
+    .pilar-day-num {
+      display: inline-block;
+      font-family: var(--font-primary);
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin-bottom: 8px;
+    }
+    .pilar-day h3 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 1.25;
+      color: var(--c-black);
+      margin: 0 0 8px;
+    }
+    .pilar-day p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(11,11,11,.72);
+      margin: 0;
+    }
+    .pilar-after {
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(11,11,11,.78);
+      padding: var(--space-md);
+      background: var(--c-beige);
+      border-left: 3px solid var(--c-gold);
+    }
+    .pilar-after strong { color: var(--c-black); font-weight: 500; }
+
+    /* FORM CARD ======================================== */
+    .pilar-form-wrap { background: var(--c-beige); }
+    .pilar-form-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--c-white);
+      padding: clamp(2rem, 5vw, 3.5rem);
+      border-top: 4px solid var(--c-gold);
+    }
+    .pilar-form-lead {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(11,11,11,.7);
+      margin: 0 0 var(--space-lg);
+    }
+
+    .ecooa-form { display: flex; flex-direction: column; gap: var(--space-md); }
+    .form-field { display: flex; flex-direction: column; gap: 6px; margin: 0; border: none; padding: 0; }
+    .form-field label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--c-black);
+      letter-spacing: .02em;
+    }
+    .form-field input,
+    .form-field textarea {
+      padding: 13px 14px;
+      border: 1px solid rgba(11,11,11,.2);
+      background: var(--c-white);
+      color: var(--c-black);
+      font-family: var(--font-primary);
+      font-size: 15px;
+      border-radius: 0;
+      transition: border-color var(--transition-fast);
+    }
+    .form-field input:focus,
+    .form-field textarea:focus {
+      outline: none;
+      border-color: var(--c-gold);
+      box-shadow: inset 0 0 0 1px var(--c-gold);
+    }
+    .form-field textarea { resize: vertical; font-family: var(--font-primary); line-height: 1.55; }
+
+    .form-notice {
+      font-size: 12px;
+      color: rgba(11,11,11,.55);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .form-notice a { color: var(--c-gold); text-decoration: underline; }
+
+    .form-success {
+      padding: var(--space-lg);
+      background: var(--c-beige);
+      border-left: 4px solid var(--c-gold);
+    }
+    .form-success h3 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 26px;
+      color: var(--c-black);
+      margin: 0 0 8px;
+    }
+    .form-success p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(11,11,11,.72);
+      margin: 0;
+    }
+    .form-success em { font-style: italic; color: var(--c-gold); }
+
+    /* AUTHOR =========================================== */
+    .pilar-author { background: var(--c-black); color: var(--c-beige); }
+    .pilar-author h2 { color: var(--c-beige); }
+    .pilar-author .lbl { color: var(--c-gold); }
+    .pilar-author-lead {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--color-ink-soft);
+      margin: 0;
+    }
+  </style>
+
+</BaseLayout>
