@@ -231,6 +231,22 @@ export const PILLARS = [
     href: '/servicos/alopecia-androgenetica',
   },
   {
+    slug: 'efluvio-telogeno',
+    name: 'Eflúvio telógeno',
+    subtitle: 'Queda difusa aguda e crônica',
+    description:
+      'Investigação dirigida da queda telogênica difusa. Eflúvio agudo pós-evento (parto, cirurgia, infecção, restrição alimentar, luto, COVID). Eflúvio crônico de mais de 6 meses com causa sistêmica não mapeada. Leitura clínica do gatilho, do substrato nutricional e do ciclo folicular antes de qualquer protocolo cosmético.',
+    href: '/servicos/efluvio-telogeno',
+  },
+  {
+    slug: 'outras-alopecias',
+    name: 'Outras alopecias',
+    subtitle: 'Areata, cicatricial, tração, frontal fibrosante',
+    description:
+      'Manejo clínico de alopecia areata (autoimune), alopecia cicatricial (líquen plano pilar, foliculite decalvante), alopecia de tração, alopecia frontal fibrosante, e quadros mistos. Diagnóstico diferencial com tricoscopia digital e, quando indicado, encaminhamento dermatológico integrado.',
+    href: '/servicos/outras-alopecias',
+  },
+  {
     slug: 'pos-transplante',
     name: 'Acompanhamento pós-transplante',
     subtitle: 'Continuidade técnica da cirurgia capilar',
@@ -263,20 +279,12 @@ export const PILLARS = [
     href: '/servicos/soroterapia',
   },
   {
-    slug: 'diagnostico',
-    name: 'Segunda opinião clínica',
-    subtitle: 'Leitura independente estruturada',
-    description:
-      'Para profissionais de saúde ou pacientes. Reavaliação do diagnóstico clínico usando protocolo ESPELHO. Leitura de exames externos. Sugestão de ajustes de protocolo. Relatório clínico estruturado de volta ao profissional referenciador.',
-    href: '/servicos/diagnostico',
-  },
-  {
-    slug: 'saude-integrativa',
-    name: 'Consultas de saúde integrativa',
+    slug: 'terapias-integrativas',
+    name: 'Terapias integrativas',
     subtitle: 'Leitura sistêmica do organismo',
     description:
-      'Avaliação integrada além do cabelo. Nutrição. Sono. Estresse. Microbioma. Inflamação sistêmica. Hormônios. Quando o cabelo reflete um problema sistêmico, tratamos a causa. Direcionamento a especialistas quando indicado.',
-    href: '/servicos/saude-integrativa',
+      'Avaliação integrada além do cabelo. Nutrição. Sono. Estresse. Microbioma. Inflamação sistêmica. Hormônios e metabolismo. Quando o cabelo reflete um problema sistêmico, tratamos a causa. Direcionamento a especialistas quando indicado.',
+    href: '/terapias-integrativas',
   },
 ];
 
@@ -288,7 +296,6 @@ export const NAV_LINKS = [
   { label: 'Sobre', href: '/sobre' },
   { label: 'Profissionais', href: '/profissionais' },
   { label: 'Serviços', href: '/servicos' },
-  { label: 'Método ESPELHO', href: '/metodo' },
   { label: 'Blog', href: '/blog' },
   { label: 'Agendamento', href: '/agendamento', cta: true },
 ];

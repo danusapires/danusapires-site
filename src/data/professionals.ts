@@ -45,12 +45,12 @@ export const professionals: Professional[] = [
       'Acredito que o cabelo é um espelho do organismo. Antes de qualquer tratamento tópico ou procedural, é imperativo ler estruturadamente. Diagnóstico preciso precede protocolo efetivo. Cada paciente merece uma solução desenhada especificamente para seu mecanismo dominante de problema.',
 
     autonomy:
-      'Define diagnóstico clínico. Prescreve protocolos. Realiza todos os procedimentos especializados (tricoscopia, dermatoscopia, fototricografia, procedimentos intradermo). Autoriza procedimentos cirúrgicos de referência. Toma todas as decisões clínicas relacionadas ao Método ESPELHO. Autonomia de R$ 1000/mês para desenvolvimento clínico e resolução de problemas.',
+      'Define diagnóstico clínico. Prescreve protocolos. Realiza todos os procedimentos especializados (tricoscopia, dermatoscopia, fototricografia, procedimentos intradermo). Autoriza procedimentos cirúrgicos de referência. Toma todas as decisões clínicas do protocolo. Autonomia de R$ 1000/mês para desenvolvimento clínico e resolução de problemas.',
 
     description:
       '18 anos em emergências hospitalares construíram uma perspectiva de cuidado diferente. Desde 2022, dedica-se exclusivamente a tricologia e saúde integrativa. Lê estruturadamente. Planeja protocolos individualizados. Acompanha pessoalmente a evolução de cada paciente. Recusa casos onde não consegue oferecer protocolo estruturado.',
 
-    tags: ['Tricologia avançada', 'Diagnóstico capilar', 'Saúde sistêmica', 'Método ESPELHO', '18 anos em saúde'],
+    tags: ['Tricologia avançada', 'Metabolismo', 'Diagnóstico capilar', 'Saúde sistêmica', '18 anos em saúde'],
     registration: 'COREN-RS 395164',
 
     education: {
@@ -150,7 +150,7 @@ export const professionals: Professional[] = [
       'Realizam preparo de pacientes. Monitoram durante procedimentos. Executam protocolos de pós-procedimento. Podem fazer ajustes menores conforme conforto do paciente. Coordenam agendamentos e continuidade. Autoridade para pausar procedimento se houver dúvida.',
 
     description:
-      'Duas técnicas de enfermagem são a base invisível de cada sucesso. Além de executar protocolos com precisão, trazem calor humano para cada encontro. Preparação rigorosa. Execução precisa. Acompanhamento cuidadoso pós-procedimento. Comprometidas com a filosofia ESPELHO.',
+      'Duas técnicas de enfermagem são a base invisível de cada sucesso. Além de executar protocolos com precisão, trazem calor humano para cada encontro. Preparação rigorosa. Execução precisa. Acompanhamento cuidadoso pós-procedimento. Comprometidas com o padrão clínico da casa.',
 
     tags: ['Suporte técnico', 'Acolhimento', 'Preparo e esterilização', 'Procedimentos clínicos', 'Continuidade de cuidado'],
 

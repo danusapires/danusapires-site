@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import CtaSection from '../components/CtaSection.astro';
-import { SITE, PILLARS, METHOD, WA_DEFAULT, PALETTE, TYPOGRAPHY } from '../data/site';
+import { SITE, PILLARS, WA_DEFAULT, PALETTE, TYPOGRAPHY } from '../data/site';
 import { professionals } from '../data/professionals';
 ---
 
@@ -12,22 +12,24 @@ import { professionals } from '../data/professionals';
   currentPage="home"
 >
 
-  <!-- HERO, fullbleed editorial dark + tricoscopia -->
+  <!-- HERO, fullbleed editorial dark + retrato -->
   <section class="dh-hero">
     <div class="dh-hero-content">
-      <div class="dh-hero-brand r">
+      <p class="lbl r dh-hero-toplabel">Moinhos de Vento · Porto Alegre</p>
+
+      <div class="dh-hero-brand r d1">
         <p class="dh-hero-name">Danusa Pires</p>
-        <p class="dh-hero-specialty">Tricologia &amp; Saúde Integrativa</p>
-        <p class="dh-hero-location">Edifício Moinhos 180 · Porto Alegre · {SITE.registroProfissional}</p>
+        <p class="dh-hero-specialty">Enfermeira especialista em tricologia avançada e metabolismo</p>
+        <p class="dh-hero-credential">{SITE.registroProfissional}</p>
       </div>
 
-      <h1 class="dh-hero-title r d1">
-        Antes do próximo shampoo, do próximo suplemento, da próxima clínica: <em>investigue a causa</em>.
+      <h1 class="dh-hero-title r d2">
+        O cabelo é <em>reflexo</em> do nosso organismo.
       </h1>
-      <p class="dh-hero-lead r d2">
-        Se a sua queda já dura mais de 6 meses, se você já tentou tratamento cosmético e a queda voltou, se outros profissionais não investigaram ferritina, tireoide, hormônios, sono — você não está no lugar certo ainda. A queda crônica tem causa sistêmica em mais de 70% dos casos. Sem leitura, qualquer protocolo é tentativa.
+      <p class="dh-hero-lead r d3">
+        Se a sua queda já dura mais de 6 meses, se você já tentou tratamento cosmético e a queda voltou, se outros profissionais não investigaram ferritina, tireoide, hormônios e sono — você não está no lugar certo ainda. A queda crônica tem causa sistêmica em mais de 70% dos casos. Sem leitura, qualquer protocolo é tentativa.
       </p>
-      <div class="dh-hero-actions r d3">
+      <div class="dh-hero-actions r d4">
         <a href="/o-pilar" class="btn btn-primary">receber a triagem clínica em 7 dias</a>
         <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="dh-hero-link">já quero agendar avaliação →</a>
       </div>
@@ -35,30 +37,10 @@ import { professionals } from '../data/professionals';
 
     <div class="dh-hero-image" aria-hidden="true">
       <picture>
-        <source srcset="/images/hero/diagnostico-tricoscopia.avif" type="image/avif" />
-        <source srcset="/images/hero/diagnostico-tricoscopia.webp" type="image/webp" />
-        <img src="/images/hero/diagnostico-tricoscopia.webp" alt="" fetchpriority="high" decoding="async" />
+        <source srcset="/images/hero/tricologista-danusa-pires-home.avif" type="image/avif" />
+        <source srcset="/images/hero/tricologista-danusa-pires-home.webp" type="image/webp" />
+        <img src="/images/hero/tricologista-danusa-pires-home.webp" alt="" fetchpriority="high" decoding="async" />
       </picture>
-    </div>
-  </section>
-
-  <!-- MÉTODO ESPELHO, coração da diferenciação -->
-  <section id="metodo" class="section-cream">
-    <div class="dh-method-head">
-      <p class="lbl r">{METHOD.name}</p>
-      <h2 class="section-title r d1">Leitura, <em>reflexo</em>, protocolo, refração.</h2>
-      <p class="section-subtitle r d2">Assinatura clínica em quatro fases. O cabelo é o sintoma mais visível de um quadro sistêmico. Lemos o reflexo antes de tratar.</p>
-    </div>
-
-    <div class="dh-method-grid">
-      {METHOD.steps.map((s, i) => (
-        <article class="dh-method-step r" style={`transition-delay:${(i+1)*0.1}s`}>
-          <span class="dh-method-letter">{s.number}</span>
-          <h3>{s.title}</h3>
-          <p class="dh-method-subtitle">{s.subtitle}</p>
-          <p>{s.description}</p>
-        </article>
-      ))}
     </div>
   </section>
 
@@ -161,9 +143,9 @@ import { professionals } from '../data/professionals';
   <section class="section-cream">
     <div class="g2" style="align-items:center;gap:var(--space-2xl)">
       <picture class="r" style="aspect-ratio:4/5;display:block;overflow:hidden">
-        <source srcset="/images/clinical/trichoscopy-exam.avif" type="image/avif" />
-        <source srcset="/images/clinical/trichoscopy-exam.webp" type="image/webp" />
-        <img src="/images/clinical/trichoscopy-exam.webp" alt="Exame de tricoscopia em consultório clínico" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover" />
+        <source srcset="/images/clinical/exame-clinico.avif" type="image/avif" />
+        <source srcset="/images/clinical/exame-clinico.webp" type="image/webp" />
+        <img src="/images/clinical/exame-clinico.webp" alt="Exame clínico de tricoscopia digital em consultório" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover" />
       </picture>
       <div>
         <p class="lbl r">como funciona</p>
@@ -187,9 +169,9 @@ import { professionals } from '../data/professionals';
     </div>
     <div class="dh-env-bg" aria-hidden="true">
       <picture>
-        <source srcset="/images/space/clinic-interior.avif" type="image/avif" />
-        <source srcset="/images/space/clinic-interior.webp" type="image/webp" />
-        <img src="/images/space/clinic-interior.webp" alt="" loading="lazy" />
+        <source srcset="/images/space/tricologista-danusa-pires-consultorio.avif" type="image/avif" />
+        <source srcset="/images/space/tricologista-danusa-pires-consultorio.webp" type="image/webp" />
+        <img src="/images/space/tricologista-danusa-pires-consultorio.webp" alt="" loading="lazy" />
       </picture>
     </div>
   </section>
@@ -278,34 +260,40 @@ import { professionals } from '../data/professionals';
       position: relative;
       z-index: 2;
     }
+    .dh-hero-toplabel {
+      color: var(--c-gold);
+      margin-bottom: clamp(1.25rem, 3vh, 2rem);
+    }
     .dh-hero-brand {
-      margin-bottom: clamp(2rem, 4vh, 3rem);
+      margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
       padding-bottom: var(--space-md);
       border-bottom: 1px solid rgba(198, 168, 90, 0.22);
-      max-width: 520px;
+      max-width: 560px;
     }
     .dh-hero-name {
       font-family: var(--font-serif);
       font-weight: 400;
-      font-size: clamp(34px, 4vw, 56px);
+      font-size: clamp(32px, 3.8vw, 50px);
       line-height: 1;
       letter-spacing: -0.015em;
       color: var(--c-beige);
-      margin: 0 0 10px;
+      margin: 0 0 14px;
     }
     .dh-hero-specialty {
       font-family: var(--font-primary);
       font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.18em;
+      line-height: 1.5;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--c-gold);
       margin: 0 0 12px;
+      max-width: 520px;
     }
-    .dh-hero-location {
+    .dh-hero-credential {
       font-family: var(--font-primary);
       font-size: 11px;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--color-ink-ghost);
       margin: 0;
@@ -313,9 +301,9 @@ import { professionals } from '../data/professionals';
     .dh-hero-title {
       font-family: var(--font-serif);
       font-weight: 400;
-      font-size: clamp(30px, 4.2vw, 56px);
-      line-height: 1.12;
-      letter-spacing: -0.015em;
+      font-size: clamp(34px, 4.6vw, 64px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
       color: var(--c-beige);
       margin: 0 0 var(--space-md);
       max-width: 720px;
@@ -355,13 +343,27 @@ import { professionals } from '../data/professionals';
     .dh-hero-image picture, .dh-hero-image img {
       width: 100%; height: 100%;
       object-fit: cover;
+      object-position: center 22%;
       display: block;
+      filter: contrast(1.04) saturate(0.92) brightness(0.96);
     }
+    /* gradiente lateral: transição suave entre painel preto e foto */
+    .dh-hero-image::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(11,11,11,0.55) 0%, rgba(11,11,11,0.15) 22%, transparent 45%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    /* vinheta inferior + tonalidade obsidian/copper sutil para casar com a paleta */
     .dh-hero-image::after {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(270deg, transparent 60%, rgba(11,11,11,0.7) 100%);
+      background:
+        linear-gradient(180deg, transparent 55%, rgba(11,11,11,0.45) 100%),
+        radial-gradient(ellipse at 70% 30%, rgba(184,134,11,0.06) 0%, transparent 55%);
       pointer-events: none;
+      z-index: 1;
     }
     @media (max-width: 960px) {
       .dh-hero { grid-template-columns: 1fr; min-height: auto; }

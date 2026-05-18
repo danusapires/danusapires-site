@@ -1,5 +1,5 @@
 ---
-import { SITE, SERVICES_FLAT, METHOD } from '../data/site';
+import { SITE, SERVICES_FLAT } from '../data/site';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import CookieConsent from '../components/CookieConsent.astro';
@@ -151,14 +151,6 @@ import '../styles/responsive.css';
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Qual é o Método ESPELHO?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": `${METHOD.philosophy}. O método consiste em 4 fases: Leitura (diagnóstico), Reflexo (síntese), Protocolo (tratamento) e Refração (acompanhamento).`
-            }
-          },
-          {
-            "@type": "Question",
             "name": "Qual é a diferença entre tricologia tradicional e saúde integrativa?",
             "acceptedAnswer": {
               "@type": "Answer",
@@ -178,7 +170,7 @@ import '../styles/responsive.css';
             "name": "Quanto tempo leva para ver resultados?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "A maioria dos pacientes vê primeiros resultados entre 3-6 meses, dependendo da condição. O acompanhamento estruturado (Refração) ocorre no 3º mês com reavaliação clínica e fototricografia comparativa."
+              "text": "A maioria dos pacientes vê primeiros resultados entre 3-6 meses, dependendo da condição. O acompanhamento estruturado ocorre no 3º mês com reavaliação clínica e fototricografia comparativa."
             }
           },
           {

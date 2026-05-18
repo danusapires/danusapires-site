@@ -295,4 +295,86 @@ export const services: Record<string, ServiceContent> = {
       },
     ],
   },
+
+  'efluvio-telogeno': {
+    slug: 'efluvio-telogeno',
+    hero: {
+      eyebrow: 'serviço · eflúvio telógeno',
+      title: 'Eflúvio telógeno: queda difusa aguda e crônica.',
+      emphasis: 'difusa',
+      lead: 'Investigação dirigida da queda telogênica. Eflúvio agudo pós-gatilho (parto, cirurgia, infecção, COVID, restrição alimentar, luto) e eflúvio crônico de mais de 6 meses com causa sistêmica não mapeada.',
+      image: 'clinical/scalp-female-closeup',
+    },
+    problem:
+      'O eflúvio telógeno é uma das queixas mais comuns em consultório e uma das mais mal-conduzidas. A queda difusa intensa assusta, mas a causa raramente é local. Continuar tratamento cosmético sem identificar o gatilho ou o substrato sistêmico desperdiça tempo do folículo, que tem janela terapêutica finita.',
+    mechanism:
+      'No eflúvio, uma proporção anormal de folículos entra em fase telógena simultaneamente, em resposta a um estressor sistêmico (gatilho hormonal, inflamatório, nutricional, infeccioso ou farmacológico). A queda aparece 2 a 4 meses depois do gatilho — por isso a paciente raramente conecta os dois. A leitura clínica reconstrói essa linha do tempo.',
+    intervention: [
+      'Anamnese estruturada com mapeamento do gatilho (timeline de 6 a 12 meses).',
+      'Exames dirigidos: ferritina, TSH com T4 livre, vitamina D, B12, zinco, hemograma, marcadores hormonais conforme suspeita.',
+      'Tricoscopia digital para diferenciar eflúvio puro de quadros sobrepostos (alopecia androgenética em padrão difuso, alopecia areata incógnita).',
+      'Plano corretivo do gatilho identificado, integrado a endocrinologista, nutricionista ou ginecologista quando indicado.',
+      'Reavaliação programada com fotografia padronizada e medida de queda objetiva.',
+    ],
+    outcome:
+      'Em eflúvio agudo com gatilho identificado e corrigido, a recuperação espontânea ocorre em 4 a 9 meses. Em eflúvio crônico, a estabilização depende da correção da causa sistêmica — frequentemente possível, mas exige paciência clínica e adesão.',
+    indications: [
+      'Queda difusa intensa há mais de 3 meses',
+      'Queda persistente após gatilho identificável (parto, COVID, cirurgia, dieta restritiva)',
+      'Eflúvio crônico de mais de 6 meses sem causa esclarecida',
+      'Queda em mulheres com exames "normais" mas subótimos',
+      'Suspeita de causa hormonal, tireoidiana ou nutricional',
+    ],
+    faqs: [
+      {
+        q: 'Posso esperar resolver sozinho?',
+        a: 'Eflúvio agudo com gatilho claro e já encerrado costuma se resolver sozinho em meses. Eflúvio crônico ou com gatilho persistente raramente se resolve sem intervenção sobre a causa.',
+      },
+      {
+        q: 'Preciso parar minoxidil para fazer a avaliação?',
+        a: 'Depende do tempo de uso e da hipótese clínica. Em parte dos casos, é estratégico fazer uma janela de 4 semanas para leitura mais limpa. Decidimos juntas na avaliação.',
+      },
+    ],
+  },
+
+  'outras-alopecias': {
+    slug: 'outras-alopecias',
+    hero: {
+      eyebrow: 'serviço · outras alopecias',
+      title: 'Outras alopecias: areata, cicatricial, tração, frontal fibrosante.',
+      emphasis: 'cicatricial',
+      lead: 'Diagnóstico diferencial e manejo clínico de quadros menos comuns mas frequentemente mal-identificados: alopecia areata, cicatriciais (líquen plano pilar, foliculite decalvante), alopecia de tração e alopecia frontal fibrosante.',
+      image: 'clinical/scalp-female-closeup',
+    },
+    problem:
+      'Nem toda perda capilar é eflúvio ou androgenética. Quadros como areata, cicatriciais e frontal fibrosante exigem diagnóstico diferencial cuidadoso — e perdem janela terapêutica quando tratados como queda comum. Em alopecias cicatriciais, o folículo destruído não volta. Tempo é tecido.',
+    mechanism:
+      'Alopecia areata é autoimune (linfócitos T atacam o folículo na fase anágena). Alopecias cicatriciais são inflamatórias com destruição folicular irreversível. Alopecia de tração é mecânica. Frontal fibrosante é variante cicatricial em padrão linear na frontotemporal. Cada uma exige tricoscopia, anamnese e — em parte dos casos — biópsia para confirmação.',
+    intervention: [
+      'Tricoscopia digital de alta resolução para padrões específicos de cada quadro.',
+      'Anamnese dirigida (uso de tração, histórico autoimune, fármacos, padrão familiar).',
+      'Encaminhamento dermatológico integrado para confirmação (biópsia) e conduta sistêmica quando indicado.',
+      'Manejo coadjuvante: controle de inflamação local, suporte nutricional, proteção do tecido residual.',
+      'Acompanhamento estruturado com fotografia padronizada e monitorização da progressão.',
+    ],
+    outcome:
+      'O prognóstico varia drasticamente conforme o quadro: areata localizada tem taxas altas de recuperação espontânea; cicatriciais ativas exigem parada da progressão como meta primária. Em todos, diagnóstico precoce muda o desfecho.',
+    indications: [
+      'Áreas de queda em placa bem delimitada',
+      'Recuo progressivo da linha frontal (suspeita de frontal fibrosante)',
+      'Áreas brilhantes, sem óstios foliculares visíveis (suspeita cicatricial)',
+      'Queda em padrão de tração (penteados, extensões, lock)',
+      'Histórico autoimune pessoal ou familiar',
+    ],
+    faqs: [
+      {
+        q: 'Cabelo de área cicatricial volta a crescer?',
+        a: 'Quando o folículo já foi destruído, não. Por isso o objetivo do tratamento em alopecias cicatriciais ativas é parar a progressão e proteger o tecido ainda viável.',
+      },
+      {
+        q: 'Vocês fazem biópsia?',
+        a: 'A biópsia é procedimento dermatológico. Quando indicada, encaminhamos para profissional de referência e integramos o resultado ao protocolo de cuidado.',
+      },
+    ],
+  },
 };
