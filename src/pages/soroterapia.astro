@@ -46,25 +46,52 @@ const dominios = getDominiosCount();
     </div>
   </section>
 
-  <!-- SISTEMA SORO-MATCH (premium minimalista) -->
+  <!-- SISTEMA SORO-MATCH (AI search aesthetic) -->
   <section id="match" class="sm-section">
     <div class="sm-wrap sm-stage">
-      <!-- INPUT GIGANTE COMO PROTAGONISTA -->
-      <div class="sm-search-block r">
+      <!-- TÍTULO CENTRAL -->
+      <h2 class="sm-title r">Digite sua queixa</h2>
+
+      <!-- BARRA DE PESQUISA PILL COM ÍCONES -->
+      <form class="sm-pill r d1" role="search" onsubmit="event.preventDefault()">
+        <span class="sm-pill-icon sm-pill-icon-left" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
+        </span>
         <input
           type="text"
           id="sm-search"
-          class="sm-search-input"
-          placeholder="qual sua queixa?"
+          class="sm-pill-input"
+          placeholder="Pesquisar..."
           aria-label="Digite sua queixa em linguagem natural"
           autocomplete="off"
           spellcheck="false"
         />
-        <span class="sm-search-cursor" aria-hidden="true"></span>
-      </div>
+        <span class="sm-pill-divider" aria-hidden="true"></span>
+        <span class="sm-pill-icon sm-pill-icon-right" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <defs>
+              <linearGradient id="smSparkle" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#c6a85a" />
+                <stop offset="100%" stop-color="#8a6a2a" />
+              </linearGradient>
+            </defs>
+            <path d="M12 3 13.5 8.5 19 10 13.5 11.5 12 17 10.5 11.5 5 10 10.5 8.5 z" fill="url(#smSparkle)" />
+            <path d="M19 4 19.6 5.8 21.4 6.4 19.6 7 19 8.8 18.4 7 16.6 6.4 18.4 5.8 z" fill="url(#smSparkle)" opacity="0.7" />
+            <path d="M6 16 6.5 17.4 7.9 17.9 6.5 18.4 6 19.8 5.5 18.4 4.1 17.9 5.5 17.4 z" fill="url(#smSparkle)" opacity="0.5" />
+          </svg>
+        </span>
+      </form>
+
+      <!-- SUBTÍTULO -->
+      <p class="sm-subtitle r d2">
+        Digite sua queixa e o <strong>smart.soro</strong> encontrará os ativos<br class="sm-br" />pertinentes ao seu quadro.
+      </p>
 
       <!-- CHIPS DISCRETOS -->
-      <div class="sm-chips r d1" role="group" aria-label="Sugestões">
+      <div class="sm-chips r d3" role="group" aria-label="Sugestões">
         <button type="button" class="sm-chip" data-q="queda capilar">queda capilar</button>
         <button type="button" class="sm-chip" data-q="acordo cansado">acordo cansado</button>
         <button type="button" class="sm-chip" data-q="dor de cabeça">dor de cabeça</button>
@@ -75,7 +102,7 @@ const dominios = getDominiosCount();
       </div>
 
       <!-- LINK DISCRETO PARA O AVISO ÉTICO -->
-      <details class="sm-ethical r d2">
+      <details class="sm-ethical r d4">
         <summary>ler antes de usar</summary>
         <ul>
           <li><strong>Não é diagnóstico.</strong> Lista ativos com plausibilidade técnica. Não substitui consulta, exame ou prescrição.</li>
@@ -470,13 +497,13 @@ const dominios = getDominiosCount();
     }
 
     /* ===================================================
-       SMART.SORO PREMIUM MINIMALISTA
-       Input gigante como protagonista. Sem cabeçalhos.
-       Ativos limpos, contexto expansível ao clique.
+       SMART.SORO · AI SEARCH AESTHETIC
+       Fundo claro, título central, pill arredondada com
+       ícones, subtítulo descritivo. Resultados abaixo.
        =================================================== */
     .sm-section {
-      background: var(--c-beige);
-      padding: clamp(5rem, 12vh, 10rem) 0;
+      background: #f6f4f1;
+      padding: clamp(5rem, 12vh, 8rem) 0 clamp(4rem, 8vh, 6rem);
       min-height: 80vh;
     }
     .sm-wrap {
@@ -484,51 +511,122 @@ const dominios = getDominiosCount();
       margin: 0 auto;
       padding: 0 clamp(1.5rem, 5vw, 3rem);
     }
+    .sm-stage { text-align: center; }
     .sm-stage > * + * { margin-top: var(--space-lg); }
 
-    /* INPUT GIGANTE */
-    .sm-search-block {
-      position: relative;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(11,11,11,.18);
-      transition: border-color var(--transition-base);
-    }
-    .sm-search-block:focus-within { border-bottom-color: var(--c-gold); }
-    .sm-search-input {
-      width: 100%;
-      padding: 4px 0;
+    /* TÍTULO CENTRAL */
+    .sm-title {
       font-family: var(--font-serif);
       font-weight: 400;
-      font-style: italic;
-      font-size: clamp(28px, 4.5vw, 56px);
+      font-size: clamp(36px, 5vw, 64px);
       line-height: 1.1;
-      letter-spacing: -0.015em;
+      letter-spacing: -0.02em;
+      color: var(--c-black);
+      margin: 0 0 var(--space-md);
+    }
+
+    /* BARRA PILL */
+    .sm-pill {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      max-width: 720px;
+      margin: var(--space-md) auto 0;
+      padding: 6px 10px 6px 22px;
+      background: #ffffff;
+      border-radius: 100px;
+      box-shadow:
+        0 1px 2px rgba(11,11,11,0.04),
+        0 4px 14px rgba(11,11,11,0.06),
+        0 24px 48px -16px rgba(11,11,11,0.10);
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+    }
+    .sm-pill:focus-within {
+      box-shadow:
+        0 1px 2px rgba(198,168,90,0.10),
+        0 6px 18px rgba(198,168,90,0.14),
+        0 28px 56px -12px rgba(11,11,11,0.16);
+      transform: translateY(-1px);
+    }
+    .sm-pill-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .sm-pill-icon-left { color: rgba(11,11,11,0.45); margin-right: 14px; }
+    .sm-pill-icon-right { padding: 10px 14px 10px 16px; }
+    .sm-pill-divider {
+      width: 1px;
+      height: 26px;
+      background: rgba(11,11,11,0.10);
+      margin-left: 8px;
+    }
+    .sm-pill-input {
+      flex: 1;
+      min-width: 0;
+      padding: 18px 4px;
+      font-family: var(--font-primary);
+      font-size: 17px;
+      line-height: 1.2;
       color: var(--c-black);
       background: transparent;
       border: 0;
       outline: 0;
       caret-color: var(--c-gold);
     }
-    .sm-search-input::placeholder { color: rgba(11,11,11,.32); font-style: italic; }
+    .sm-pill-input::placeholder { color: rgba(11,11,11,0.38); }
+
+    /* SUBTÍTULO */
+    .sm-subtitle {
+      font-family: var(--font-primary);
+      font-size: 15px;
+      line-height: 1.65;
+      color: rgba(11,11,11,0.62);
+      margin: var(--space-md) auto 0;
+      max-width: 620px;
+    }
+    .sm-subtitle strong {
+      font-weight: 500;
+      color: var(--c-gold);
+      font-style: italic;
+      font-family: var(--font-serif);
+    }
+    @media (max-width: 540px) {
+      .sm-br { display: none; }
+    }
 
     /* CHIPS DISCRETOS */
-    .sm-chips { display: flex; flex-wrap: wrap; gap: 6px 12px; }
+    .sm-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 10px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
     .sm-chip {
       font-family: var(--font-primary);
       font-size: 13px;
-      padding: 4px 0;
-      background: transparent;
-      color: rgba(11,11,11,.55);
-      border: 0;
+      padding: 7px 14px;
+      background: rgba(255,255,255,0.7);
+      color: rgba(11,11,11,0.65);
+      border: 1px solid rgba(11,11,11,0.08);
+      border-radius: 100px;
       cursor: pointer;
-      transition: color var(--transition-fast);
+      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
     }
-    .sm-chip::before { content: '· '; opacity: 0.5; }
-    .sm-chip:first-child::before { content: ''; }
-    .sm-chip:hover, .sm-chip:focus-visible { color: var(--c-gold); outline: 0; }
+    .sm-chip:hover, .sm-chip:focus-visible {
+      background: var(--c-black);
+      color: var(--c-beige);
+      border-color: var(--c-black);
+      outline: 0;
+    }
 
     /* AVISO ÉTICO COLAPSADO */
-    .sm-ethical { max-width: 620px; }
+    .sm-ethical { max-width: 620px; margin-left: auto; margin-right: auto; text-align: left; }
     .sm-ethical summary {
       list-style: none;
       cursor: pointer;
@@ -575,6 +673,10 @@ const dominios = getDominiosCount();
       display: flex;
       flex-direction: column;
       gap: clamp(2.5rem, 5vw, 4rem);
+      text-align: left;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .sm-result { animation: smFade 0.3s ease-out; }
     @keyframes smFade {
@@ -653,9 +755,12 @@ const dominios = getDominiosCount();
     /* EMPTY STATE — calmo */
     .sm-empty {
       max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
       padding: var(--space-xl) 0;
       border-top: 1px solid rgba(11,11,11,.12);
       border-bottom: 1px solid rgba(11,11,11,.12);
+      text-align: left;
     }
     .sm-empty p {
       font-family: var(--font-serif);
