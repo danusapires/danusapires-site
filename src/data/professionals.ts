@@ -93,6 +93,7 @@ export const professionals: Professional[] = [
     title: 'Técnica de Enfermagem',
     role: 'Coordenadora de procedimentos clínicos',
     unit: 'tricologia',
+    photo: '/team/adriana-melo.webp',
     bg: '#2A2A2A',
 
     philosophy:
