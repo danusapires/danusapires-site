@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { WA_DEFAULT, SITE } from '../data/site';
+---
+
+<BaseLayout
+  title="Obrigado | Danusa Pires"
+  description="Recebemos sua solicitação. Entraremos em contato em breve."
+  robots="noindex,follow"
+>
+
+  <section style="min-height:70vh;display:flex;align-items:center;justify-content:center;padding:var(--section-py) var(--section-px)">
+    <div style="max-width:640px;text-align:center">
+      <div style="font-size:clamp(48px,10vw,72px);margin-bottom:var(--space-md)">✓</div>
+
+      <h1 class="r d1" id="main-title" style="font-family:var(--font-serif);font-size:clamp(32px,5vw,48px);margin:0 0 var(--space-md)">
+        Obrigado!
+      </h1>
+
+      <p class="r d2" id="main-message" style="font-size:16px;line-height:1.7;color:rgba(11,11,11,.7);margin:0 0 var(--space-xl)">
+        Recebemos seus dados. Nossa equipe entrará em contato em até 24-48 horas.
+      </p>
+
+      <div id="prof-info" style="display:none;margin:var(--space-lg) 0;padding:var(--space-md);background:var(--c-beige);border-left:4px solid var(--c-gold);text-align:left">
+        <p style="font-size:13px;color:rgba(11,11,11,.7);margin:0"><strong>Profissional recomendado:</strong></p>
+        <p id="prof-name" style="font-size:14px;color:var(--c-black);margin:var(--space-sm) 0 0;font-weight:500"></p>
+      </div>
+
+      <div id="next-steps" style="margin:var(--space-xl) 0;text-align:left;padding:var(--space-lg);background:rgba(11,11,11,.02);border-radius:4px">
+        <p style="font-size:13px;font-weight:500;color:var(--c-black);margin:0 0 var(--space-md);text-transform:uppercase;letter-spacing:.05em">Próximos passos:</p>
+        <ol style="margin:0;padding-left:20px;font-size:14px;color:rgba(11,11,11,.7);line-height:1.8">
+          <li id="step-1">Aguarde contato via WhatsApp ou email</li>
+          <li id="step-2">Confirme sua disponibilidade</li>
+          <li id="step-3">Sua avaliação será realizada conforme agendado</li>
+        </ol>
+      </div>
+
+      <div style="display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap;margin-top:var(--space-lg)">
+        <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          abrir WhatsApp
+        </a>
+        <a href="/blog" class="btn btn-outline">
+          ler artigos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const formType = params.get('type');
+    const prof = params.get('profissional');
+
+    const formTypeMap = {
+      'agendamento': {
+        title: 'Agendamento confirmado!',
+        message: 'Recebemos sua solicitação. Entraremos em contato em até 24 horas para confirmar data e horário da sua consulta.',
+        steps: ['Aguarde contato via WhatsApp', 'Confirme sua disponibilidade', 'Receba o link de acesso']
+      },
+      'segunda-opiniao': {
+        title: 'Reavaliação solicitada!',
+        message: 'Recebemos seu histórico clínico. Nossa equipe analisará em até 48 horas e entrará em contato para agendar sua reavaliação.',
+        steps: ['Nossa equipe analisa seu histórico', 'Confirme a melhor data e modalidade', 'Realize sua reavaliação com protocolo ESPELHO']
+      },
+      'consulta-online': {
+        title: 'Consulta online agendada!',
+        message: 'Recebemos sua solicitação. Entraremos em contato em até 24 horas via WhatsApp com link de telemedicina e instruções de preparação.',
+        steps: ['Confirme sua disponibilidade via WhatsApp', 'Receba o link de telemedicina', 'Realize sua consulta online']
+      },
+      'profissional': {
+        title: 'Consulta profissional recebida!',
+        message: 'Recebemos seu interesse em parceria ou educação continuada. Nossa equipe entrará em contato em até 48 horas para discutir possibilidades.',
+        steps: ['Nossa equipe revisa sua consulta', 'Agende conversa sobre parcerias', 'Estruture colaboração terapêutica']
+      },
+      'contato': {
+        title: 'Mensagem recebida!',
+        message: 'Obrigado por entrar em contato. Responderemos em até 48 horas via email ou WhatsApp.',
+        steps: ['Sua mensagem foi registrada', 'Aguarde nossa resposta', 'Continuaremos a conversa']
+      },
+      'generalContact': {
+        title: 'Mensagem recebida!',
+        message: 'Obrigado por entrar em contato. Responderemos em até 48 horas via email ou WhatsApp.',
+        steps: ['Sua mensagem foi registrada', 'Aguarde nossa resposta', 'Continuaremos a conversa']
+      }
+    };
+
+    const config = formTypeMap[formType] || formTypeMap['agendamento'];
+    const titleEl = document.getElementById('main-title');
+    const messageEl = document.getElementById('main-message');
+    const step1 = document.getElementById('step-1');
+    const step2 = document.getElementById('step-2');
+    const step3 = document.getElementById('step-3');
+
+    if (titleEl) titleEl.textContent = config.title;
+    if (messageEl) messageEl.textContent = config.message;
+    if (step1) step1.textContent = config.steps[0];
+    if (step2) step2.textContent = config.steps[1];
+    if (step3) step3.textContent = config.steps[2];
+
+    if (prof) {
+      const info = document.getElementById('prof-info');
+      const name = document.getElementById('prof-name');
+      if (info) info.style.display = 'block';
+      if (name) name.textContent = prof.replace(/-/g, ' ');
+    }
+
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'conversion', { event_category: 'form', event_label: formType || 'unknown' });
+    }
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead');
+    }
+  </script>
+
+</BaseLayout>

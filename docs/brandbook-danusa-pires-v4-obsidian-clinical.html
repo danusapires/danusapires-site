@@ -1,0 +1,1644 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brandbook v4 — Danusa Pires · Obsidian Clinical</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap">
+<style>
+:root {
+  --c-black:    #0B0B0B;
+  --c-graphite: #2A2A2A;
+  --c-graphite-soft: #1A1A1A;
+  --c-beige:    #E8E3DC;
+  --c-gold:     #C6A85A;
+  --c-gold-soft:#D4BB7A;
+  --c-gold-deep:#A88B45;
+  --c-salvia:   #8A9B8E;
+  --c-salvia-soft:#A8B5A8;
+  --c-white:    #FFFFFF;
+  --font-sans:  'DM Sans', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --section-py: clamp(72px, 12vh, 140px);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--c-black);
+  color: var(--c-beige);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--c-gold); color: var(--c-black); }
+img { display: block; max-width: 100%; }
+
+section {
+  padding: var(--section-py) clamp(2rem, 6vw, 5rem);
+  max-width: 1320px;
+  margin: 0 auto;
+  position: relative;
+}
+.section-divider {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  height: 1px;
+  background: rgba(198, 168, 90, 0.18);
+}
+
+.lbl {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+  margin-bottom: 32px;
+}
+.lbl::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--c-gold);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--c-beige);
+  letter-spacing: -0.018em;
+  line-height: 1.08;
+}
+h2.section-title {
+  font-size: clamp(36px, 4.4vw, 60px);
+  margin-bottom: 32px;
+  max-width: 22ch;
+}
+h2.section-title em { font-style: italic; color: var(--c-gold); }
+.section-lead {
+  font-size: 17px;
+  line-height: 1.85;
+  color: rgba(232, 227, 220, 0.72);
+  max-width: 60ch;
+  margin-bottom: 64px;
+}
+
+/* ============= COVER ============= */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--c-black);
+  padding: 80px clamp(2rem, 6vw, 5rem);
+  position: relative;
+  overflow: hidden;
+  max-width: none;
+  margin: 0;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 110%, rgba(198, 168, 90, 0.14) 0%, transparent 65%);
+  pointer-events: none;
+}
+.cover-inner {
+  position: relative;
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+}
+.cover-mark {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+  margin-bottom: 48px;
+}
+.cover-title {
+  font-family: var(--font-serif);
+  font-size: clamp(56px, 8vw, 128px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.022em;
+  color: var(--c-beige);
+  margin-bottom: 32px;
+}
+.cover-title em { font-style: italic; color: var(--c-gold); }
+.cover-subtitle {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(232, 227, 220, 0.55);
+  margin-bottom: 80px;
+}
+.cover-meta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 32px;
+  border-top: 1px solid rgba(198, 168, 90, 0.22);
+}
+.cover-meta-item {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(232, 227, 220, 0.45);
+}
+.cover-meta-item strong {
+  display: block;
+  color: var(--c-gold);
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 10px;
+}
+
+/* ============= INDEX ============= */
+.idx-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(198, 168, 90, 0.12);
+  margin-top: 48px;
+}
+.idx-item {
+  background: var(--c-black);
+  padding: 36px 32px;
+  text-decoration: none;
+  color: var(--c-beige);
+  display: block;
+  transition: background 0.3s;
+}
+.idx-item:hover { background: var(--c-graphite-soft); }
+.idx-num {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 400;
+  color: rgba(198, 168, 90, 0.45);
+  margin-bottom: 16px;
+}
+.idx-name {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.idx-desc {
+  font-size: 12px;
+  color: rgba(232, 227, 220, 0.55);
+  line-height: 1.6;
+}
+
+/* ============= MANIFESTO ============= */
+.essencia-block {
+  background: var(--c-graphite-soft);
+  padding: 80px;
+  text-align: center;
+  margin: 80px auto;
+  max-width: 1100px;
+  position: relative;
+  overflow: hidden;
+}
+.essencia-block::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(198, 168, 90, 0.12) 0%, transparent 70%);
+}
+.essencia-quote {
+  position: relative;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(28px, 3.6vw, 44px);
+  line-height: 1.3;
+  color: var(--c-beige);
+  max-width: 26ch;
+  margin: 0 auto;
+}
+.essencia-quote em { font-style: italic; color: var(--c-gold); }
+.essencia-attr {
+  position: relative;
+  margin-top: 40px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(232, 227, 220, 0.45);
+}
+
+/* ============= PILARES ============= */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(198, 168, 90, 0.12);
+  margin-top: 48px;
+}
+.pillar {
+  background: var(--c-black);
+  padding: 56px 40px;
+}
+.pillar-num {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  color: var(--c-gold);
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+.pillar h3 {
+  font-size: 26px;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.pillar h3 em { font-style: italic; color: var(--c-gold); }
+.pillar p {
+  font-size: 14px;
+  color: rgba(232, 227, 220, 0.7);
+  line-height: 1.8;
+}
+
+/* ============= PALETA ============= */
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: rgba(198, 168, 90, 0.12);
+  margin-top: 48px;
+}
+.palette-swatch {
+  padding: 40px 24px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.swatch-name {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+.swatch-meta {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.swatch-hex {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  margin-top: 6px;
+}
+.swatch-usage {
+  font-size: 11px;
+  line-height: 1.6;
+  opacity: 0.7;
+  margin-top: 16px;
+}
+.s-black    { background: var(--c-black);    color: var(--c-beige); border: 1px solid rgba(232,227,220,0.08); }
+.s-graphite { background: var(--c-graphite); color: var(--c-beige); }
+.s-beige    { background: var(--c-beige);    color: var(--c-black); }
+.s-gold     { background: var(--c-gold);     color: var(--c-black); }
+.s-salvia   { background: var(--c-salvia);   color: var(--c-black); }
+.s-white    { background: var(--c-white);    color: var(--c-black); }
+
+.palette-rules {
+  margin-top: 64px;
+  background: var(--c-graphite-soft);
+  padding: 56px 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 64px;
+}
+.palette-rule-title {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+  margin-bottom: 18px;
+}
+.palette-rule p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(232, 227, 220, 0.75);
+}
+
+.salvia-note {
+  margin-top: 48px;
+  padding: 32px 40px;
+  background: rgba(138, 155, 142, 0.08);
+  border-left: 2px solid var(--c-salvia);
+  font-size: 13px;
+  color: rgba(232, 227, 220, 0.75);
+  line-height: 1.7;
+}
+.salvia-note strong { color: var(--c-salvia-soft); font-weight: 500; }
+
+/* ============= TIPOGRAFIA ============= */
+.type-block {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 96px;
+}
+.type-spec {
+  padding-top: 28px;
+  border-top: 1px solid rgba(198, 168, 90, 0.22);
+}
+.type-name {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+.type-display {
+  font-family: var(--font-serif);
+  font-size: clamp(56px, 6vw, 96px);
+  line-height: 1;
+  letter-spacing: -0.022em;
+  color: var(--c-beige);
+  margin-bottom: 32px;
+}
+.type-display em { font-style: italic; color: var(--c-gold); }
+.type-display.sans { font-family: var(--font-sans); font-weight: 300; }
+.type-sample {
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(232, 227, 220, 0.7);
+  max-width: 38ch;
+  margin-bottom: 32px;
+}
+.type-weights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.type-weight {
+  font-family: inherit;
+  font-size: 14px;
+  padding: 8px 16px;
+  border: 1px solid rgba(198, 168, 90, 0.22);
+  border-radius: 1px;
+  color: rgba(232, 227, 220, 0.75);
+}
+
+/* ============= WORDMARK ============= */
+.wordmark-canvas {
+  margin-top: 48px;
+  background: var(--c-graphite-soft);
+  padding: 120px 64px;
+  text-align: center;
+  border: 1px solid rgba(198, 168, 90, 0.15);
+}
+.wordmark {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 5vw, 68px);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  color: var(--c-beige);
+  line-height: 1.05;
+}
+.wordmark em { font-style: italic; color: var(--c-gold); }
+.wordmark-sub {
+  margin-top: 18px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: rgba(232, 227, 220, 0.55);
+}
+.wordmark-divider {
+  width: 48px;
+  height: 1px;
+  background: var(--c-gold);
+  margin: 28px auto;
+}
+.wordmark-rules {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 56px;
+}
+.wm-rule h3 {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--c-gold);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.wm-rule p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(232, 227, 220, 0.7);
+}
+
+/* ============= METODO ESPELHO ============= */
+.espelho-hero {
+  margin-top: 48px;
+  background: linear-gradient(180deg, var(--c-graphite-soft) 0%, var(--c-black) 100%);
+  padding: 96px 64px;
+  text-align: center;
+  border-top: 1px solid rgba(198, 168, 90, 0.18);
+  border-bottom: 1px solid rgba(198, 168, 90, 0.18);
+}
+.espelho-mark {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(72px, 10vw, 160px);
+  color: var(--c-gold);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+}
+.espelho-tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(22px, 2.4vw, 32px);
+  color: var(--c-beige);
+  line-height: 1.4;
+  max-width: 30ch;
+  margin: 0 auto 16px;
+}
+.espelho-legend {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(198, 168, 90, 0.75);
+}
+.espelho-fases {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(198, 168, 90, 0.12);
+}
+.espelho-fase {
+  background: var(--c-black);
+  padding: 48px 32px;
+}
+.espelho-num {
+  font-family: var(--font-serif);
+  font-size: 38px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--c-gold);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.espelho-fase h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.espelho-fase p {
+  font-size: 13px;
+  color: rgba(232, 227, 220, 0.7);
+  line-height: 1.7;
+}
+
+.espelho-premise {
+  margin-top: 56px;
+  padding: 40px 48px;
+  background: rgba(198, 168, 90, 0.06);
+  border-left: 2px solid var(--c-gold);
+  font-size: 15px;
+  color: rgba(232, 227, 220, 0.82);
+  line-height: 1.8;
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+/* ============= SERVIÇOS ============= */
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(198, 168, 90, 0.12);
+  margin-top: 48px;
+}
+.svc-card {
+  background: var(--c-black);
+  padding: 48px 40px;
+}
+.svc-num {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--c-gold);
+  margin-bottom: 16px;
+  letter-spacing: 0.06em;
+}
+.svc-card h3 {
+  font-size: 24px;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.svc-card h3 em { font-style: italic; color: var(--c-gold); }
+.svc-target {
+  font-size: 12px;
+  color: rgba(198, 168, 90, 0.85);
+  letter-spacing: 0.04em;
+  margin-bottom: 20px;
+}
+.svc-card p {
+  font-size: 14px;
+  color: rgba(232, 227, 220, 0.7);
+  line-height: 1.8;
+}
+.svc-flag {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 4px 12px;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: rgba(138, 155, 142, 0.18);
+  color: var(--c-salvia-soft);
+  border: 1px solid rgba(138, 155, 142, 0.35);
+}
+.svc-flag.gold {
+  background: rgba(198, 168, 90, 0.12);
+  color: var(--c-gold);
+  border-color: rgba(198, 168, 90, 0.35);
+}
+
+/* ============= SMART.SORO ============= */
+.smart-hero {
+  margin-top: 48px;
+  background: var(--c-graphite-soft);
+  padding: 80px 64px;
+  position: relative;
+  overflow: hidden;
+}
+.smart-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(198, 168, 90, 0.10) 0%, transparent 70%);
+}
+.smart-hero-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.smart-mark {
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 6vw, 84px);
+  color: var(--c-beige);
+  line-height: 1;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+}
+.smart-mark em { font-style: italic; color: var(--c-gold); }
+.smart-mark .dot { color: var(--c-gold); }
+.smart-headline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--c-beige);
+  line-height: 1.4;
+  margin-bottom: 24px;
+  max-width: 32ch;
+}
+.smart-meta {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(232, 227, 220, 0.55);
+}
+.smart-meta strong { color: var(--c-gold); font-weight: 500; }
+.smart-illustration {
+  border-left: 1px solid rgba(198, 168, 90, 0.22);
+  padding-left: 56px;
+}
+.smart-illustration p {
+  font-size: 14px;
+  color: rgba(232, 227, 220, 0.78);
+  line-height: 1.85;
+}
+.smart-illustration p + p { margin-top: 18px; }
+
+.soro-block {
+  margin-top: 64px;
+  background: var(--c-graphite-soft);
+  padding: 64px;
+}
+.soro-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 56px;
+  margin-top: 32px;
+}
+.soro-cat-title {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--c-gold);
+  font-weight: 500;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(198, 168, 90, 0.22);
+}
+.soro-list { list-style: none; }
+.soro-list li {
+  font-size: 13px;
+  color: rgba(232, 227, 220, 0.78);
+  line-height: 1.8;
+  padding: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.soro-list li .via {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: rgba(198, 168, 90, 0.7);
+  white-space: nowrap;
+  align-self: center;
+}
+.soro-base {
+  margin-top: 56px;
+  padding: 32px 40px;
+  background: rgba(198, 168, 90, 0.08);
+  border-left: 2px solid var(--c-gold);
+  font-size: 13px;
+  color: rgba(232, 227, 220, 0.85);
+  line-height: 1.7;
+}
+.soro-base strong { color: var(--c-gold); font-weight: 500; }
+.soro-warn {
+  margin-top: 24px;
+  padding: 32px 40px;
+  background: rgba(198, 82, 82, 0.06);
+  border-left: 2px solid #C65A5A;
+  font-size: 13px;
+  color: rgba(232, 227, 220, 0.85);
+  line-height: 1.7;
+}
+.soro-warn strong { color: #E89A9A; font-weight: 500; }
+
+/* ============= PERSONA ============= */
+.persona-block {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 0;
+}
+.persona-id {
+  background: var(--c-graphite-soft);
+  padding: 64px 48px;
+}
+.persona-name {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 36px;
+  color: var(--c-beige);
+  margin-bottom: 12px;
+}
+.persona-age {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+  margin-bottom: 32px;
+}
+.persona-list {
+  list-style: none;
+}
+.persona-list li {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(198, 168, 90, 0.12);
+  font-size: 13px;
+  color: rgba(232, 227, 220, 0.78);
+}
+.persona-list li strong { color: var(--c-gold); font-weight: 500; }
+.persona-quote {
+  background: var(--c-graphite);
+  padding: 64px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.persona-quote-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 28px;
+  line-height: 1.4;
+  color: var(--c-beige);
+  margin-bottom: 24px;
+}
+.persona-quote-attr {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(232, 227, 220, 0.45);
+}
+
+/* ============= TOM DE VOZ ============= */
+.tone-table {
+  margin-top: 48px;
+  background: var(--c-graphite-soft);
+}
+.tone-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid rgba(198, 168, 90, 0.12);
+}
+.tone-row:last-child { border-bottom: none; }
+.tone-cell {
+  padding: 32px 40px;
+}
+.tone-cell.bad { background: rgba(198, 168, 90, 0.02); }
+.tone-cell.good { background: transparent; }
+.tone-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.tone-label.bad { color: rgba(232, 227, 220, 0.45); }
+.tone-label.good { color: var(--c-gold); }
+.tone-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.5;
+  color: rgba(232, 227, 220, 0.85);
+}
+.tone-cell.bad .tone-text { color: rgba(232, 227, 220, 0.4); text-decoration: line-through; text-decoration-color: rgba(198, 168, 90, 0.4); }
+
+/* ============= COPY STRUCTURE ============= */
+.copy-flow {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(198, 168, 90, 0.12);
+}
+.copy-step {
+  background: var(--c-black);
+  padding: 40px 28px;
+  text-align: left;
+}
+.copy-step-num {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--c-gold);
+  margin-bottom: 12px;
+}
+.copy-step h4 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-style: italic;
+  color: var(--c-beige);
+  margin-bottom: 12px;
+}
+.copy-step p {
+  font-size: 13px;
+  color: rgba(232, 227, 220, 0.7);
+  line-height: 1.75;
+}
+
+/* ============= LINHAS VERMELHAS ============= */
+.lines-block {
+  margin-top: 48px;
+}
+.lines-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(198, 168, 90, 0.12);
+}
+.lines-list li {
+  background: var(--c-black);
+  padding: 32px 36px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(232, 227, 220, 0.78);
+}
+.lines-list li::before {
+  content: '×';
+  display: inline-block;
+  font-family: var(--font-serif);
+  color: var(--c-gold);
+  font-size: 22px;
+  margin-right: 14px;
+  vertical-align: middle;
+}
+.lines-list li strong { color: var(--c-gold); font-weight: 500; }
+
+/* ============= FILTROS ============= */
+.filter-grid {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(198, 168, 90, 0.12);
+}
+.filter-card {
+  background: var(--c-black);
+  padding: 48px 36px;
+}
+.filter-card h3 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-style: italic;
+  color: var(--c-gold);
+  margin-bottom: 18px;
+}
+.filter-card p {
+  font-size: 14px;
+  color: rgba(232, 227, 220, 0.72);
+  line-height: 1.7;
+}
+
+/* ============= COMPLIANCE ============= */
+.compliance-row {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(198, 168, 90, 0.12);
+}
+.compliance-card {
+  background: var(--c-black);
+  padding: 48px 40px;
+}
+.compliance-card h3 {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+.compliance-card .v {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  color: var(--c-beige);
+  margin-bottom: 10px;
+}
+.compliance-card .l {
+  font-size: 12px;
+  color: rgba(232, 227, 220, 0.55);
+  line-height: 1.7;
+}
+
+/* ============= FOOTER ============= */
+footer {
+  background: var(--c-black);
+  padding: 80px clamp(2rem, 6vw, 5rem);
+  border-top: 1px solid rgba(198, 168, 90, 0.18);
+  text-align: center;
+}
+footer .f-mark {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 24px;
+  color: var(--c-gold);
+  margin-bottom: 14px;
+}
+footer .f-meta {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(232, 227, 220, 0.45);
+}
+
+@media (max-width: 900px) {
+  .palette-grid, .pillars, .filter-grid { grid-template-columns: 1fr 1fr; }
+  .idx-grid, .copy-flow, .espelho-fases { grid-template-columns: 1fr 1fr; }
+  .palette-rules { grid-template-columns: 1fr; gap: 32px; }
+  .type-block { grid-template-columns: 1fr; gap: 56px; }
+  .svc-grid, .compliance-row, .persona-block, .lines-list, .smart-hero-inner { grid-template-columns: 1fr; }
+  .smart-illustration { border-left: none; padding-left: 0; padding-top: 32px; border-top: 1px solid rgba(198,168,90,0.22); }
+  .soro-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .palette-grid, .pillars, .filter-grid, .copy-flow, .soro-grid, .idx-grid, .espelho-fases { grid-template-columns: 1fr; }
+  .essencia-block { padding: 48px 28px; }
+  .wordmark-canvas { padding: 64px 24px; }
+  .soro-block, .palette-rules, .smart-hero, .espelho-hero { padding: 40px 24px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =============== COVER =============== -->
+<section class="cover">
+  <div class="cover-inner">
+    <div class="cover-mark">Brandbook · Versão 4.0</div>
+    <h1 class="cover-title">Danusa<br><em>Pires</em></h1>
+    <div class="cover-subtitle">Tricologia & Saúde Integrativa</div>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><strong>Sistema</strong>Obsidian Clinical</div>
+      <div class="cover-meta-item"><strong>Método</strong>ESPELHO</div>
+      <div class="cover-meta-item"><strong>Atualização</strong>Maio · 2026</div>
+      <div class="cover-meta-item"><strong>Direção</strong>GJORA Intelligence</div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== SUMÁRIO =============== -->
+<section>
+  <div class="lbl">sumário</div>
+  <h2 class="section-title">Um sistema, <em>doze camadas</em>.</h2>
+  <p class="section-lead">O brandbook v4 consolida o sistema Obsidian Clinical com as decisões editoriais aprovadas e o Método ESPELHO como assinatura clínica proprietária. Soroterapia ganha gancho próprio com smart.soro, sem perder a denominação técnica nas páginas e na agenda.</p>
+
+  <div class="idx-grid">
+    <a class="idx-item" href="#manifesto"><div class="idx-num">01</div><div class="idx-name">Manifesto</div><div class="idx-desc">Frase de marca e essência</div></a>
+    <a class="idx-item" href="#pilares"><div class="idx-num">02</div><div class="idx-name">Pilares</div><div class="idx-desc">Sistêmico, técnico, humano</div></a>
+    <a class="idx-item" href="#paleta"><div class="idx-num">03</div><div class="idx-name">Paleta</div><div class="idx-desc">Obsidian Clinical + Sálvia</div></a>
+    <a class="idx-item" href="#tipografia"><div class="idx-num">04</div><div class="idx-name">Tipografia</div><div class="idx-desc">DM Sans + Playfair Display</div></a>
+    <a class="idx-item" href="#wordmark"><div class="idx-num">05</div><div class="idx-name">Wordmark</div><div class="idx-desc">Danusa Pires · aplicações</div></a>
+    <a class="idx-item" href="#espelho"><div class="idx-num">06</div><div class="idx-name">Método ESPELHO</div><div class="idx-desc">Assinatura clínica proprietária</div></a>
+    <a class="idx-item" href="#servicos"><div class="idx-num">07</div><div class="idx-name">Serviços</div><div class="idx-desc">Sete linhas de atuação</div></a>
+    <a class="idx-item" href="#soroterapia"><div class="idx-num">08</div><div class="idx-name">smart.soro</div><div class="idx-desc">Soroterapia · 33 ativos</div></a>
+    <a class="idx-item" href="#persona"><div class="idx-num">09</div><div class="idx-name">Persona</div><div class="idx-desc">Quem é a paciente alvo</div></a>
+    <a class="idx-item" href="#tom"><div class="idx-num">10</div><div class="idx-name">Tom de voz</div><div class="idx-desc">Como falar, o que evitar</div></a>
+    <a class="idx-item" href="#copy"><div class="idx-num">11</div><div class="idx-name">Estrutura de copy</div><div class="idx-desc">Problema, mecanismo, intervenção, resultado</div></a>
+    <a class="idx-item" href="#linhas"><div class="idx-num">12</div><div class="idx-name">Linhas vermelhas</div><div class="idx-desc">O que a marca nunca faz</div></a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== MANIFESTO =============== -->
+<section id="manifesto">
+  <div class="lbl">essência da marca</div>
+  <h2 class="section-title">A premissa <em>fundadora</em>.</h2>
+  <p class="section-lead">O posicionamento da Danusa Pires não trata o cabelo como detalhe estético. Trata-o como uma leitura clínica do corpo. Toda comunicação parte dessa premissa.</p>
+
+  <div class="essencia-block">
+    <div class="essencia-quote">"O cabelo é <em>reflexo</em> do nosso organismo."</div>
+    <div class="essencia-attr">frase manifesto · danusa pires</div>
+  </div>
+
+  <p style="max-width:62ch;font-size:15px;line-height:1.9;color:rgba(232,227,220,0.72);margin-top:48px">A tricologia integrativa praticada aqui não isola o fio do sistema. Ela investiga hormônios, ferritina, vitamina D, microbioma intestinal, sono, estresse, deficiências nutricionais, modulação hormonal e história clínica antes de propor qualquer protocolo. O cabelo é a última fronteira que adoece e a primeira que sinaliza. É também o que mais devolve quando o corpo é tratado por dentro.</p>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== PILARES =============== -->
+<section id="pilares">
+  <div class="lbl">três pilares</div>
+  <h2 class="section-title">O que <em>sustenta</em> a marca.</h2>
+  <p class="section-lead">Cada decisão de produto, copy, visual ou atendimento responde a um destes três pilares. Se uma escolha não os fortalece, ela não entra.</p>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">01</div>
+      <h3>Olhar <em>sistêmico</em></h3>
+      <p>Nunca tratamos só o fio. Antes de qualquer ativo, avaliamos hormônios, vitaminas, intestino, sono, hábitos. O cabelo é o sintoma; a causa está dentro.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">02</div>
+      <h3>Rigor <em>técnico</em></h3>
+      <p>Diagnóstico com tricoscópio digital, exames de tração, dermatoscópio óptico, fototricograma e fotos macro padronizadas. Protocolo desenhado por evidência, não por moda.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">03</div>
+      <h3>Tempo <em>humano</em></h3>
+      <p>Consulta inicial de 60 minutos sem pressa. Triagem responsiva. Escuta antes da intervenção. A paciente sai entendendo o próprio corpo, não levando uma receita pronta.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== PALETA =============== -->
+<section id="paleta">
+  <div class="lbl">sistema cromático</div>
+  <h2 class="section-title">Obsidian Clinical <em>+ Sálvia</em>.</h2>
+  <p class="section-lead">A paleta é deliberadamente discreta. Preto dominante, bege como respiração, dourado raro como acento de autoridade. A Sálvia entrou como cor de continuidade com Instagram e papelaria da clínica — uso restrito a contextos editoriais.</p>
+
+  <div class="palette-grid">
+    <div class="palette-swatch s-black">
+      <div>
+        <div class="swatch-name">Preto Obsidiana</div>
+        <div class="swatch-meta">primária · fundo</div>
+        <div class="swatch-hex">#0B0B0B</div>
+      </div>
+      <div class="swatch-usage">60 a 70% das superfícies. Fundo padrão.</div>
+    </div>
+    <div class="palette-swatch s-graphite">
+      <div>
+        <div class="swatch-name">Grafite</div>
+        <div class="swatch-meta">apoio · blocos</div>
+        <div class="swatch-hex">#2A2A2A</div>
+      </div>
+      <div class="swatch-usage">5 a 10%. Cards, blocos de citação, separações.</div>
+    </div>
+    <div class="palette-swatch s-beige">
+      <div>
+        <div class="swatch-name">Bege Cardume</div>
+        <div class="swatch-meta">tipografia · respiro</div>
+        <div class="swatch-hex">#E8E3DC</div>
+      </div>
+      <div class="swatch-usage">20 a 30%. Textos sobre preto, áreas claras.</div>
+    </div>
+    <div class="palette-swatch s-gold">
+      <div>
+        <div class="swatch-name">Dourado Fosco</div>
+        <div class="swatch-meta">acento · autoridade</div>
+        <div class="swatch-hex">#C6A85A</div>
+      </div>
+      <div class="swatch-usage">No máximo 5%. Linhas, números, itálico, divisores.</div>
+    </div>
+    <div class="palette-swatch s-salvia">
+      <div>
+        <div class="swatch-name">Sálvia</div>
+        <div class="swatch-meta">continuidade · contexto</div>
+        <div class="swatch-hex">#8A9B8E*</div>
+      </div>
+      <div class="swatch-usage">3 a 5%. Acessória — Instagram, papelaria, terapias holísticas.</div>
+    </div>
+    <div class="palette-swatch s-white">
+      <div>
+        <div class="swatch-name">Branco</div>
+        <div class="swatch-meta">técnico · clareza</div>
+        <div class="swatch-hex">#FFFFFF</div>
+      </div>
+      <div class="swatch-usage">Documentos, formulários, fichas técnicas, pop-ups.</div>
+    </div>
+  </div>
+
+  <div class="salvia-note">
+    <strong>Nota sobre a Sálvia ·</strong> a tonalidade exibida (#8A9B8E) é uma referência aproximada definida pela GJORA Intelligence. O hex code oficial será atualizado assim que Danusa enviar o valor exato usado hoje em Instagram e papelaria. A Sálvia é cor de continuidade, não de identidade principal — sua função é amarrar contextos paralelos (terapias holísticas, conteúdo editorial calmante, materiais impressos) sem disputar com o sistema preto-bege-dourado.
+  </div>
+
+  <div class="palette-rules">
+    <div class="palette-rule">
+      <div class="palette-rule-title">Regra dos 60-30-5</div>
+      <p>Preto Obsidiana ocupa 60-70% da superfície. Bege Cardume entra como respiração em 20-30%. Dourado Fosco aparece em no máximo 5%, como acento. Sálvia ocupa 3-5% adicional em contextos editoriais.</p>
+    </div>
+    <div class="palette-rule">
+      <div class="palette-rule-title">O que não fazer</div>
+      <p>Não usar dourado como fundo de blocos. Não saturar Sálvia. Não combinar dourado com Sálvia no mesmo elemento — quem lidera o contexto é uma das duas. Não introduzir cores fora do sistema.</p>
+    </div>
+    <div class="palette-rule">
+      <div class="palette-rule-title">Contraste</div>
+      <p>Texto bege sobre preto: contraste mínimo 14:1. Dourado nunca como corpo de texto longo. Sálvia jamais como cor de informação crítica. Garantir WCAG AA em todas as combinações.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== TIPOGRAFIA =============== -->
+<section id="tipografia">
+  <div class="lbl">tipografia</div>
+  <h2 class="section-title">Duas vozes, <em>uma identidade</em>.</h2>
+  <p class="section-lead">A combinação editorial é estável: DM Sans para clareza técnica, Playfair Display para densidade autoral. Sem ornamentos, sem tipografia decorativa, sem fontes secundárias.</p>
+
+  <div class="type-block">
+    <div class="type-spec">
+      <div class="type-name">Primária · DM Sans</div>
+      <div class="type-display sans">Sans <em>técnico</em></div>
+      <div class="type-sample">Para corpo de texto, navegação, formulários, dados e instruções. Usada em pesos 300, 400, 500 e 600. Letterspacing default. Nunca em itálico para corpo longo.</div>
+      <div class="type-weights">
+        <span class="type-weight" style="font-weight:300">Light · 300</span>
+        <span class="type-weight" style="font-weight:400">Regular · 400</span>
+        <span class="type-weight" style="font-weight:500">Medium · 500</span>
+        <span class="type-weight" style="font-weight:600">Semibold · 600</span>
+      </div>
+    </div>
+
+    <div class="type-spec">
+      <div class="type-name">Secundária · Playfair Display</div>
+      <div class="type-display">Serif <em>autoral</em></div>
+      <div class="type-sample">Reservada para títulos, manchetes, citações e wordmark. Itálico usado seletivamente para enfatizar termos-chave dentro do título — não para parágrafos. Apenas pesos 400 e 500.</div>
+      <div class="type-weights">
+        <span class="type-weight" style="font-weight:400">Regular · 400</span>
+        <span class="type-weight" style="font-weight:500">Medium · 500</span>
+        <span class="type-weight" style="font-style:italic">Italic · 400</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== WORDMARK =============== -->
+<section id="wordmark">
+  <div class="lbl">wordmark</div>
+  <h2 class="section-title">A assinatura <em>tipográfica</em>.</h2>
+  <p class="section-lead">A marca é Danusa Pires. Sem prefixo de tratamento. A autoridade nasce do conhecimento, dos resultados e do método — não do título. O wordmark é construído em Playfair Display, com "Pires" em itálico dourado como acento. Acompanhado de descritor categórico em DM Sans tracked-out.</p>
+
+  <div class="wordmark-canvas">
+    <div class="wordmark">Danusa <em>Pires</em></div>
+    <div class="wordmark-divider"></div>
+    <div class="wordmark-sub">Tricologia & Saúde Integrativa</div>
+  </div>
+
+  <div class="wordmark-rules">
+    <div class="wm-rule">
+      <h3>Área de segurança</h3>
+      <p>Mínimo de 1× a altura da letra capital "D" em todos os lados. Em headers compactos, pode reduzir para 0,5×. Nunca encostar o wordmark em outro elemento textual ou gráfico.</p>
+    </div>
+    <div class="wm-rule">
+      <h3>Tamanhos mínimos</h3>
+      <p>Digital: nunca abaixo de 18px para a linha do wordmark. Impresso: mínimo de 14mm de altura. Em assinatura de email: 12px com descritor sob a linha principal.</p>
+    </div>
+    <div class="wm-rule">
+      <h3>Aplicações permitidas</h3>
+      <p>Bege Cardume sobre preto · Preto sobre bege · Branco sobre preto. O "Pires" em itálico recebe dourado apenas em fundo preto ou grafite. Em fundos claros, dourado deep (#A88B45).</p>
+    </div>
+    <div class="wm-rule">
+      <h3>Nomenclatura</h3>
+      <p>Sempre "Danusa Pires". Nunca apenas "Danusa". O título "Dra." pode aparecer em contextos pontuais de credibilidade externa (reportagens, palestras, depoimentos), mas não na marca principal do site, header, CTAs ou impressos.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== METODO ESPELHO =============== -->
+<section id="espelho">
+  <div class="lbl">método clínico proprietário</div>
+  <h2 class="section-title">Método <em>ESPELHO</em>.</h2>
+  <p class="section-lead">Assinatura clínica registrável. Toda paciente passa pelo Método ESPELHO desde a primeira consulta. O nome traduz a premissa: lemos o cabelo como espelho do organismo, diagnosticamos o sistema antes do fio.</p>
+
+  <div class="espelho-hero">
+    <div class="espelho-mark">Espelho</div>
+    <div class="espelho-tagline">"O cabelo reflete o organismo. <br>Lemos o reflexo antes de tratar."</div>
+    <div class="espelho-legend">método clínico · danusa pires</div>
+  </div>
+
+  <div class="espelho-premise">
+    A premissa do Método ESPELHO é simples e definitiva: o cabelo não é o problema, é o sintoma mais visível de um quadro sistêmico. Antes de qualquer ativo tópico, qualquer intradermo, qualquer MMP, lemos o que o cabelo está dizendo sobre hormônios, ferritina, sono, nutrição, intestino e estresse. O protocolo só nasce depois dessa leitura.
+  </div>
+
+  <div class="espelho-fases">
+    <div class="espelho-fase">
+      <div class="espelho-num">I</div>
+      <h3>Leitura</h3>
+      <p>Anamnese clínica densa de 60 minutos, tricoscópio digital, exames de tração, dermatoscópio óptico, fototricograma e foto macro padronizada. Solicitação de exames laboratoriais sistêmicos quando indicado.</p>
+    </div>
+    <div class="espelho-fase">
+      <div class="espelho-num">II</div>
+      <h3>Reflexo</h3>
+      <p>Devolutiva clínica em consulta. Mostramos o que o cabelo está refletindo — qual deficiência, qual eixo hormonal, qual carência. A paciente entende o próprio corpo. Aqui também avaliamos TrichoTest quando o caso justifica.</p>
+    </div>
+    <div class="espelho-fase">
+      <div class="espelho-num">III</div>
+      <h3>Protocolo</h3>
+      <p>Plano individualizado por mecanismo: ativos capilares tópicos, fototerapia, intradermoterapia, exossomas, peptídeos, MMP quando indicado, e smart.soro sistêmica. Sessões a cada 15 dias ou mensais.</p>
+    </div>
+    <div class="espelho-fase">
+      <div class="espelho-num">IV</div>
+      <h3>Refração</h3>
+      <p>Reavaliação no 3º mês com nova fototricografia e comparação fotográfica. Queda feminina costuma estabilizar em 3-6 meses. AAG em 6-9 meses. Ajuste de protocolo e plano de manutenção.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== SERVICOS =============== -->
+<section id="servicos">
+  <div class="lbl">portfólio de serviços</div>
+  <h2 class="section-title">Sete linhas, <em>um sistema</em>.</h2>
+  <p class="section-lead">Toda a operação clínica organizada em sete linhas. Cada serviço carrega indicação clara, tempo médio de protocolo e o tipo de paciente que ele atende melhor. Inflamações de couro cabeludo estão presentes apenas em casos leves; quadros graves recebem triagem para encaminhamento médico.</p>
+
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="svc-num">01</div>
+      <h3>Queda <em>capilar feminina</em></h3>
+      <div class="svc-target">Mulheres adultas · pós-parto, menopausa, deficiências</div>
+      <p>Anamnese + exames laboratoriais + suplementação inicial + fototerapia + ativos capilares tópicos. Quando indicado, exossomas e peptídeos. Estabilização média em 3 a 6 meses.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">02</div>
+      <h3>Alopecia <em>androgenética</em></h3>
+      <div class="svc-target">Homens e mulheres · tratamento clínico + suporte cirúrgico</div>
+      <p>Tratamento clínico da AAG. Pré e pós-transplante capilar. Trabalhamos integrados a cirurgiões parceiros — não fazemos a cirurgia, otimizamos o terreno antes e mantemos o resultado depois.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">03</div>
+      <h3>Pós-<em>transplante</em></h3>
+      <div class="svc-target">60-90 dias após a cirurgia</div>
+      <p>Laser de baixa potência + LED + ativos por intradermo. MMP só após 12 meses do procedimento cirúrgico. Protocolo focado em manter o resultado e estimular crescimento.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">04</div>
+      <h3>Fortalecimento <em>e densidade</em></h3>
+      <div class="svc-target">Sem queda ativa · busca densidade ou prevenção</div>
+      <p>Laser + intradermoterapia com fatores de crescimento, silício orgânico e vitaminas. Exossomas e peptídeos quando justificado. Para quem quer prevenir ou recuperar volume sem patologia instalada.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">05</div>
+      <h3>TrichoTest <em>· genética capilar</em></h3>
+      <div class="svc-target">Casos avançados, falha em tratamentos prévios, protocolo premium</div>
+      <p>Teste genético capilar que identifica polimorfismos relacionados a metabolismo de nutrientes, sensibilidade hormonal, estresse oxidativo e resposta a tratamentos. Personaliza o protocolo por DNA.</p>
+      <span class="svc-flag gold">novo · maio 2026</span>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">06</div>
+      <h3>smart<span style="color:var(--c-gold)">.</span>soro · <em>soroterapia</em></h3>
+      <div class="svc-target">Suporte ao protocolo capilar · saúde integrativa</div>
+      <p>Sessões EV, IM, SC, ID e MMP. Base fixa de Vitamina C + Trio Metilador + Coenzima Q10. Mais de 30 ativos disponíveis, prescritos pela Danusa por mecanismo de ação. Ver capítulo dedicado.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">07</div>
+      <h3>Diagnóstico <em>capilar avançado</em></h3>
+      <div class="svc-target">Avaliação para outros profissionais ou segunda opinião</div>
+      <p>Apenas o diagnóstico, sem entrar em protocolo de longo prazo. Indicado para quem quer entender o quadro com rigor técnico antes de decidir o próximo passo.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-num">+</div>
+      <h3>Inflamações <em>do couro</em></h3>
+      <div class="svc-target">Apenas casos leves · graves encaminhados para avaliação médica</div>
+      <p>A clínica não tem foco em quadros inflamatórios graves do couro cabeludo. Casos leves são abordados como complemento ao protocolo principal. Quando há suspeita de dermatose grave, encaminhamos para avaliação médica especializada.</p>
+      <span class="svc-flag">complementar · não pilar</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== smart.soro =============== -->
+<section id="soroterapia">
+  <div class="lbl">capítulo dedicado</div>
+  <h2 class="section-title">Soroterapia · <em>smart.soro</em>.</h2>
+  <p class="section-lead">O serviço institucional é Soroterapia. O gancho de identidade e o sistema interativo no site são smart.soro — um nome próprio que sinaliza a inteligência por trás da prescrição: cada ativo escolhido por mecanismo, cada combinação testada na clínica, cada via decidida por janela terapêutica. Não é "uma vitamina injetável". É leitura clínica aplicada ao sistêmico.</p>
+
+  <div class="smart-hero">
+    <div class="smart-hero-inner">
+      <div>
+        <div class="smart-mark">smart<span class="dot">.</span><em>soro</em></div>
+        <div class="smart-headline">"Cada ativo entra por uma razão. Cada via é escolhida com critério."</div>
+        <div class="smart-meta"><strong>Prescrição exclusiva</strong> · Danusa Pires</div>
+      </div>
+      <div class="smart-illustration">
+        <p><strong style="color:var(--c-gold)">No site:</strong> a página institucional se chama Soroterapia. O sistema interativo dentro dela aparece como smart.soro — a paciente seleciona uma queixa sistêmica e vê os ativos relevantes para o quadro dela.</p>
+        <p><strong style="color:var(--c-gold)">Na clínica:</strong> agenda, receituário e impressos usam "Soroterapia". O nome smart.soro acompanha apenas peças de marca: capa de Instagram, cartão de protocolo, link em bio.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="soro-block">
+    <div class="soro-base">
+      <strong>Base fixa de toda sessão ·</strong> Vitamina C · Trio Metilador (B6, B9, B12 metiladas) · Coenzima Q10. A partir dessa fundação, os demais ativos são prescritos por mecanismo de ação conforme a queixa sistêmica que sustenta o quadro capilar.
+    </div>
+
+    <div class="soro-grid">
+      <div>
+        <div class="soro-cat-title">Mitocondrial · Energia</div>
+        <ul class="soro-list">
+          <li><span>Coenzima Q10</span><span class="via">IM</span></li>
+          <li><span>PQQ</span><span class="via">IM</span></li>
+          <li><span>D-Ribose</span><span class="via">EV / IM</span></li>
+          <li><span>L-Carnitina</span><span class="via">IM / EV</span></li>
+          <li><span>HMB</span><span class="via">IM</span></li>
+          <li><span>NADH</span><span class="via">IM / EV</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="soro-cat-title">Metilação · Vitaminas</div>
+        <ul class="soro-list">
+          <li><span>Trio Metilador</span><span class="via">IM</span></li>
+          <li><span>Metilcobalamina</span><span class="via">IM</span></li>
+          <li><span>Complexo B</span><span class="via">IM</span></li>
+          <li><span>Vitamina B1</span><span class="via">IM</span></li>
+          <li><span>Vitamina C</span><span class="via">EV / IM</span></li>
+          <li><span>Vitamina D</span><span class="via">IM</span></li>
+          <li><span>ADEK</span><span class="via">IM</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="soro-cat-title">Antioxidante · Detox</div>
+        <ul class="soro-list">
+          <li><span>Glutationa</span><span class="via">EV / IM</span></li>
+          <li><span>Ácido Alfa-Lipóico</span><span class="via">EV</span></li>
+          <li><span>N-Acetilcisteína</span><span class="via">EV / IM</span></li>
+          <li><span>Resveratrol</span><span class="via">IM / EV</span></li>
+          <li><span>Curcumina</span><span class="via">IM</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="soro-cat-title">Capilar · Pele</div>
+        <ul class="soro-list">
+          <li><span>Silício Orgânico</span><span class="via">IM</span></li>
+          <li><span>Biotina</span><span class="via">IM</span></li>
+          <li><span>D-Pantenol</span><span class="via">IM</span></li>
+          <li><span>Pill Food</span><span class="via">IM</span></li>
+          <li><span>DMAE</span><span class="via">IM</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="soro-cat-title">Cognitivo · Foco</div>
+        <ul class="soro-list">
+          <li><span>Alpha GPC</span><span class="via">IM</span></li>
+          <li><span>Piracetam</span><span class="via">IM / EV</span></li>
+          <li><span>GABA</span><span class="via">IM</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="soro-cat-title">Metabolismo · Composição</div>
+        <ul class="soro-list">
+          <li><span>Cromo Picolinato</span><span class="via">IM</span></li>
+          <li><span>Vanádio</span><span class="via">IM</span></li>
+          <li><span>Morusil</span><span class="via">IM</span></li>
+          <li><span>Tripeptídeo-41</span><span class="via">IM</span></li>
+          <li><span>Cafeína</span><span class="via">IM</span></li>
+          <li><span>Pool de Aminoácidos</span><span class="via">IM / EV</span></li>
+          <li><span>Pool de Minerais</span><span class="via">IM / EV</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="soro-base" style="margin-top:48px">
+      <strong>Vias de administração ·</strong> Endovenosa (EV) · Intramuscular (IM) · Subcutânea (SC) · Intradermo (ID) · MMP (microagulhamento associado a ativos). A via depende do ativo, da meta clínica e da janela terapêutica.
+    </div>
+
+    <div class="soro-base" style="margin-top:24px">
+      <strong>Exemplo de receita real ·</strong> Eflúvio telógeno pós-GLP-1/tirzepatida em 5 semanas: S1 Antioxidante + Adrenal (Glutationa EV, Vitamina C, B12 alta dose, ADEK IM) → S2 Sensibilidade insulínica (Ácido Alfa-Lipóico, Vitamina C, Coenzima Q10) → S3 Metilação (Trio Metilador, Vitamina D 100k UI) → S4 Antioxidante reforço (Glutationa, Ácido Alfa-Lipóico) → S5 Manutenção. Receita anonimizada, autorizada para apresentação institucional.
+    </div>
+
+    <div class="soro-warn">
+      <strong>Ativo proibido ·</strong> Azul de metileno não é utilizado em soroterapia nesta clínica. A decisão se sustenta em risco de interação medicamentosa (inibidor MAO) com antidepressivos, alimentos ricos em tiramina e outros fármacos comuns na faixa etária da paciente alvo.
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== PERSONA =============== -->
+<section id="persona">
+  <div class="lbl">paciente alvo</div>
+  <h2 class="section-title">Para quem <em>falamos</em>.</h2>
+  <p class="section-lead">Toda copy, todo serviço e todo CTA respondem a esta paciente. Ela é específica, e o site não tenta agradar a todos — tenta acertar nela com precisão.</p>
+
+  <div class="persona-block">
+    <div class="persona-id">
+      <div class="persona-name">Mulher · 48 anos</div>
+      <div class="persona-age">menopausa · profissional liberal</div>
+      <ul class="persona-list">
+        <li><strong>Renda</strong> · acima de R$ 8.000/mês</li>
+        <li><strong>Comportamento</strong> · viaja, investe em qualidade, é exigente</li>
+        <li><strong>Tentativas prévias</strong> · já tentou xampus, dermatologista, esteticista</li>
+        <li><strong>Estágio do quadro</strong> · queda estabelecida, costuma chegar tarde</li>
+        <li><strong>Decisão</strong> · pesquisa, lê, compara · não impulsiva</li>
+        <li><strong>Ticket esperado</strong> · R$ 4.000 médio · protocolos completos R$ 5.000+</li>
+        <li><strong>Frequência</strong> · sessões a cada 15 dias ou mensais por 3 a 9 meses</li>
+        <li><strong>Não atendemos</strong> · menores de 18 anos · quadros inflamatórios graves</li>
+      </ul>
+    </div>
+    <div class="persona-quote">
+      <div class="persona-quote-text">"Vou ficar careca, meu cabelo está caindo muito. Não sei mais o que fazer."</div>
+      <div class="persona-quote-attr">— queixa verbal típica · primeira consulta</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== TOM DE VOZ =============== -->
+<section id="tom">
+  <div class="lbl">tom de voz</div>
+  <h2 class="section-title">Como a marca <em>fala</em>.</h2>
+  <p class="section-lead">Densa sem ser intimidante. Técnica sem ser fria. Acolhedora sem ser doce. Nunca usa termos de cosmética popular, nunca diz "milagre", "definitivo", "100%", nunca promete o que a evidência não sustenta.</p>
+
+  <div class="tone-table">
+    <div class="tone-row">
+      <div class="tone-cell bad">
+        <div class="tone-label bad">evitar</div>
+        <div class="tone-text">"Resultado milagroso e definitivo para queda capilar!"</div>
+      </div>
+      <div class="tone-cell good">
+        <div class="tone-label good">usar</div>
+        <div class="tone-text">"Investigamos a causa antes de propor o protocolo. Resultados em 3 a 6 meses."</div>
+      </div>
+    </div>
+    <div class="tone-row">
+      <div class="tone-cell bad">
+        <div class="tone-label bad">evitar</div>
+        <div class="tone-text">"Cabelos lindos, brilhantes e saudáveis em poucas sessões!"</div>
+      </div>
+      <div class="tone-cell good">
+        <div class="tone-label good">usar</div>
+        <div class="tone-text">"O cabelo é reflexo do organismo. Tratamos o sistema, não só o fio."</div>
+      </div>
+    </div>
+    <div class="tone-row">
+      <div class="tone-cell bad">
+        <div class="tone-label bad">evitar</div>
+        <div class="tone-text">"Promoção: 50% off em todos os tratamentos capilares!"</div>
+      </div>
+      <div class="tone-cell good">
+        <div class="tone-label good">usar</div>
+        <div class="tone-text">"Avaliação inicial: 60 minutos. R$ 380. Protocolos individualizados após diagnóstico."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== COPY STRUCTURE =============== -->
+<section id="copy">
+  <div class="lbl">estrutura obrigatória</div>
+  <h2 class="section-title">Como <em>escrevemos</em>.</h2>
+  <p class="section-lead">Todo bloco de copy sobre serviço, queixa ou intervenção segue a mesma sequência. Quatro etapas. Quando uma delas falta, o texto soa raso ou comercial.</p>
+
+  <div class="copy-flow">
+    <div class="copy-step">
+      <div class="copy-step-num">01</div>
+      <h4>Problema</h4>
+      <p>Nomear a queixa do paciente com as palavras dele. Sem rebuscar, sem clínica desnecessária. Como ele descreveria isso no WhatsApp.</p>
+    </div>
+    <div class="copy-step">
+      <div class="copy-step-num">02</div>
+      <h4>Mecanismo</h4>
+      <p>Explicar o que de fato está acontecendo no corpo. Hormônio, vitamina, fase do ciclo, autoimune, deficiência nutricional. Aqui entra o rigor.</p>
+    </div>
+    <div class="copy-step">
+      <div class="copy-step-num">03</div>
+      <h4>Intervenção</h4>
+      <p>Descrever o que fazemos: tipo de exame, tipo de protocolo, ativos, frequência, duração esperada. Sem promessa de cura.</p>
+    </div>
+    <div class="copy-step">
+      <div class="copy-step-num">04</div>
+      <h4>Resultado possível</h4>
+      <p>O que o paciente pode realisticamente esperar e em que prazo. Estabilização, recuperação parcial, manutenção. Sempre com janela temporal.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== FILTROS =============== -->
+<section>
+  <div class="lbl">quem é atendido</div>
+  <h2 class="section-title">Filtros <em>clínicos</em>.</h2>
+  <p class="section-lead">A clínica tem filtros explícitos. Eles protegem a qualidade do atendimento e a coerência da especialização.</p>
+
+  <div class="filter-grid">
+    <div class="filter-card">
+      <h3>Idade <em>mínima</em></h3>
+      <p>Não atendemos menores de 18 anos. Quadros pediátricos e adolescentes são encaminhados para dermatologistas pediátricos parceiros.</p>
+    </div>
+    <div class="filter-card">
+      <h3>Inflamações <em>graves</em></h3>
+      <p>Quadros como dermatite seborreica grave, psoríase do couro cabeludo, líquen plano pilar e outras dermatoses não são foco da clínica. Casos graves são encaminhados para avaliação médica especializada. Casos leves podem ser abordados como complemento ao protocolo capilar.</p>
+    </div>
+    <div class="filter-card">
+      <h3>Foco <em>estético-clínico</em></h3>
+      <p>A clínica trabalha em interface entre saúde e estética. Casos que exigem prescrição médica de uso contínuo fora do escopo capilar são acompanhados por médico parceiro.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== LINHAS VERMELHAS =============== -->
+<section id="linhas">
+  <div class="lbl">o que a marca nunca faz</div>
+  <h2 class="section-title">Linhas <em>vermelhas</em>.</h2>
+  <p class="section-lead">Decisões que protegem a credibilidade. Tudo aqui é absoluto — não há exceção, não há reescrita por demanda comercial.</p>
+
+  <div class="lines-block">
+    <ul class="lines-list">
+      <li>Não prometer cura, resultado definitivo, ou "100% de garantia".</li>
+      <li>Não usar termos como <strong>milagre</strong>, <strong>revolucionário</strong>, <strong>resultados imediatos</strong>.</li>
+      <li>Não fazer antes-e-depois sem autorização escrita do paciente e parametrização fotográfica equivalente.</li>
+      <li>Não atender menores de 18 anos.</li>
+      <li>Não prescrever <strong>azul de metileno</strong> em soroterapia (risco de interação medicamentosa).</li>
+      <li>Não usar linguagem de cosmética popular ("cabelão", "fios sedosos", "brilho instantâneo").</li>
+      <li>Não competir por preço. O valor está no diagnóstico e no rigor, não em promoção.</li>
+      <li>Não mostrar logos de marcas comerciais de cosméticos sem propósito clínico claro.</li>
+      <li>Não publicar conteúdo sem revisão da Danusa, mesmo em redes sociais.</li>
+      <li>Não usar fotos genéricas de banco de imagens onde houver indicação de procedimento real.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== COMPLIANCE =============== -->
+<section>
+  <div class="lbl">dados oficiais · compliance</div>
+  <h2 class="section-title">Identidade <em>jurídica</em> e técnica.</h2>
+  <p class="section-lead">Dados que vão para schema, footer, política de privacidade, termos de uso e nota fiscal.</p>
+
+  <div class="compliance-row">
+    <div class="compliance-card">
+      <h3>Razão social</h3>
+      <div class="v">Mincorp Saúde e Estética Ltda.</div>
+      <div class="l">Razão social registrada na Receita Federal.</div>
+    </div>
+    <div class="compliance-card">
+      <h3>Nome fantasia</h3>
+      <div class="v">Danusa Pires Saúde e Estética</div>
+      <div class="l">Nome fantasia registrado em cartório. Mantido como denominação jurídica oficial.</div>
+    </div>
+    <div class="compliance-card">
+      <h3>CNPJ</h3>
+      <div class="v">47.698.087/0001-86</div>
+      <div class="l">Cadastro Nacional de Pessoa Jurídica.</div>
+    </div>
+    <div class="compliance-card">
+      <h3>Profissional · COREN</h3>
+      <div class="v">Danusa Pires · COREN-RS</div>
+      <div class="l">Enfermeira especialista em Tricologia Avançada, Estética Avançada e Nutracêuticos.</div>
+    </div>
+    <div class="compliance-card">
+      <h3>Equipe técnica</h3>
+      <div class="v">Adriana Melo · COREN-RS 1.255.019</div>
+      <div class="l">+ Amanda Paz da Silva Martins · COREN-RS 127.286</div>
+    </div>
+    <div class="compliance-card">
+      <h3>Meta Pixel</h3>
+      <div class="v">1326953349366151</div>
+      <div class="l">Pixel oficial · consent-gated · LGPD-compliant.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== FORMAÇÃO =============== -->
+<section>
+  <div class="lbl">formação · danusa pires</div>
+  <h2 class="section-title">Trajetória <em>técnica</em>.</h2>
+  <p class="section-lead">Toda autoridade da marca se ancora na formação documentada. Apresentada com datas e instituições — nunca como lista de buzzwords.</p>
+
+  <div class="compliance-row" style="margin-top:48px">
+    <div class="compliance-card">
+      <h3>Bacharelado</h3>
+      <div class="v">Enfermagem · PUCRS</div>
+      <div class="l">Pontifícia Universidade Católica do Rio Grande do Sul · 2012</div>
+    </div>
+    <div class="compliance-card">
+      <h3>Pós-graduação</h3>
+      <div class="v">Enfermagem Estética</div>
+      <div class="l">Instituto Nepuga · 2022</div>
+    </div>
+    <div class="compliance-card">
+      <h3>Pós-graduação</h3>
+      <div class="v">Tricologia Avançada</div>
+      <div class="l">Instituto Lívia Vacari · 2024</div>
+    </div>
+    <div class="compliance-card">
+      <h3>Especialização</h3>
+      <div class="v">Nutracêuticos</div>
+      <div class="l">Instituto Thereza Moraes · 2025</div>
+    </div>
+  </div>
+
+  <p style="margin-top:48px;font-size:14px;color:rgba(232,227,220,0.65);line-height:1.85;max-width:62ch">Cursos complementares ativos: congressos anuais de tricologia, congressos de saúde integrativa, formação em modulação hormonal. A trajetória pessoal vem do serviço público — concursada na enfermagem de emergência, transicionou para a tricologia ao perceber que o cabelo era um dos canais mais precisos de ler o organismo em desequilíbrio sistêmico.</p>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =============== FOOTER =============== -->
+<footer>
+  <div class="f-mark">Danusa <em>Pires</em></div>
+  <div class="f-meta">Brandbook · Versão 4.0 · Maio · 2026 · Direção GJORA Intelligence</div>
+</footer>
+
+</body>
+</html>

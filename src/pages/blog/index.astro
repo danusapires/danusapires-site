@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { SITE, FORM_TYPES } from '../../data/site';
+
+const posts = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const formConfig = FORM_TYPES.newsletter;
+---
+
+<BaseLayout
+  title="Blog"
+  description="Conteúdo clínico sobre tricologia, queda capilar, alopecia e investigação do couro cabeludo. Escrito pela equipe da Danusa Pires Tricologia & Saúde Integrativa."
+  currentPage="blog"
+  breadcrumbs={[{ name: 'Blog', url: '/blog' }]}
+>
+
+  <section class="hero" style="min-height:40vh">
+    <div class="hero-content">
+      <p class="lbl r">blog</p>
+      <h1 class="r d1">Mecanismos, leituras clínicas e <em>protocolos</em>.</h1>
+      <p class="r d2">Estrutura editorial: problema, mecanismo, intervenção, resultado possível. Sem clichês, sem promessas absolutas.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="g3">
+      {posts.map(post => (
+        <a href={`/blog/${post.id}`} class="pillar-card r" style="text-decoration:none;display:block">
+          <p style="font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--color-brand-text);margin-bottom:8px">{post.data.category}</p>
+          <h3 style="font-size:15px;font-weight:400;line-height:1.5;margin-bottom:8px">{post.data.title}</h3>
+          <p style="font-size:12px;color:var(--color-ink-soft)">{post.data.description}</p>
+          <p style="font-size:10px;color:var(--color-ink-ghost);margin-top:12px">{post.data.author} · {post.data.date}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- NEWSLETTER ===================================== -->
+  <section class="section-cream">
+    <div class="blog-news r">
+      <div class="blog-news-text">
+        <p class="lbl">O Pilar · carta clínica quinzenal</p>
+        <h2>Quer ler a Danusa toda quinzena?</h2>
+        <p class="blog-news-lead">
+          Carta de 600–1.000 palavras, quartas-feiras 8h. 1 insight clínico, 1 estudo comentado, 1 protocolo aplicável, 1 pergunta. Quem se inscreve agora recebe a <strong>sequência de boas-vindas de 7 dias</strong> com a triagem que deveria ter sido feita na primeira consulta da sua vida.
+        </p>
+        <a href="/o-pilar" class="blog-news-link">conhecer O Pilar em detalhe →</a>
+      </div>
+
+      <form class="ecooa-form blog-news-form" action={SITE.gasUrl} method="POST">
+        <input type="hidden" name="_formType" value={formConfig.id} />
+        <input type="hidden" name="_source" value="blog-inline" />
+
+        <label class="blog-news-field">
+          <span>Como te chamamos?</span>
+          <input type="text" name="nome" placeholder="Primeiro nome" required autocomplete="given-name" />
+        </label>
+
+        <label class="blog-news-field">
+          <span>Seu melhor email</span>
+          <input type="email" name="email" placeholder="onde você lê com atenção" required autocomplete="email" />
+        </label>
+
+        <button type="submit" class="btn btn-primary">receber o dia 1 amanhã às 8h</button>
+
+        <p class="blog-news-notice">
+          Sem spam. Cancela em 1 clique no rodapé de qualquer carta.
+        </p>
+      </form>
+
+      <div class="ecooa-form-ok" style="display:none">
+        <div class="blog-news-ok">
+          <h3>Inscrição confirmada.</h3>
+          <p>O email #1 chega no seu inbox amanhã às 8h. Procure em <em>Promoções</em> ou <em>Spam</em> se não chegar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import '../../scripts/form-submit';
+  </script>
+
+  <style is:inline>
+    .blog-news {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 4rem);
+      align-items: center;
+      padding: clamp(2rem, 5vw, 4rem);
+      background: var(--c-white);
+      border-top: 4px solid var(--c-gold);
+    }
+    @media (max-width: 800px) {
+      .blog-news { grid-template-columns: 1fr; }
+    }
+
+    .blog-news-text .lbl {
+      color: var(--c-gold);
+      margin-bottom: var(--space-md);
+    }
+    .blog-news-text h2 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--c-black);
+      margin: 0 0 var(--space-md);
+    }
+    .blog-news-lead {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(11,11,11,.72);
+      margin: 0 0 var(--space-md);
+    }
+    .blog-news-lead strong { color: var(--c-black); font-weight: 500; }
+    .blog-news-link {
+      font-family: var(--font-primary);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      border-bottom: 1px solid var(--c-gold);
+      padding-bottom: 3px;
+    }
+
+    .blog-news-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .blog-news-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .blog-news-field span {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--c-black);
+      letter-spacing: .02em;
+    }
+    .blog-news-field input {
+      padding: 13px 14px;
+      border: 1px solid rgba(11,11,11,.2);
+      background: var(--c-white);
+      color: var(--c-black);
+      font-family: var(--font-primary);
+      font-size: 15px;
+      border-radius: 0;
+      transition: border-color var(--transition-fast);
+    }
+    .blog-news-field input:focus {
+      outline: none;
+      border-color: var(--c-gold);
+      box-shadow: inset 0 0 0 1px var(--c-gold);
+    }
+    .blog-news-notice {
+      font-size: 12px;
+      color: rgba(11,11,11,.55);
+      margin: 0;
+      text-align: center;
+    }
+    .blog-news-ok {
+      padding: var(--space-lg);
+      background: var(--c-beige);
+      border-left: 4px solid var(--c-gold);
+    }
+    .blog-news-ok h3 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 22px;
+      color: var(--c-black);
+      margin: 0 0 8px;
+    }
+    .blog-news-ok p {
+      font-size: 14px;
+      color: rgba(11,11,11,.72);
+      margin: 0;
+    }
+    .blog-news-ok em { color: var(--c-gold); font-style: italic; }
+  </style>
+
+</BaseLayout>

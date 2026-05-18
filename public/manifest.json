@@ -1,0 +1,16 @@
+{
+  "name": "Danusa Pires - Tricologia & Saúde Integrativa",
+  "short_name": "Danusa Pires",
+  "description": "Saúde capilar através da leitura sistêmica do organismo. Protocolos clínicos individualizados em Porto Alegre.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF8F6",
+  "theme_color": "#FAF8F6",
+  "orientation": "portrait-primary",
+  "lang": "pt-BR",
+  "categories": ["health", "medical"],
+  "icons": [
+    { "src": "/favicon/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/favicon/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

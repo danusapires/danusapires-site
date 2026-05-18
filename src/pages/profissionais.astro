@@ -1,0 +1,205 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+import { professionals } from '../data/professionals';
+---
+
+<BaseLayout
+  title="Equipe | Profissionais especializados em Tricologia"
+  description="Conheça a equipe da clínica de tricologia de Danusa Pires. Especialistas em diagnóstico capilar, procedimentos e saúde integrativa. Autonomia clínica e filosofia de cuidado Schulze."
+  currentPage="profissionais"
+  breadcrumbs={[
+    { name: 'Profissionais', url: '/profissionais' }
+  ]}
+>
+
+  <!-- HERO PROFISSIONAIS -->
+  <section class="prof-hero">
+    <div class="prof-hero-content">
+      <p class="lbl r">equipe</p>
+      <h1 class="prof-hero-title r d1">
+        Cada membro traz <em>autonomia</em> e especialização.
+      </h1>
+      <p class="prof-hero-lead r d2">
+        Não somos apenas executores de protocolo. Cada profissional tem área de decisão própria, responsabilidade clínica e orçamento de autonomia. Credibilidade e continuidade.
+      </p>
+    </div>
+  </section>
+
+  <!-- PROFISSIONAIS GRID -->
+  <section style="padding:var(--section-py) var(--section-px)">
+    <div class="prof-grid">
+      {professionals.map((prof, i) => (
+        <article class="prof-card r" style={`
+          transition-delay:${i*0.08}s;
+          border-left: 6px solid ${prof.bg};
+        `}>
+          {prof.photo && (
+            <picture class="prof-photo" style="aspect-ratio:3/4;display:block;overflow:hidden;margin-bottom:var(--space-lg)">
+              <img
+                src={prof.photo}
+                alt={prof.name}
+                loading="lazy"
+                decoding="async"
+                style="width:100%;height:100%;object-fit:cover"
+              />
+            </picture>
+          )}
+
+          <div>
+            <h2 style="margin:0 0 8px;font-family:var(--font-serif);font-size:24px;font-weight:400;color:var(--c-black)">{prof.name}</h2>
+            <p class="prof-title">{prof.title}</p>
+            <p class="prof-role">{prof.role}</p>
+
+            {prof.registration && (
+              <p style="font-size:11px;color:var(--color-ink-ghost);margin:var(--space-sm) 0 0;letter-spacing:.05em">{prof.registration}</p>
+            )}
+          </div>
+
+          <!-- FILOSOFIA E AUTONOMIA -->
+          <div style="margin-top:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid rgba(11,11,11,.1)">
+            <p style="margin:var(--space-md) 0 0;font-size:14px;line-height:1.85;color:rgba(11,11,11,.7)">
+              <strong style="display:block;color:var(--c-black);margin-bottom:6px;font-family:var(--font-serif)">Filosofia</strong>
+              {prof.philosophy}
+            </p>
+
+            {prof.autonomy && (
+              <p style="margin:var(--space-md) 0 0;font-size:14px;line-height:1.85;color:rgba(11,11,11,.7)">
+                <strong style="display:block;color:var(--c-black);margin-bottom:6px;font-family:var(--font-serif)">Autonomia clínica</strong>
+                {prof.autonomy}
+              </p>
+            )}
+
+            {prof.clinicalFocus && (
+              <p style="margin:var(--space-md) 0 0;font-size:14px;line-height:1.85;color:rgba(11,11,11,.7)">
+                <strong style="display:block;color:var(--c-black);margin-bottom:6px;font-family:var(--font-serif)">Foco clínico</strong>
+                {prof.clinicalFocus}
+              </p>
+            )}
+          </div>
+
+          <!-- ESPECIALIDADES -->
+          {prof.specialties && prof.specialties.length > 0 && (
+            <div style="margin-top:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid rgba(11,11,11,.1)">
+              <strong style="display:block;color:var(--c-black);margin-bottom:var(--space-sm);font-family:var(--font-serif)">Especialidades</strong>
+              <ul style="list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px">
+                {prof.specialties.slice(0, 6).map(spec => (
+                  <li style="
+                    font-size:12px;
+                    background:rgba(184, 134, 11, 0.08);
+                    color:rgba(11,11,11,.8);
+                    padding:4px 10px;
+                    border-radius:2px;
+                  ">
+                    {spec}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <!-- EDUCAÇÃO -->
+          {prof.education && (
+            <div style="margin-top:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid rgba(11,11,11,.1)">
+              <strong style="display:block;color:var(--c-black);margin-bottom:var(--space-sm);font-family:var(--font-serif)">Formação</strong>
+              <p style="margin:0 0 var(--space-sm);font-size:13px;color:rgba(11,11,11,.7)">
+                <strong>{prof.education.graduation}</strong>
+              </p>
+              {prof.education.postgrad && prof.education.postgrad.length > 0 && (
+                <div>
+                  {prof.education.postgrad.map(pg => (
+                    <p style="margin:4px 0;font-size:12px;color:rgba(11,11,11,.7)">{pg}</p>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          <!-- TAGS -->
+          {prof.tags && prof.tags.length > 0 && (
+            <div style="margin-top:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid rgba(11,11,11,.1)">
+              <ul style="list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px">
+                {prof.tags.map(tag => (
+                  <li style="
+                    font-size:11px;
+                    background:rgba(122, 139, 127, 0.1);
+                    color:rgba(11,11,11,.7);
+                    padding:4px 8px;
+                    border-radius:2px;
+                  ">
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <style is:inline>
+    /* HERO ========================================== */
+    .prof-hero {
+      min-height: 50vh;
+      background: var(--c-black);
+      padding: clamp(5rem, 12vh, 8rem) var(--section-px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .prof-hero-content {
+      max-width: 760px;
+    }
+    .prof-hero-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(40px, 5.2vw, 72px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--c-beige);
+      margin: 0 0 var(--space-md);
+    }
+    .prof-hero-title em { font-style: italic; color: var(--c-gold); }
+    .prof-hero-lead {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--color-ink-soft);
+      margin: 0;
+    }
+
+    /* GRID =========================================== */
+    .prof-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--space-xl);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .prof-card {
+      background: var(--c-beige);
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+    }
+    .prof-title {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--c-black);
+      margin: 0;
+    }
+    .prof-role {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--c-gold);
+      margin: 4px 0 0;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 640px) {
+      .prof-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+</BaseLayout>

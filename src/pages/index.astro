@@ -1,0 +1,648 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { SITE, PILLARS, WA_DEFAULT, PALETTE, TYPOGRAPHY } from '../data/site';
+import { professionals } from '../data/professionals';
+---
+
+<BaseLayout
+  title="Saúde Capilar & Integrativa | Método ESPELHO"
+  description="Saúde capilar através da leitura sistêmica. Investigação de hormônios, eixo adrenal, ferro, vitaminas, sono, microbioma e estresse. Protocolo clínico individualizado conforme mecanismo dominante. Edifício Moinhos 180, Porto Alegre."
+  currentPage="home"
+>
+
+  <!-- HERO, fullbleed editorial dark + retrato -->
+  <section class="dh-hero">
+    <div class="dh-hero-content">
+      <p class="lbl r dh-hero-toplabel">Moinhos de Vento · Porto Alegre</p>
+
+      <div class="dh-hero-brand r d1">
+        <p class="dh-hero-name">Danusa Pires</p>
+        <p class="dh-hero-specialty">Enfermeira especialista em tricologia avançada e metabolismo</p>
+        <p class="dh-hero-credential">{SITE.registroProfissional}</p>
+      </div>
+
+      <h1 class="dh-hero-title r d2">
+        O cabelo é <em>reflexo</em> do nosso organismo.
+      </h1>
+      <p class="dh-hero-lead r d3">
+        Se a sua queda já dura mais de 6 meses, se você já tentou tratamento cosmético e a queda voltou, se outros profissionais não investigaram ferritina, tireoide, hormônios e sono — você não está no lugar certo ainda. A queda crônica tem causa sistêmica em mais de 70% dos casos. Sem leitura, qualquer protocolo é tentativa.
+      </p>
+      <div class="dh-hero-actions r d4">
+        <a href="/o-pilar" class="btn btn-primary">receber a triagem clínica em 7 dias</a>
+        <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="dh-hero-link">já quero agendar avaliação →</a>
+      </div>
+    </div>
+
+    <div class="dh-hero-image" aria-hidden="true">
+      <picture>
+        <source srcset="/images/hero/tricologista-danusa-pires-home.avif" type="image/avif" />
+        <source srcset="/images/hero/tricologista-danusa-pires-home.webp" type="image/webp" />
+        <img src="/images/hero/tricologista-danusa-pires-home.webp" alt="" fetchpriority="high" decoding="async" />
+      </picture>
+    </div>
+  </section>
+
+  <!-- PROBLEMAS TRATADOS, serviços por lógica clínica -->
+  <section id="servicos">
+    <div style="max-width:840px">
+      <p class="lbl r">problemas tratados</p>
+      <h2 class="section-title r d1">Quadros que respondem ao método.</h2>
+      <p class="section-subtitle r d2">Cada quadro tem investigação dirigida e protocolo conforme mecanismo dominante. A leitura clínica antecede a conduta.</p>
+    </div>
+
+    <div class="g3" style="margin-top:var(--space-xl);gap:18px">
+      {PILLARS.map((p, i) => (
+        <article class="pillar-card r" style={`transition-delay:${i*0.05}s`}>
+          <h3>{p.name}</h3>
+          <p class="pillar-subtitle">{p.subtitle}</p>
+          <p>{p.description}</p>
+          <a href={p.href} class="pillar-link">saber mais →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- AUTORIDADE CLÍNICA: Danusa Pires (single feature) -->
+  {(() => {
+    const danusa = professionals[0];
+    return (
+      <section class="section-cream">
+        <div style="max-width:840px">
+          <p class="lbl r">quem conduz</p>
+          <h2 class="section-title r d1">Autoridade clínica, <em>presença</em> e cuidado.</h2>
+          <p class="section-subtitle r d2">A consulta, o diagnóstico e a definição de protocolo são conduzidos diretamente pela enfermeira responsável.</p>
+        </div>
+
+        <article class="dh-lead-card r" style={`border-left: 4px solid ${danusa.bg}`}>
+          {danusa.photo && (
+            <picture class="dh-lead-photo">
+              <img
+                src={danusa.photo}
+                alt={danusa.name}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+          )}
+
+          <div class="dh-lead-body">
+            <h3>{danusa.name}</h3>
+            <p class="dh-team-title">{danusa.title}</p>
+            <p class="dh-team-role">{danusa.role}</p>
+
+            <p class="dh-lead-block">
+              <strong>Filosofia</strong>
+              {danusa.philosophy}
+            </p>
+            <p class="dh-lead-block">
+              <strong>Autonomia clínica</strong>
+              {danusa.autonomy}
+            </p>
+
+            <p class="dh-lead-reg">{danusa.registration}</p>
+          </div>
+        </article>
+
+        <div style="margin-top:var(--space-xl);max-width:840px;text-align:center">
+          <a href="/profissionais" class="btn btn-outline">conhecer a equipe completa</a>
+        </div>
+      </section>
+    );
+  })()}
+
+  <!-- COMO FUNCIONA, split editorial: foto + steps -->
+  <section class="section-cream">
+    <div class="g2" style="align-items:center;gap:var(--space-2xl)">
+      <picture class="r" style="aspect-ratio:4/5;display:block;overflow:hidden">
+        <source srcset="/images/clinical/exame-clinico.avif" type="image/avif" />
+        <source srcset="/images/clinical/exame-clinico.webp" type="image/webp" />
+        <img src="/images/clinical/exame-clinico.webp" alt="Exame clínico de tricoscopia digital em consultório" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover" />
+      </picture>
+      <div>
+        <p class="lbl r">como funciona</p>
+        <h2 class="section-title r d1">Da primeira <em>avaliação</em> ao protocolo.</h2>
+
+        <ol class="dh-flow">
+          <li class="r d1"><span>01</span><div><strong>Avaliação inicial</strong>Anamnese estruturada, leitura do couro cabeludo, exames pertinentes ao caso e tempo de evolução.</div></li>
+          <li class="r d2"><span>02</span><div><strong>Definição de protocolo</strong>Combinação de condutas clínicas conforme mecanismo dominante. Janela terapêutica e marcadores definidos.</div></li>
+          <li class="r d3"><span>03</span><div><strong>Acompanhamento</strong>Reavaliação programada. Ajuste conforme resposta individual e padrão fisiológico.</div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMBIENTE / AUTORIDADE -->
+  <section class="dh-environment">
+    <div class="dh-env-overlay">
+      <p class="lbl r" style="color:var(--c-gold)">o ambiente</p>
+      <h2 class="dh-env-title r d1">Edifício Moinhos 180.<br><em>Tricologia avançada</em> em Porto Alegre.</h2>
+      <p class="dh-env-lead r d2">9° andar, ambiente projetado para o tempo de cada consulta. Avaliação online para casos selecionados em todo o Brasil.</p>
+    </div>
+    <div class="dh-env-bg" aria-hidden="true">
+      <picture>
+        <source srcset="/images/space/tricologista-danusa-pires-consultorio.avif" type="image/avif" />
+        <source srcset="/images/space/tricologista-danusa-pires-consultorio.webp" type="image/webp" />
+        <img src="/images/space/tricologista-danusa-pires-consultorio.webp" alt="" loading="lazy" />
+      </picture>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="section-cream">
+    <div style="max-width:840px">
+      <p class="lbl r">depoimentos</p>
+      <h2 class="section-title r d1">Histórias de quem <em>passou</em> pela clínica.</h2>
+    </div>
+
+    <div class="g3" style="margin-top:var(--space-xl)">
+      <TestimonialCard
+        quote="Foi a primeira vez que alguém olhou para o meu cabelo e me explicou o que estava acontecendo. Saí da consulta com um plano, não com um produto."
+        author="[PENDENTE]"
+        role="Queda capilar feminina"
+      />
+      <TestimonialCard
+        quote="Após o transplante, comecei o acompanhamento e percebi diferença na qualidade dos fios receptores. O cuidado de manutenção é o que protege o investimento."
+        author="[PENDENTE]"
+        role="Pós-transplante"
+      />
+      <TestimonialCard
+        quote="A avaliação investigou questões hormonais que outros profissionais não consideraram. O protocolo ajustou conforme a resposta, não foi padrão."
+        author="[PENDENTE]"
+        role="Eflúvio crônico"
+      />
+    </div>
+    <p style="margin-top:var(--space-md);font-size:11px;color:var(--color-ink-ghost);text-align:center;letter-spacing:.04em;font-style:italic">
+      Depoimentos publicados após autorização escrita do paciente. Marcadores [PENDENTE] serão substituídos antes do go-live.
+    </p>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div style="max-width:760px;margin:0 auto">
+      <p class="lbl r">dúvidas frequentes</p>
+      <h2 class="section-title r d1">O que costuma vir antes da <em>primeira</em> conversa.</h2>
+    </div>
+
+    <div class="dh-faq">
+      <details class="dh-faq-item r" open>
+        <summary><span>Em quanto tempo aparecem os primeiros resultados?</span><span class="ic">+</span></summary>
+        <p>A resposta varia conforme padrão fisiológico individual. Em quadros agudos pode ocorrer antes; em crônicos, exige ciclos mais longos. Marcadores definidos no protocolo permitem ajuste no tempo certo.</p>
+      </details>
+      <details class="dh-faq-item r d1">
+        <summary><span>Vou precisar de exames de sangue ou de outros profissionais?</span><span class="ic">+</span></summary>
+        <p>Em parte dos casos sim. Quando há suspeita de causa sistêmica, tireoide, deficiências, padrão hormonal, encaminhamos para o profissional adequado e integramos o cuidado.</p>
+      </details>
+      <details class="dh-faq-item r d2">
+        <summary><span>Atendem casos pós-transplante capilar?</span><span class="ic">+</span></summary>
+        <p>Sim. Existe protocolo dedicado de manutenção pós-transplante, com avaliação inicial e plano de acompanhamento ajustado à fase do paciente.</p>
+      </details>
+      <details class="dh-faq-item r d3">
+        <summary><span>Como funciona a primeira avaliação?</span><span class="ic">+</span></summary>
+        <p>Anamnese completa, histórico clínico, hábitos, tempo de evolução do quadro, leitura do couro cabeludo e dos fios. Só com esse mapa entra a definição de protocolo.</p>
+      </details>
+      <details class="dh-faq-item r d4">
+        <summary><span>O atendimento online é equivalente ao presencial?</span><span class="ic">+</span></summary>
+        <p>É indicado para acompanhamento de pacientes em protocolo, casos selecionados de avaliação inicial e orientações pós-procedimento. A primeira avaliação geralmente é presencial quando possível.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <CtaSection
+    heading="Avaliação <em>capilar</em> com método clínico estruturado."
+    subtext="Conduta definida conforme leitura individual. Evolução dependente de causa, adesão, tempo e resposta. Conversa pelo WhatsApp adianta a triagem antes da avaliação presencial."
+  />
+
+  <style is:inline>
+    /* HERO ============================================ */
+    .dh-hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      background: var(--c-black);
+      overflow: hidden;
+    }
+    .dh-hero-content {
+      padding: clamp(7rem, 14vh, 10rem) clamp(2rem, 6vw, 5rem) clamp(3rem, 8vh, 5rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 760px;
+      position: relative;
+      z-index: 2;
+    }
+    .dh-hero-toplabel {
+      color: var(--c-gold);
+      margin-bottom: clamp(1.25rem, 3vh, 2rem);
+    }
+    .dh-hero-brand {
+      margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid rgba(198, 168, 90, 0.22);
+      max-width: 560px;
+    }
+    .dh-hero-name {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(32px, 3.8vw, 50px);
+      line-height: 1;
+      letter-spacing: -0.015em;
+      color: var(--c-beige);
+      margin: 0 0 14px;
+    }
+    .dh-hero-specialty {
+      font-family: var(--font-primary);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin: 0 0 12px;
+      max-width: 520px;
+    }
+    .dh-hero-credential {
+      font-family: var(--font-primary);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-ink-ghost);
+      margin: 0;
+    }
+    .dh-hero-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(34px, 4.6vw, 64px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--c-beige);
+      margin: 0 0 var(--space-md);
+      max-width: 720px;
+    }
+    .dh-hero-title em { font-style: italic; color: var(--c-gold); }
+    .dh-hero-lead {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--color-ink-soft);
+      max-width: 560px;
+      margin-bottom: var(--space-lg);
+    }
+    .dh-hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-xl);
+    }
+    .dh-hero-link {
+      font-family: var(--font-primary);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-beige);
+      border-bottom: 1px solid var(--c-gold);
+      padding-bottom: 4px;
+      transition: color var(--transition-fast);
+    }
+    .dh-hero-link:hover { color: var(--c-gold); }
+    .dh-hero-image {
+      position: relative;
+      overflow: hidden;
+      background: var(--c-graphite);
+    }
+    .dh-hero-image picture, .dh-hero-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 22%;
+      display: block;
+      filter: contrast(1.04) saturate(0.92) brightness(0.96);
+    }
+    /* gradiente lateral: transição suave entre painel preto e foto */
+    .dh-hero-image::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(11,11,11,0.55) 0%, rgba(11,11,11,0.15) 22%, transparent 45%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    /* vinheta inferior + tonalidade obsidian/copper sutil para casar com a paleta */
+    .dh-hero-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, transparent 55%, rgba(11,11,11,0.45) 100%),
+        radial-gradient(ellipse at 70% 30%, rgba(184,134,11,0.06) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    @media (max-width: 960px) {
+      .dh-hero { grid-template-columns: 1fr; min-height: auto; }
+      .dh-hero-image { aspect-ratio: 4/5; order: -1; }
+      .dh-hero-content { padding-top: 6rem; }
+    }
+
+    /* MÉTODO ========================================== */
+    .dh-method-head { max-width: 720px; margin-bottom: var(--space-xl); }
+    .dh-method-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(11,11,11,.12);
+    }
+    .dh-method-step {
+      padding: var(--space-xl) var(--space-lg);
+      border-right: 1px solid rgba(11,11,11,.12);
+      border-bottom: 1px solid rgba(11,11,11,.12);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .dh-method-step:last-child { border-right: 0; }
+    .dh-method-letter {
+      font-family: var(--font-serif);
+      font-size: 86px;
+      font-weight: 400;
+      line-height: 0.8;
+      color: var(--c-gold);
+      margin-bottom: var(--space-md);
+      letter-spacing: -0.04em;
+    }
+    .dh-method-step h3 {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--c-black);
+      margin: 0;
+    }
+    .dh-method-step p {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(11,11,11,.7);
+      line-height: 1.85;
+      max-width: 38ch;
+    }
+    @media (max-width: 800px) {
+      .dh-method-grid { grid-template-columns: 1fr; }
+      .dh-method-step { border-right: 0; }
+    }
+
+    /* COMO FUNCIONA, fluxo numerado */
+    .dh-flow { list-style: none; margin: var(--space-lg) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-md); }
+    .dh-flow li {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      border-bottom: 1px solid rgba(11,11,11,.1);
+      align-items: start;
+    }
+    .dh-flow li:last-child { border-bottom: 0; }
+    .dh-flow span {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--c-gold);
+    }
+    .dh-flow strong {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--c-black);
+      margin-bottom: 6px;
+    }
+    .dh-flow div { font-size: 14px; line-height: 1.8; color: rgba(11,11,11,.7); }
+
+    /* AMBIENTE, fullbleed dark com bg */
+    .dh-environment {
+      position: relative;
+      padding: clamp(5rem, 12vh, 8rem) var(--section-px);
+      background: var(--c-black);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .dh-env-bg {
+      position: absolute; inset: 0;
+      z-index: 0;
+    }
+    .dh-env-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.35;
+      filter: contrast(1.05);
+    }
+    .dh-environment::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, var(--c-black) 0%, rgba(11,11,11,.65) 60%, var(--c-black) 100%);
+      z-index: 1;
+    }
+    .dh-env-overlay {
+      position: relative; z-index: 2;
+      max-width: 760px;
+    }
+    .dh-env-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(34px, 4.6vw, 60px);
+      line-height: 1.08;
+      letter-spacing: -0.014em;
+      color: var(--c-beige);
+      margin: 0 0 var(--space-md);
+    }
+    .dh-env-title em { color: var(--c-gold); font-style: italic; }
+    .dh-env-lead {
+      font-size: 16px;
+      color: var(--color-ink-soft);
+      line-height: 1.85;
+      max-width: 56ch;
+    }
+
+    /* PILLAR CARDS ==================================== */
+    .pillar-card {
+      padding: var(--space-lg);
+      border: 1px solid rgba(11,11,11,.1);
+      background: var(--c-beige);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: all var(--transition-base);
+    }
+    .pillar-card:hover {
+      border-color: rgba(11,11,11,.2);
+      box-shadow: 0 8px 24px rgba(11,11,11,.08);
+    }
+    .pillar-card h3 {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--c-black);
+      margin: 0;
+    }
+    .pillar-subtitle {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--c-gold);
+      margin: 0;
+      letter-spacing: .03em;
+    }
+    .pillar-card p:not(.pillar-subtitle) {
+      font-size: 14px;
+      line-height: 1.8;
+      color: rgba(11,11,11,.7);
+      margin: 0;
+      flex-grow: 1;
+    }
+    .pillar-link {
+      font-family: var(--font-primary);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin-top: var(--space-sm);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+    .pillar-link:hover { color: var(--c-black); }
+
+    /* TEAM SECTION ==================================== */
+    .dh-team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-xl);
+      margin-top: var(--space-xl);
+    }
+    .dh-team-card {
+      background: var(--c-beige);
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+    }
+    .dh-team-title {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--c-black);
+      margin: 0;
+    }
+    .dh-team-role {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--c-gold);
+      margin: 4px 0 0;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 800px) {
+      .dh-team-grid { grid-template-columns: 1fr; }
+    }
+
+    /* LEAD CARD (single Danusa) ======================== */
+    .dh-lead-card {
+      max-width: 1080px;
+      margin: var(--space-xl) auto 0;
+      background: var(--c-beige);
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 0;
+      overflow: hidden;
+    }
+    .dh-lead-photo {
+      display: block;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      background: var(--c-graphite);
+    }
+    .dh-lead-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 18%;
+      display: block;
+    }
+    .dh-lead-body {
+      padding: clamp(2rem, 4vw, 3.5rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .dh-lead-body h3 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(26px, 3vw, 38px);
+      line-height: 1.15;
+      color: var(--c-black);
+      margin: 0 0 6px;
+    }
+    .dh-lead-block {
+      margin: var(--space-md) 0 0;
+      font-size: 14px;
+      line-height: 1.85;
+      color: rgba(11,11,11,.7);
+    }
+    .dh-lead-block strong {
+      display: block;
+      color: var(--c-black);
+      font-weight: 500;
+      margin-bottom: 6px;
+      font-family: var(--font-primary);
+      font-size: 13px;
+      letter-spacing: .04em;
+    }
+    .dh-lead-reg {
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: 1px solid rgba(11,11,11,.1);
+      font-size: 11px;
+      color: var(--color-ink-ghost);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 800px) {
+      .dh-lead-card { grid-template-columns: 1fr; }
+      .dh-lead-photo { aspect-ratio: 3/4; }
+    }
+
+    /* FAQ ============================================== */
+    .dh-faq { max-width: 760px; margin: var(--space-xl) auto 0; }
+    .dh-faq-item {
+      border-bottom: 1px solid rgba(232,227,220,.1);
+    }
+    .dh-faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      font-family: var(--font-primary);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--c-beige);
+      transition: color var(--transition-fast);
+    }
+    .dh-faq-item summary::-webkit-details-marker { display: none; }
+    .dh-faq-item summary:hover { color: var(--c-gold); }
+    .dh-faq-item .ic {
+      color: var(--c-gold);
+      font-size: 22px;
+      font-weight: 300;
+      transition: transform var(--transition-base);
+    }
+    .dh-faq-item[open] .ic { transform: rotate(45deg); }
+    .dh-faq-item p {
+      padding-bottom: var(--space-md);
+      padding-right: 40px;
+      font-size: 14px;
+      color: var(--color-ink-soft);
+      line-height: 1.85;
+      max-width: 60ch;
+    }
+  </style>
+
+</BaseLayout>

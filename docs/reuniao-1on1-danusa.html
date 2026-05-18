@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reunião 1:1 — Briefing Dra. Danusa Pires</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fafaf7;
+    --paper:#ffffff;
+    --ink:#0e0e0e;
+    --ink-2:#5a5a5a;
+    --line:#e8e4dc;
+    --gold:#b8862a;
+    --gold-soft:#f7efd9;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    font-family:'Outfit',-apple-system,sans-serif;
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:32px 32px 80px}
+  .toolbar{
+    position:sticky;
+    top:0;
+    background:var(--bg);
+    padding:16px 0;
+    text-align:right;
+    z-index:10;
+    border-bottom:1px solid var(--line);
+    margin-bottom:24px;
+  }
+  .btn{
+    background:var(--ink);
+    color:#fff;
+    border:none;
+    padding:10px 22px;
+    border-radius:6px;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+    letter-spacing:.02em;
+  }
+  .btn:hover{background:var(--gold)}
+  .badge{
+    display:inline-block;
+    font-size:10.5px;
+    font-weight:600;
+    color:var(--gold);
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  h1{
+    font-size:30px;
+    font-weight:600;
+    letter-spacing:-.02em;
+    margin:0 0 8px;
+    line-height:1.15;
+  }
+  .sub{
+    color:var(--ink-2);
+    font-size:14px;
+    margin:0 0 24px;
+    max-width:60ch;
+  }
+  .protocol{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:20px 24px;
+    margin-bottom:32px;
+    font-size:13.5px;
+    color:var(--ink-2);
+    line-height:1.65;
+  }
+  .protocol strong{color:var(--ink);font-weight:500}
+  .protocol .tag{
+    display:inline-block;
+    font-size:10.5px;
+    font-weight:600;
+    color:var(--gold);
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .q{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:18px 22px;
+    margin-bottom:14px;
+    page-break-inside:avoid;
+  }
+  .q-head{
+    display:flex;
+    gap:14px;
+    align-items:baseline;
+    margin-bottom:10px;
+  }
+  .q-num{
+    font-size:11.5px;
+    font-weight:600;
+    color:var(--gold);
+    letter-spacing:.12em;
+    flex-shrink:0;
+    min-width:28px;
+  }
+  .q-text{
+    font-size:15px;
+    font-weight:500;
+    line-height:1.45;
+    color:var(--ink);
+  }
+  .lines{
+    border-bottom:1px solid var(--line);
+    height:22px;
+    margin-bottom:0;
+  }
+  .lines + .lines{margin-top:0}
+  .l3 .lines:nth-child(n+1){display:block}
+  .l4 .lines:nth-child(4)~.lines{display:none}
+  .pivot{
+    background:#0e0e0e;
+    color:#fff;
+    border-radius:12px;
+    padding:36px 32px;
+    margin:36px 0 24px;
+    page-break-inside:avoid;
+  }
+  .pivot .tag{
+    display:inline-block;
+    font-size:11px;
+    font-weight:600;
+    color:var(--gold);
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .pivot h2{
+    margin:0 0 14px;
+    font-size:22px;
+    font-weight:500;
+    letter-spacing:-.01em;
+    line-height:1.3;
+  }
+  .pivot p{
+    color:rgba(255,255,255,.78);
+    font-size:14px;
+    line-height:1.6;
+    margin:0 0 18px;
+  }
+  .pivot .lines{
+    border-bottom:1px solid rgba(255,255,255,.18);
+    height:24px;
+  }
+  .next{
+    background:var(--gold-soft);
+    border-left:3px solid var(--gold);
+    border-radius:0 8px 8px 0;
+    padding:18px 22px;
+    margin-top:24px;
+    font-size:13.5px;
+    line-height:1.6;
+  }
+  .next strong{color:var(--gold);text-transform:uppercase;letter-spacing:.1em;font-size:11px;font-weight:600;display:block;margin-bottom:6px}
+  footer{text-align:center;color:var(--ink-2);font-size:11.5px;margin-top:32px;letter-spacing:.05em}
+
+  @media print{
+    .toolbar{display:none}
+    body{background:#fff}
+    .wrap{padding:0;max-width:none}
+    .q,.protocol,.pivot,.next{box-shadow:none;border-color:#ccc}
+    .pivot{background:#fff;color:#000;border:2px solid #000}
+    .pivot .tag,.pivot p,.pivot .lines{color:#000;border-color:#000}
+    @page{margin:1.6cm}
+  }
+  @media (max-width:640px){
+    .wrap{padding:20px 16px 60px}
+    h1{font-size:24px}
+    .q,.protocol,.pivot{padding:18px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="toolbar">
+    <button class="btn" onclick="window.print()">Imprimir / Salvar PDF</button>
+  </div>
+
+  <span class="badge">Reunião 1:1 — Briefing</span>
+  <h1>Dra. Danusa Pires — Site novo</h1>
+  <p class="sub">Roteiro de briefing baseado no princípio "Do Things That Don't Scale" (Paul Graham). 22 perguntas + 1 pergunta-pivô. Conduzido por Gustavo / Gehrke Intelligence.</p>
+
+  <div class="protocol">
+    <span class="tag">Protocolo</span>
+    <strong>Formato:</strong> Zoom focado, sem terceiros, 60 minutos. <strong>Quem conduz:</strong> Gustavo. <strong>O que fazer:</strong> anote palavra por palavra. Não parafraseie. As palavras dela viram o copy do site. <strong>Pergunta-pivô:</strong> deixar para o final. A resposta vira a headline da home.
+  </div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">01</span><span class="q-text">Qual é o nome legal e o nome de uso da marca?</span></div>
+    <div class="lines"></div><div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">02</span><span class="q-text">Qual problema do paciente vocês resolvem que ninguém mais resolve em &lt;100km?</span></div>
+    <div class="lines"></div><div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">03</span><span class="q-text">Qual é o ticket médio do paciente alvo?</span></div>
+    <div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">04</span><span class="q-text">Quantos pacientes ativos hoje?</span></div>
+    <div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">05</span><span class="q-text">Qual a taxa de conversão do primeiro contato → primeira consulta?</span></div>
+    <div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">06</span><span class="q-text">Quem são os 3 concorrentes que mais te incomodam — e por quê?</span></div>
+    <div class="lines"></div><div class="lines"></div><div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">07</span><span class="q-text">PERGUNTA-PIVÔ → ver bloco destacado abaixo (responder no fim).</span></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">08</span><span class="q-text">Quais são os pilares do site (3 a 5) — nomes que aparecem no menu?</span></div>
+    <div class="lines"></div><div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">09</span><span class="q-text">Quem são os profissionais? Foto, formação, especialidade.</span></div>
+    <div class="lines"></div><div class="lines"></div><div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">10</span><span class="q-text">Existe blog hoje? Quem escreve? Frequência?</span></div>
+    <div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">11</span><span class="q-text">Existem fotos profissionais da equipe? E do espaço?</span></div>
+    <div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">12</span><span class="q-text">Existe mood board, identidade visual, manual de marca?</span></div>
+    <div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">13</span><span class="q-text">Quais cores e tipografias estão definidas?</span></div>
+    <div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">14</span><span class="q-text">Qual domínio? Já comprado? DNS em qual registrador?</span></div>
+    <div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">15</span><span class="q-text">Existe GTM, Pixel, Analytics? IDs?</span></div>
+    <div class="lines"></div><div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">16</span><span class="q-text">Existe formulário de agendamento — para onde vai o lead?</span></div>
+    <div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">17</span><span class="q-text">Existe LGPD / política de privacidade redigida por advogado?</span></div>
+    <div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">18</span><span class="q-text">Quem aprova copy do lado do cliente? Uma pessoa ou comitê?</span></div>
+    <div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">19</span><span class="q-text">Prazo desejado para go-live?</span></div>
+    <div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">20</span><span class="q-text">Orçamento aprovado — número, não faixa.</span></div>
+    <div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">21</span><span class="q-text">O que NÃO pode aparecer no site (compliance, ética, conselho profissional)?</span></div>
+    <div class="lines"></div><div class="lines"></div><div class="lines"></div></div>
+
+  <div class="q l3"><div class="q-head"><span class="q-num">22</span><span class="q-text">Como vai medir sucesso 90 dias pós-launch?</span></div>
+    <div class="lines"></div><div class="lines"></div><div class="lines"></div></div>
+
+  <div class="pivot">
+    <span class="tag">07 — Pergunta-pivô</span>
+    <h2>"Qual é a frase de duas sentenças que um paciente seu fala quando finalmente decide entrar?"</h2>
+    <p>Anotar palavra por palavra. Sem editar, sem suavizar, sem traduzir. Essa frase vira a headline da home. Se a Dra. Danusa hesitar, perguntar: "Qual foi a última paciente que você atendeu? O que ela disse quando chegou?"</p>
+    <div class="lines"></div>
+    <div class="lines"></div>
+    <div class="lines"></div>
+    <div class="lines"></div>
+    <div class="lines"></div>
+  </div>
+
+  <div class="next">
+    <strong>Próximos passos pós-reunião</strong>
+    1. Enviar para a Dra. Danusa o briefing HTML detalhado para preenchimento assíncrono (briefing-danusa.html), pra fechar as lacunas que sobraram.<br>
+    2. Transcrever a pergunta-pivô como rascunho da headline.<br>
+    3. Confirmar credenciais: domínio dradanusa.com.br no registro.br, GA, Pixel.<br>
+    4. Início do brandbook + arquitetura de páginas.
+  </div>
+
+  <footer>Roteiro Graham — Briefing Dra. Danusa Pires • Gehrke Intelligence</footer>
+
+</div>
+
+</body>
+</html>

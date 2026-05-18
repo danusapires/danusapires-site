@@ -1,0 +1,854 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CtaSection from "../components/CtaSection.astro";
+import { WA_DEFAULT, SITE } from "../data/site";
+import { resolveQueixas, getDominiosCount } from "../data/smart-soro";
+
+/**
+ * Soroterapia, sistema smart.soro.
+ * Dados (catálogo de ATIVOS + mapeamento QUEIXAS) vivem em src/data/smart-soro/.
+ * Ver src/data/smart-soro/README.md para arquitetura, técnica de busca e guardrails éticos.
+ */
+
+const queixas = resolveQueixas();
+const dominios = getDominiosCount();
+---
+
+<BaseLayout
+  title="Soroterapia individualizada · Sistema smart.soro"
+  description="Soroterapia conforme avaliação clínica. Sistema smart.soro orienta os ativos pertinentes ao quadro. Composição final definida sempre em consulta. Sede em Porto Alegre, Edifício Moinhos 180."
+  currentPage="soroterapia"
+  breadcrumbs={[{ name: 'Soroterapia', url: '/soroterapia' }]}
+>
+
+  <!-- HERO -->
+  <section class="sr-hero">
+    <div class="sr-hero-content">
+      <p class="lbl r">soroterapia · sistema smart.soro</p>
+      <h1 class="sr-hero-title r d1">
+        Soroterapia <em>individualizada</em>,<br>
+        não fórmula de prateleira.
+      </h1>
+      <p class="sr-hero-lead r d2">
+        smart.soro é um sistema de consulta livre: você digita qualquer queixa &mdash; capilar, fadiga, ansiedade, dor de cabeça, performance, sono, imunidade, hormonal, pós-procedimento &mdash; e vê os ativos que podem entrar em uma composição de soro. <strong>É leitura técnica, não prescrição.</strong> A composição final, dose e via só são definidas em avaliação clínica.
+      </p>
+      <div class="sr-hero-actions r d3">
+        <a href="#match" class="btn btn-primary">explorar smart.soro</a>
+        <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="dh-hero-link">conversar pelo WhatsApp →</a>
+      </div>
+    </div>
+    <div class="sr-hero-image" aria-hidden="true">
+      <picture>
+        <source srcset="/images/clinical/serum-application.avif" type="image/avif" />
+        <source srcset="/images/clinical/serum-application.webp" type="image/webp" />
+        <img src="/images/clinical/serum-application.webp" alt="" fetchpriority="high" decoding="async" />
+      </picture>
+    </div>
+  </section>
+
+  <!-- SISTEMA SORO-MATCH (AI search aesthetic) -->
+  <section id="match" class="sm-section">
+    <div class="sm-wrap sm-stage">
+      <!-- TÍTULO CENTRAL -->
+      <h2 class="sm-title r">Digite sua queixa</h2>
+
+      <!-- BARRA DE PESQUISA PILL COM ÍCONES -->
+      <form class="sm-pill r d1" role="search" onsubmit="event.preventDefault()">
+        <span class="sm-pill-icon sm-pill-icon-left" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
+        </span>
+        <input
+          type="text"
+          id="sm-search"
+          class="sm-pill-input"
+          placeholder="Pesquisar..."
+          aria-label="Digite sua queixa em linguagem natural"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <span class="sm-pill-divider" aria-hidden="true"></span>
+        <span class="sm-pill-icon sm-pill-icon-right" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <defs>
+              <linearGradient id="smSparkle" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#c6a85a" />
+                <stop offset="100%" stop-color="#8a6a2a" />
+              </linearGradient>
+            </defs>
+            <path d="M12 3 13.5 8.5 19 10 13.5 11.5 12 17 10.5 11.5 5 10 10.5 8.5 z" fill="url(#smSparkle)" />
+            <path d="M19 4 19.6 5.8 21.4 6.4 19.6 7 19 8.8 18.4 7 16.6 6.4 18.4 5.8 z" fill="url(#smSparkle)" opacity="0.7" />
+            <path d="M6 16 6.5 17.4 7.9 17.9 6.5 18.4 6 19.8 5.5 18.4 4.1 17.9 5.5 17.4 z" fill="url(#smSparkle)" opacity="0.5" />
+          </svg>
+        </span>
+      </form>
+
+      <!-- SUBTÍTULO -->
+      <p class="sm-subtitle r d2">
+        Digite sua queixa e o <strong>smart.soro</strong> encontrará os ativos<br class="sm-br" />pertinentes ao seu quadro.
+      </p>
+
+      <!-- CHIPS DISCRETOS -->
+      <div class="sm-chips r d3" role="group" aria-label="Sugestões">
+        <button type="button" class="sm-chip" data-q="queda capilar">queda capilar</button>
+        <button type="button" class="sm-chip" data-q="acordo cansado">acordo cansado</button>
+        <button type="button" class="sm-chip" data-q="dor de cabeça">dor de cabeça</button>
+        <button type="button" class="sm-chip" data-q="memória">memória</button>
+        <button type="button" class="sm-chip" data-q="emagrecimento">emagrecimento</button>
+        <button type="button" class="sm-chip" data-q="menopausa">menopausa</button>
+        <button type="button" class="sm-chip" data-q="longevidade">longevidade</button>
+      </div>
+
+      <!-- LINK DISCRETO PARA O AVISO ÉTICO -->
+      <details class="sm-ethical r d4">
+        <summary>ler antes de usar</summary>
+        <ul>
+          <li><strong>Não é diagnóstico.</strong> Lista ativos com plausibilidade técnica. Não substitui consulta, exame ou prescrição.</li>
+          <li><strong>Não inicie protocolo sozinha.</strong> Composição, dose, via e frequência são definidas em avaliação clínica presencial.</li>
+          <li><strong>Há contraindicações.</strong> Função renal, hepática, alergias, gestação, lactação e medicamentos podem inviabilizar ativos.</li>
+          <li><strong>Casos urgentes</strong> (dor intensa, febre persistente, sintomas neurológicos novos): procure pronto-atendimento.</li>
+        </ul>
+      </details>
+
+      <!-- RESULTADOS (sem cabeçalho, surgem direto) -->
+      <div class="sm-results">
+        {queixas.map((q) => (
+          <article
+            class="sm-result"
+            data-queixa={q.slug}
+            data-dominio={q.dominio}
+            data-search={[q.label, ...q.tags].join(' | ').toLowerCase()}
+          >
+            <h3 class="sm-result-title">{q.label}</h3>
+            <ul class="sm-ativos">
+              {q.ativos.map(a => (
+                <li class="sm-ativo">
+                  <button type="button" class="sm-ativo-btn" aria-expanded="false">
+                    <span class="sm-ativo-nome">{a.nome}</span>
+                    <span class="sm-ativo-mec">{a.observacao || a.mecanismo}</span>
+                  </button>
+                  <div class="sm-ativo-panel" hidden>
+                    <p class="sm-ativo-cat">{a.categoria}</p>
+                    <p class="sm-ativo-ind">{a.indicacaoUso}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+
+      <!-- EMPTY STATE -->
+      <div id="sm-no-results" class="sm-empty" style="display:none">
+        <p>Não encontrei correspondência. O cardápio aqui não esgota o que pode entrar em soro.</p>
+        <div class="sm-empty-actions">
+          <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="btn btn-primary">falar pelo WhatsApp</a>
+          <a href="/agendamento">ou agendar avaliação →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section>
+    <div style="max-width:780px">
+      <p class="lbl r">como funciona</p>
+      <h2 class="section-title r d1">Da anamnese à <em>aplicação</em>.</h2>
+    </div>
+
+    <ol class="dh-flow r d1">
+      <li><span>01</span><div><strong>Anamnese e indicação</strong>Levantamento clínico, leitura de exames quando houver, definição se a soroterapia faz sentido no plano.</div></li>
+      <li><span>02</span><div><strong>Composição individualizada</strong>Ativos, dose e via de administração definidos conforme o caso, não há fórmula única.</div></li>
+      <li><span>03</span><div><strong>Aplicação na sala dedicada</strong>Ambiente projetado para o tempo de cada sessão. Aplicação conduzida pela equipe técnica com monitoramento.</div></li>
+      <li><span>04</span><div><strong>Plano de continuidade</strong>Quando há indicação de ciclo, frequência e marcadores de acompanhamento são definidos no protocolo.</div></li>
+    </ol>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-cream">
+    <div style="max-width:760px">
+      <p class="lbl r">dúvidas frequentes</p>
+      <h2 class="section-title r d1">Antes da <em>primeira</em> aplicação.</h2>
+    </div>
+
+    <div class="sr-faq">
+      <details class="sr-faq-item r" open>
+        <summary><span>Qualquer pessoa pode fazer soroterapia?</span><span class="ic">+</span></summary>
+        <p>Não. Há contraindicações que precisam ser avaliadas em anamnese, função renal, função hepática, alergias específicas, gestação, uso de medicamentos. A primeira consulta é obrigatória antes de qualquer aplicação.</p>
+      </details>
+      <details class="sr-faq-item r d1">
+        <summary><span>Quanto tempo dura uma sessão?</span><span class="ic">+</span></summary>
+        <p>Em média entre 40 e 90 minutos, conforme a composição e o volume. A sala foi pensada para que esse tempo seja confortável.</p>
+      </details>
+      <details class="sr-faq-item r d2">
+        <summary><span>O sistema smart.soro substitui a consulta?</span><span class="ic">+</span></summary>
+        <p>Não. É uma ferramenta orientativa que mostra ativos potencialmente pertinentes. A composição final, dose, via de administração e frequência são definidas em avaliação clínica.</p>
+      </details>
+      <details class="sr-faq-item r d3">
+        <summary><span>Combina com tratamento capilar?</span><span class="ic">+</span></summary>
+        <p>Em muitos casos sim. A soroterapia entra como suporte interno em planos de tricologia, com cronograma alinhado às demais sessões. A indicação parte do plano integrado, não isolada.</p>
+      </details>
+    </div>
+  </section>
+
+  <CtaSection
+    heading="Soroterapia parte da <em>anamnese</em>, não do cardápio."
+    subtext="A primeira consulta avalia se faz sentido para o seu caso, define a composição e o cronograma. Conversa pelo WhatsApp adianta a triagem."
+  />
+
+  <script>
+    /**
+     * smart.soro · busca em linguagem natural (premium minimalista)
+     * - normaliza acentos, filtra stopwords PT-BR + qualificadores
+     * - match AND com fallback OR (resultados aproximados)
+     * - estado inicial: nenhum resultado visível (paciente DIGITA pra ver)
+     * - chips disparam busca + scroll
+     * - clicar em ativo expande contexto (categoria + indicação)
+     */
+
+    const searchInput = document.getElementById('sm-search') as HTMLInputElement | null;
+    const resultItems = Array.from(document.querySelectorAll<HTMLElement>('.sm-result'));
+    const noResultsDiv = document.getElementById('sm-no-results');
+    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.sm-chip'));
+
+    const STOPWORDS = new Set([
+      'de','da','do','das','dos','a','o','as','os','um','uma','uns','umas',
+      'para','pra','pro','por','pelo','pela','pelos','pelas',
+      'com','sem','em','no','na','nos','nas','num','numa',
+      'e','ou','mas','que','se','ao','aos',
+      'meu','minha','seu','sua','eu','me','te','lhe','isso','isto','aquilo',
+      'muito','muita','muitos','muitas','pouco','pouca','poucos','poucas',
+      'mais','menos','tao','tão','bem','mal',
+      'forte','fraco','fraca','leve','severo','severa','grave','pesado','pesada',
+      'intenso','intensa','horrível','horrivel','terrível','terrivel',
+      'sempre','nunca','jamais','frequente','frequentemente',
+      'estou','esta','está','sou','sinto','sentindo',
+      'tenho','tem','tinha','foi','ser','estar','fica','fico','ando',
+      'preciso','quero','queria','gostaria',
+      'nao','não','consigo','consegue','pode','posso',
+      'extremo','extrema','pequeno','pequena','grande','pouquinho',
+      'pre','pré','pós','pos',
+      'oi','olá','ola','bom','dia','tarde','noite',
+    ]);
+
+    const normalize = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+    const tokenize = (s: string): string[] =>
+      normalize(s)
+        .split(/[\s,.;!?:()\-]+/)
+        .filter(w => w.length >= 3 && !STOPWORDS.has(w));
+
+    const setVisible = (el: HTMLElement, on: boolean, approx = false) => {
+      el.style.display = on ? 'block' : 'none';
+      el.classList.toggle('sm-approx', approx);
+    };
+
+    const hideAll = () => {
+      resultItems.forEach(el => setVisible(el, false, false));
+      if (noResultsDiv) noResultsDiv.style.display = 'none';
+    };
+
+    const runSearch = (raw: string) => {
+      const tokens = tokenize(raw);
+
+      // Estado inicial / vazio: nada visível, deixa o ar respirar
+      if (tokens.length === 0) {
+        hideAll();
+        return;
+      }
+
+      // AND estrito → OR fallback
+      const matchesAnd: HTMLElement[] = [];
+      const matchesOr: HTMLElement[] = [];
+      resultItems.forEach(el => {
+        const haystack = normalize(el.getAttribute('data-search') || '');
+        if (tokens.every(t => haystack.includes(t))) matchesAnd.push(el);
+        else if (tokens.some(t => haystack.includes(t))) matchesOr.push(el);
+      });
+
+      if (matchesAnd.length > 0) {
+        resultItems.forEach(el => setVisible(el, matchesAnd.includes(el), false));
+        if (noResultsDiv) noResultsDiv.style.display = 'none';
+      } else if (matchesOr.length > 0) {
+        resultItems.forEach(el => setVisible(el, matchesOr.includes(el), true));
+        if (noResultsDiv) noResultsDiv.style.display = 'none';
+      } else {
+        resultItems.forEach(el => setVisible(el, false, false));
+        if (noResultsDiv) noResultsDiv.style.display = 'block';
+      }
+    };
+
+    // input com debounce via rAF
+    let raf = 0;
+    searchInput?.addEventListener('input', (e) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => runSearch((e.target as HTMLInputElement).value.trim()));
+    });
+
+    // chips disparam busca
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const q = chip.getAttribute('data-q') || '';
+        if (searchInput) {
+          searchInput.value = q;
+          searchInput.focus();
+        }
+        runSearch(q);
+        document.querySelector('.sm-results')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // toggle de ativo: clique expande/recolhe contexto (categoria + indicação)
+    document.querySelectorAll<HTMLButtonElement>('.sm-ativo-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const li = btn.closest('.sm-ativo');
+        const panel = li?.querySelector<HTMLElement>('.sm-ativo-panel');
+        if (!panel) return;
+        const wasOpen = !panel.hidden;
+        panel.hidden = wasOpen;
+        btn.setAttribute('aria-expanded', String(!wasOpen));
+        li?.classList.toggle('sm-ativo-open', !wasOpen);
+      });
+    });
+
+    // estado inicial: nada visível, paciente precisa digitar ou clicar chip
+    hideAll();
+  </script>
+
+  <style>
+    /* HERO */
+    .sr-hero {
+      min-height: 88vh;
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      background: var(--c-black);
+      overflow: hidden;
+    }
+    .sr-hero-content {
+      padding: clamp(7rem, 14vh, 10rem) clamp(2rem, 6vw, 5rem) clamp(3rem, 8vh, 5rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 760px;
+      position: relative;
+      z-index: 2;
+    }
+    .sr-hero-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(36px, 5.2vw, 76px);
+      line-height: 1.04;
+      letter-spacing: -0.018em;
+      color: var(--c-beige);
+      margin: 0 0 var(--space-md);
+    }
+    .sr-hero-title em { font-style: italic; color: var(--c-gold); }
+    .sr-hero-lead {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--color-ink-soft);
+      max-width: 580px;
+      margin-bottom: var(--space-lg);
+    }
+    .sr-hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .dh-hero-link {
+      font-family: var(--font-primary);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-beige);
+      border-bottom: 1px solid var(--c-gold);
+      padding-bottom: 4px;
+      transition: color var(--transition-fast);
+    }
+    .dh-hero-link:hover { color: var(--c-gold); }
+    .sr-hero-image { position: relative; overflow: hidden; background: var(--c-graphite); }
+    .sr-hero-image picture, .sr-hero-image img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .sr-hero-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(270deg, transparent 60%, rgba(11,11,11,0.7) 100%);
+    }
+    @media (max-width: 960px) {
+      .sr-hero { grid-template-columns: 1fr; min-height: auto; }
+      .sr-hero-image { aspect-ratio: 4/5; order: -1; }
+      .sr-hero-content { padding-top: 6rem; }
+    }
+
+    /* SORO-MATCH */
+    .sm-wrap {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 1px;
+      background: rgba(11,11,11,.12);
+      border: 1px solid rgba(11,11,11,.12);
+      margin-top: var(--space-xl);
+      min-height: 480px;
+    }
+    .sm-queixas {
+      background: var(--c-white);
+      display: flex;
+      flex-direction: column;
+    }
+    .sm-queixa {
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid rgba(11,11,11,.08);
+      padding: 22px 28px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: background .2s;
+      font-family: inherit;
+    }
+    .sm-queixa:hover { background: rgba(198,168,90,.06); }
+    .sm-queixa.active {
+      background: var(--c-black);
+      color: var(--c-beige);
+    }
+    .sm-queixa.active .sm-queixa-num { color: var(--c-gold); }
+    .sm-queixa.active .sm-queixa-label { color: var(--c-beige); }
+    .sm-queixa-num {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--c-gold);
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .sm-queixa-label {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      line-height: 1.3;
+      color: var(--c-black);
+    }
+
+    .sm-results {
+      background: var(--c-white);
+      padding: 48px 56px;
+    }
+    .sm-panel { display: none; }
+    .sm-panel.active { display: block; }
+    .sm-panel-eyebrow {
+      font-family: var(--font-primary);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin-bottom: 12px;
+    }
+    .sm-panel-title {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--c-black);
+      margin-bottom: var(--space-lg);
+      line-height: 1.2;
+    }
+    .sm-ativos {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid rgba(11,11,11,.08);
+    }
+    .sm-ativos li {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(11,11,11,.08);
+      align-items: baseline;
+    }
+    .sm-ativos strong {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--c-black);
+    }
+    .sm-ativos span {
+      font-size: 14px;
+      color: rgba(11,11,11,.65);
+      line-height: 1.7;
+    }
+    .sm-disclaimer {
+      font-size: 12px;
+      color: rgba(11,11,11,.55);
+      line-height: 1.7;
+      font-style: italic;
+      max-width: 60ch;
+      padding-top: var(--space-md);
+      border-top: 1px solid rgba(11,11,11,.08);
+    }
+
+    /* ===================================================
+       SMART.SORO · AI SEARCH AESTHETIC
+       Fundo claro, título central, pill arredondada com
+       ícones, subtítulo descritivo. Resultados abaixo.
+       =================================================== */
+    .sm-section {
+      background: #f6f4f1;
+      padding: clamp(5rem, 12vh, 8rem) 0 clamp(4rem, 8vh, 6rem);
+      min-height: 80vh;
+    }
+    .sm-wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 3rem);
+    }
+    .sm-stage { text-align: center; }
+    .sm-stage > * + * { margin-top: var(--space-lg); }
+
+    /* TÍTULO CENTRAL */
+    .sm-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--c-black);
+      margin: 0 0 var(--space-md);
+    }
+
+    /* BARRA PILL */
+    .sm-pill {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      max-width: 720px;
+      margin: var(--space-md) auto 0;
+      padding: 6px 10px 6px 22px;
+      background: #ffffff;
+      border-radius: 100px;
+      box-shadow:
+        0 1px 2px rgba(11,11,11,0.04),
+        0 4px 14px rgba(11,11,11,0.06),
+        0 24px 48px -16px rgba(11,11,11,0.10);
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+    }
+    .sm-pill:focus-within {
+      box-shadow:
+        0 1px 2px rgba(198,168,90,0.10),
+        0 6px 18px rgba(198,168,90,0.14),
+        0 28px 56px -12px rgba(11,11,11,0.16);
+      transform: translateY(-1px);
+    }
+    .sm-pill-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .sm-pill-icon-left { color: rgba(11,11,11,0.45); margin-right: 14px; }
+    .sm-pill-icon-right { padding: 10px 14px 10px 16px; }
+    .sm-pill-divider {
+      width: 1px;
+      height: 26px;
+      background: rgba(11,11,11,0.10);
+      margin-left: 8px;
+    }
+    .sm-pill-input {
+      flex: 1;
+      min-width: 0;
+      padding: 18px 4px;
+      font-family: var(--font-primary);
+      font-size: 17px;
+      line-height: 1.2;
+      color: var(--c-black);
+      background: transparent;
+      border: 0;
+      outline: 0;
+      caret-color: var(--c-gold);
+    }
+    .sm-pill-input::placeholder { color: rgba(11,11,11,0.38); }
+
+    /* SUBTÍTULO */
+    .sm-subtitle {
+      font-family: var(--font-primary);
+      font-size: 15px;
+      line-height: 1.65;
+      color: rgba(11,11,11,0.62);
+      margin: var(--space-md) auto 0;
+      max-width: 620px;
+    }
+    .sm-subtitle strong {
+      font-weight: 500;
+      color: var(--c-gold);
+      font-style: italic;
+      font-family: var(--font-serif);
+    }
+    @media (max-width: 540px) {
+      .sm-br { display: none; }
+    }
+
+    /* CHIPS DISCRETOS */
+    .sm-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 10px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .sm-chip {
+      font-family: var(--font-primary);
+      font-size: 13px;
+      padding: 7px 14px;
+      background: rgba(255,255,255,0.7);
+      color: rgba(11,11,11,0.65);
+      border: 1px solid rgba(11,11,11,0.08);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+    }
+    .sm-chip:hover, .sm-chip:focus-visible {
+      background: var(--c-black);
+      color: var(--c-beige);
+      border-color: var(--c-black);
+      outline: 0;
+    }
+
+    /* AVISO ÉTICO COLAPSADO */
+    .sm-ethical { max-width: 620px; margin-left: auto; margin-right: auto; text-align: left; }
+    .sm-ethical summary {
+      list-style: none;
+      cursor: pointer;
+      font-family: var(--font-primary);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(11,11,11,.5);
+      padding-bottom: 4px;
+      border-bottom: 1px solid transparent;
+      display: inline-block;
+      transition: color var(--transition-fast), border-color var(--transition-fast);
+    }
+    .sm-ethical summary::-webkit-details-marker { display: none; }
+    .sm-ethical summary::after { content: ' +'; }
+    .sm-ethical[open] summary::after { content: ' −'; }
+    .sm-ethical summary:hover { color: var(--c-black); border-bottom-color: rgba(11,11,11,.3); }
+    .sm-ethical ul {
+      margin: var(--space-md) 0 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sm-ethical li {
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(11,11,11,.62);
+      padding-left: 14px;
+      position: relative;
+    }
+    .sm-ethical li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--c-gold);
+      font-weight: 700;
+    }
+    .sm-ethical strong { color: var(--c-black); font-weight: 500; }
+
+    /* RESULTADOS — sem cabeçalho, ar entre eles */
+    .sm-results {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(2.5rem, 5vw, 4rem);
+      text-align: left;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .sm-result { animation: smFade 0.3s ease-out; }
+    @keyframes smFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .sm-result.sm-approx { opacity: 0.78; }
+    .sm-result-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.3;
+      color: rgba(11,11,11,.55);
+      margin: 0 0 var(--space-md);
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(11,11,11,.1);
+    }
+
+    /* ATIVOS — botão que expande */
+    .sm-ativos {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .sm-ativo { border-bottom: 1px solid rgba(11,11,11,.07); }
+    .sm-ativo:last-child { border-bottom: 0; }
+    .sm-ativo-btn {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      text-align: left;
+      padding: 18px 0;
+      display: grid;
+      grid-template-columns: minmax(160px, 220px) 1fr;
+      gap: 24px;
+      align-items: baseline;
+      transition: padding-left var(--transition-fast);
+    }
+    .sm-ativo-btn:hover, .sm-ativo-btn:focus-visible { outline: 0; padding-left: 6px; }
+    .sm-ativo-nome {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--c-black);
+      transition: color var(--transition-fast);
+    }
+    .sm-ativo-btn:hover .sm-ativo-nome { color: var(--c-gold); }
+    .sm-ativo-mec {
+      font-family: var(--font-primary);
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(11,11,11,.6);
+    }
+    .sm-ativo-panel { padding: 0 0 22px; animation: smFade 0.25s ease-out; }
+    .sm-ativo-cat {
+      font-family: var(--font-primary);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin: 0 0 10px;
+    }
+    .sm-ativo-ind {
+      font-size: 14px;
+      line-height: 1.75;
+      color: rgba(11,11,11,.72);
+      margin: 0;
+      max-width: 620px;
+    }
+    .sm-ativo-open .sm-ativo-nome { color: var(--c-gold); }
+
+    /* EMPTY STATE — calmo */
+    .sm-empty {
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: var(--space-xl) 0;
+      border-top: 1px solid rgba(11,11,11,.12);
+      border-bottom: 1px solid rgba(11,11,11,.12);
+      text-align: left;
+    }
+    .sm-empty p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.4;
+      color: rgba(11,11,11,.7);
+      margin: 0 0 var(--space-md);
+    }
+    .sm-empty-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .sm-empty-actions a:last-child {
+      font-family: var(--font-primary);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      border-bottom: 1px solid var(--c-gold);
+      padding-bottom: 3px;
+    }
+
+    @media (max-width: 720px) {
+      .sm-ativo-btn { grid-template-columns: 1fr; gap: 6px; }
+      .sm-ativo-mec { font-size: 13px; }
+    }
+
+    /* FLOW */
+    .dh-flow { list-style: none; margin: var(--space-lg) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-md); max-width: 800px; }
+    .dh-flow li {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      border-bottom: 1px solid rgba(232,227,220,.1);
+    }
+    .dh-flow li:last-child { border-bottom: 0; }
+    .dh-flow span {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--c-gold);
+    }
+    .dh-flow strong {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--c-beige);
+      margin-bottom: 6px;
+    }
+    .dh-flow div { font-size: 14px; line-height: 1.8; color: var(--color-ink-soft); }
+
+    /* FAQ */
+    .sr-faq { max-width: 780px; margin: var(--space-xl) auto 0; }
+    .sr-faq-item { border-bottom: 1px solid rgba(11,11,11,.12); }
+    .sr-faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-md) 0;
+      font-family: var(--font-primary);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--c-black);
+    }
+    .sr-faq-item summary::-webkit-details-marker { display: none; }
+    .sr-faq-item summary:hover { color: var(--c-gold); }
+    .sr-faq-item .ic {
+      color: var(--c-gold);
+      font-size: 22px;
+      transition: transform var(--transition-base);
+    }
+    .sr-faq-item[open] .ic { transform: rotate(45deg); }
+    .sr-faq-item p {
+      padding-bottom: var(--space-md);
+      padding-right: 40px;
+      font-size: 14px;
+      color: rgba(11,11,11,.72);
+      line-height: 1.85;
+      max-width: 60ch;
+    }
+  </style>
+
+</BaseLayout>

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Briefing Estratégico — Site Dra. Danusa Pires</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fafaf7;--paper:#ffffff;--ink:#1a1a1a;--ink-2:#5a5a5a;
+    --line:#e8e4dc;--gold:#b8862a;--gold-soft:#f7efd9;
+    --shadow:0 1px 2px rgba(0,0,0,.03), 0 8px 28px rgba(0,0,0,.05);
+    --warn:#a8541a;--ok:#4a6b3a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);font-family:'Outfit',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);line-height:1.55;font-weight:400;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{background:var(--paper);padding:64px 0 48px;border-bottom:1px solid var(--line)}
+  .badge{display:inline-block;font-size:11px;font-weight:600;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+  h1{font-size:34px;font-weight:600;letter-spacing:-.02em;margin:0 0 14px;line-height:1.15}
+  .lead{color:var(--ink-2);font-size:16px;max-width:62ch;line-height:1.6;margin:0}
+  .lead strong{color:var(--ink);font-weight:500}
+  .alert{background:#fff4e6;border-left:3px solid var(--warn);padding:14px 18px;border-radius:0 8px 8px 0;margin-top:24px;font-size:13.5px;color:var(--ink);line-height:1.55}
+  .alert strong{color:var(--warn);text-transform:uppercase;letter-spacing:.1em;font-size:11px;font-weight:600;display:block;margin-bottom:4px}
+  main{padding:40px 0 80px}
+  section{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:36px 36px 28px;margin-bottom:20px;box-shadow:var(--shadow)}
+  .sec-num{display:inline-block;font-size:11px;font-weight:600;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+  h2{margin:0 0 6px;font-size:22px;font-weight:600;letter-spacing:-.01em}
+  .sec-hint{color:var(--ink-2);font-size:14px;margin:0 0 26px;line-height:1.55}
+  .field{margin-bottom:22px}
+  .field:last-child{margin-bottom:0}
+  label.lbl{display:block;font-size:14px;font-weight:500;margin-bottom:4px;color:var(--ink)}
+  .hint{font-size:12.5px;color:var(--ink-2);margin:0 0 8px;line-height:1.5}
+  input[type=text],input[type=email],input[type=tel],textarea{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:14px;background:#fff;color:var(--ink);transition:border-color .15s ease}
+  input:focus,textarea:focus{outline:none;border-color:var(--gold)}
+  textarea{min-height:90px;resize:vertical;line-height:1.55}
+  .known{background:var(--gold-soft);border-left:3px solid var(--gold);padding:14px 16px;border-radius:0 6px 6px 0;margin-bottom:10px}
+  .known-tag{display:block;font-size:10.5px;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:5px}
+  .known-content{font-size:14px;color:var(--ink);line-height:1.5}
+  .radio-group{display:flex;gap:18px;margin:8px 0 10px;flex-wrap:wrap}
+  .radio-group label{display:inline-flex;gap:6px;align-items:center;font-size:14px;font-weight:400;cursor:pointer;color:var(--ink-2)}
+  .radio-group input{accent-color:var(--gold)}
+  .submit-section{background:var(--ink);color:#fff;border:none;border-radius:12px;padding:40px 36px;margin-top:32px}
+  .submit-section h2{color:#fff}
+  .submit-section .sec-hint{color:rgba(255,255,255,.7)}
+  .submit-section .sec-num{color:var(--gold)}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .btn{display:inline-block;background:var(--gold);color:#fff;padding:14px 24px;border:none;border-radius:8px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;letter-spacing:.01em;transition:background .15s ease}
+  .btn:hover{background:#a3771f}
+  .btn-alt{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)}
+  .btn-alt:hover{background:rgba(255,255,255,.08);border-color:#fff}
+  #status{font-size:13px;color:rgba(255,255,255,.85);margin-top:12px;min-height:20px;line-height:1.5}
+  #status.ok{color:#a8d896}
+  #status.err{color:#ffb079}
+  #exportOutput{display:none;width:100%;min-height:340px;font-family:'SF Mono','Menlo',monospace;font-size:12px;background:#0e0e0e;color:#e8d8a6;padding:20px;border-radius:8px;border:1px solid #333;margin-top:16px;white-space:pre-wrap;line-height:1.55}
+  footer{text-align:center;color:var(--ink-2);font-size:12px;padding:32px 24px;letter-spacing:.05em}
+  @media (max-width:640px){
+    header{padding:40px 0 32px}
+    h1{font-size:26px}
+    section,.submit-section{padding:24px 22px}
+    .radio-group{gap:12px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="badge">Briefing estratégico</span>
+    <h1>O conteúdo do seu novo site começa aqui</h1>
+    <p class="lead">Olá, Dra. Danusa. Este formulário vai alimentar todo o conteúdo, copy, posicionamento e estrutura visual do seu novo site. <strong>Quanto mais detalhado, mais o site vai refletir você de verdade.</strong> Pode preencher aos poucos. Ao terminar, use os botões no fim para salvar suas respostas.</p>
+    <div class="alert">
+      <strong>Importante</strong>
+      Este formulário precisa ser aberto num navegador (Chrome, Safari, Firefox). Se você abriu direto no WhatsApp e os botões parecem não responder, baixe o arquivo e abra no navegador do celular ou do computador.
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <form id="briefForm" onsubmit="return false">
+
+    <section>
+      <span class="sec-num">01 — Identidade profissional</span>
+      <h2>Quem é você</h2>
+      <p class="sec-hint">A base do site. Nome, registro de conselho, formação e a forma como você se apresenta.</p>
+      <div class="field">
+        <div class="known"><span class="known-tag">Já temos isto</span><div class="known-content">Dra. Danusa Pires</div></div>
+        <label class="lbl">Nome profissional como deve aparecer no site</label>
+        <div class="radio-group">
+          <label><input type="radio" name="nome_status" value="manter" checked> Manter</label>
+          <label><input type="radio" name="nome_status" value="atualizar"> Atualizar para:</label>
+        </div>
+        <input type="text" name="nome_atualizado" placeholder="Se for atualizar, escreva aqui">
+      </div>
+      <div class="field">
+        <label class="lbl">Conselho profissional e número de registro</label>
+        <p class="hint">Obrigatório por lei aparecer no rodapé do site (ex: CRBM, CRF, CRO, CRM, CRP, COREN, etc).</p>
+        <input type="text" name="conselho" placeholder="Ex: CRBM-RS 12345">
+      </div>
+      <div class="field">
+        <label class="lbl">Formação acadêmica completa</label>
+        <p class="hint">Graduação, pós, especializações, certificações relevantes. Liste tudo.</p>
+        <textarea name="formacao" rows="5"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">Anos de experiência clínica</label>
+        <input type="text" name="anos_experiencia">
+      </div>
+      <div class="field">
+        <label class="lbl">Aproximadamente quantos pacientes você já atendeu?</label>
+        <p class="hint">Opcional. Pode entrar como prova de autoridade no site.</p>
+        <input type="text" name="pacientes_total">
+      </div>
+      <div class="field">
+        <label class="lbl">Bio curta — uma frase só</label>
+        <p class="hint">Como você se apresentaria em uma frase, no topo do site.</p>
+        <textarea name="bio_curta" rows="2"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">Bio média — um parágrafo</label>
+        <p class="hint">Para a seção 'Sobre' da home. 3 a 5 linhas.</p>
+        <textarea name="bio_media" rows="4"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">Bio completa — pode escrever quanto quiser</label>
+        <p class="hint">Para a página 'Sobre'. Conte sua história, filosofia, jeito de atender.</p>
+        <textarea name="bio_completa" rows="8"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <span class="sec-num">02 — Posicionamento</span>
+      <h2>Como você quer ser percebida</h2>
+      <p class="sec-hint">A forma como o paciente certo se reconhece em você.</p>
+      <div class="field">
+        <label class="lbl">Em uma frase, o que você faz?</label>
+        <p class="hint">Comece com "Ajudo pessoas que..." ou "Cuido de quem...".</p>
+        <textarea name="frase_sintese" rows="2"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">Quem é o seu paciente ideal?</label>
+        <p class="hint">Idade, perfil, o que está sofrendo, o que está buscando.</p>
+        <textarea name="persona" rows="5"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">Frases de impacto que você gostaria de ver no site</label>
+        <p class="hint">3 a 6, sem filtro. Pensamento, manifesto, definição.</p>
+        <textarea name="frases_impacto" rows="6"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">Tagline / slogan</label>
+        <p class="hint">Se já tem, escreva. Se não, ajudamos a criar.</p>
+        <input type="text" name="tagline">
+      </div>
+      <div class="field">
+        <label class="lbl">O que te diferencia das outras profissionais? (3 a 5 pontos)</label>
+        <textarea name="diferenciais" rows="6"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">O que você JAMAIS quer no seu site?</label>
+        <p class="hint">Imagens, expressões, estilo, abordagem comercial que te incomoda.</p>
+        <textarea name="evitar" rows="3"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <span class="sec-num">03 — Áreas de atuação</span>
+      <h2>O que você oferece</h2>
+      <div class="field">
+        <div class="known"><span class="known-tag">Já estão no site atual</span><div class="known-content">Tricologia (alopecia, calvície, queda capilar) e Cosmetologia.</div></div>
+        <label class="lbl">Esses serviços continuam ativos?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="servicos_atuais" value="manter" checked> Manter</label>
+          <label><input type="radio" name="servicos_atuais" value="alterar"> Alterar (descrever)</label>
+        </div>
+        <textarea name="servicos_atuais_obs" rows="2"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">Lista completa de áreas / serviços do site novo</label>
+        <p class="hint">Você mencionou: <strong>soroterapia, tricologia, HOF, ortomolecular, flacidez</strong>. Adicione tudo o resto. Para cada serviço descreva: para quem é indicado, como funciona, resultado esperado, sessões.</p>
+        <textarea name="servicos_completo" rows="14"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">O que é HOF, na prática?</label>
+        <p class="hint">Para descrevermos certo no site.</p>
+        <textarea name="hof_explicacao" rows="4"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">Você tem fotos de antes/depois autorizadas?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="antes_depois" value="varias"> Várias</label>
+          <label><input type="radio" name="antes_depois" value="algumas"> Algumas</label>
+          <label><input type="radio" name="antes_depois" value="nao"> Não tenho</label>
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">Faixa de investimento</label>
+        <div class="radio-group">
+          <label><input type="radio" name="precos" value="exibir"> Exibir faixa</label>
+          <label><input type="radio" name="precos" value="ocultar" checked> Direcionar pra WhatsApp</label>
+        </div>
+        <textarea name="precos_obs" rows="2"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <span class="sec-num">04 — Atendimento e local</span>
+      <h2>Onde e como você atende</h2>
+      <div class="field">
+        <div class="known"><span class="known-tag">Possível local identificado</span><div class="known-content">Três de Maio (RS) — possível filial.</div></div>
+        <label class="lbl">Endereço completo da clínica principal</label>
+        <textarea name="endereco_principal" rows="3"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">Mais de um local?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="multi_local" value="nao" checked> Não</label>
+          <label><input type="radio" name="multi_local" value="sim"> Sim, descrever</label>
+        </div>
+        <textarea name="enderecos_extras" rows="3"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">Horários de atendimento</label>
+        <textarea name="horarios" rows="3"></textarea>
+      </div>
+      <div class="field">
+        <div class="known"><span class="known-tag">Já temos isto</span><div class="known-content">WhatsApp +55 51 98016-4433.</div></div>
+        <label class="lbl">Esse número permanece?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="whats_status" value="manter" checked> Manter</label>
+          <label><input type="radio" name="whats_status" value="atualizar"> Atualizar para:</label>
+        </div>
+        <input type="tel" name="whats_novo">
+      </div>
+      <div class="field"><label class="lbl">Outras formas de contato</label><textarea name="outros_contatos" rows="2"></textarea></div>
+      <div class="field"><label class="lbl">Atende online?</label><textarea name="online" rows="3"></textarea></div>
+      <div class="field"><label class="lbl">Aceita convênio?</label><input type="text" name="convenios"></div>
+      <div class="field">
+        <label class="lbl">Cidades / regiões onde atende</label>
+        <p class="hint">Importante para SEO local.</p>
+        <input type="text" name="cidades">
+      </div>
+    </section>
+
+    <section>
+      <span class="sec-num">05 — Provas sociais</span>
+      <h2>O que prova que você é boa no que faz</h2>
+      <div class="field">
+        <label class="lbl">Depoimentos de pacientes (com autorização)</label>
+        <p class="hint">Texto + primeiro nome ou iniciais. 3 a 6 já fazem diferença.</p>
+        <textarea name="depoimentos" rows="8"></textarea>
+      </div>
+      <div class="field"><label class="lbl">Mídias / aparições (TV, podcast, revista)</label><textarea name="midias" rows="3"></textarea></div>
+      <div class="field"><label class="lbl">Certificações relevantes</label><textarea name="certificacoes" rows="3"></textarea></div>
+      <div class="field"><label class="lbl">Parcerias profissionais ou institucionais</label><textarea name="parcerias" rows="2"></textarea></div>
+      <div class="field"><label class="lbl">Números relevantes (anos, pacientes, casos)</label><textarea name="numeros" rows="3"></textarea></div>
+    </section>
+
+    <section>
+      <span class="sec-num">06 — Blog e conteúdo</span>
+      <h2>Conteúdo educativo</h2>
+      <div class="field">
+        <div class="known"><span class="known-tag">Posts identificados</span><div class="known-content">1. 5 Dicas Essenciais para Evitar a Queda Capilar Excessiva<br>2. A importância de procurar profissional capacitado para alopecias e calvície<br>3. O que é cosmetologia</div></div>
+        <label class="lbl">Trazer todos para o site novo?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="posts_atuais" value="todos" checked> Todos</label>
+          <label><input type="radio" name="posts_atuais" value="selecionar"> Selecionar (descrever)</label>
+          <label><input type="radio" name="posts_atuais" value="nenhum"> Nenhum</label>
+        </div>
+        <textarea name="posts_atuais_obs" rows="3"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">Quer continuar publicando?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="blog_continua" value="sim_freq"> Com frequência</label>
+          <label><input type="radio" name="blog_continua" value="quando"> Quando der</label>
+          <label><input type="radio" name="blog_continua" value="nao"> Descontinuar</label>
+        </div>
+      </div>
+      <div class="field"><label class="lbl">Próximos temas que gostaria de abordar</label><textarea name="temas_blog" rows="5"></textarea></div>
+      <div class="field">
+        <label class="lbl">Produz vídeos curtos (Reels, TikTok)?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="videos" value="sim"> Sim</label>
+          <label><input type="radio" name="videos" value="as_vezes"> Às vezes</label>
+          <label><input type="radio" name="videos" value="nao"> Não</label>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="sec-num">07 — Identidade visual</span>
+      <h2>Como o site precisa transparecer você</h2>
+      <div class="field">
+        <div class="known"><span class="known-tag">Logo identificada</span><div class="known-content">"DANUSA PIRES — saúde e estética", símbolo dourado/marrom estilizado.</div></div>
+        <label class="lbl">Manter a logo atual?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="logo_status" value="manter" checked> Manter</label>
+          <label><input type="radio" name="logo_status" value="ajustar"> Ajustar (modernizar mantendo a essência)</label>
+          <label><input type="radio" name="logo_status" value="redesenhar"> Redesenhar</label>
+        </div>
+        <textarea name="logo_obs" rows="2"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">3 palavras que descrevem o tom visual desejado</label>
+        <p class="hint">Ex: minimalista, sofisticado, acolhedor.</p>
+        <input type="text" name="palavras_visuais">
+      </div>
+      <div class="field"><label class="lbl">Cores que você ama</label><input type="text" name="cores_amor"></div>
+      <div class="field"><label class="lbl">Cores que JAMAIS quer no site</label><input type="text" name="cores_evitar"></div>
+      <div class="field">
+        <label class="lbl">Sites ou perfis que admira esteticamente</label>
+        <p class="hint">3 a 5 links. Não precisa ser de saúde.</p>
+        <textarea name="referencias" rows="4"></textarea>
+      </div>
+      <div class="field">
+        <label class="lbl">Tem fotos profissionais suas em alta resolução?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="fotos_pro" value="sim"> Sim</label>
+          <label><input type="radio" name="fotos_pro" value="algumas"> Algumas</label>
+          <label><input type="radio" name="fotos_pro" value="nao"> Não, preciso fazer</label>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="sec-num">08 — Redes sociais</span>
+      <h2>Onde você está presente</h2>
+      <div class="field">
+        <div class="known"><span class="known-tag">Já temos isto</span><div class="known-content">Grupo de WhatsApp ativo: chat.whatsapp.com/EQuPUtcPzEdIZVlT8JyyNw</div></div>
+        <label class="lbl">Manter o grupo no site?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="grupo_whats" value="sim" checked> Sim</label>
+          <label><input type="radio" name="grupo_whats" value="nao"> Não</label>
+        </div>
+      </div>
+      <div class="field"><label class="lbl">Instagram (@)</label><input type="text" name="instagram"></div>
+      <div class="field"><label class="lbl">Facebook</label><input type="text" name="facebook"></div>
+      <div class="field"><label class="lbl">TikTok</label><input type="text" name="tiktok"></div>
+      <div class="field"><label class="lbl">LinkedIn</label><input type="text" name="linkedin"></div>
+      <div class="field"><label class="lbl">YouTube</label><input type="text" name="youtube"></div>
+      <div class="field"><label class="lbl">Outras</label><input type="text" name="outras_redes"></div>
+      <div class="field">
+        <label class="lbl">Roda anúncios pagos?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="ads" value="sim"> Sim, atualmente</label>
+          <label><input type="radio" name="ads" value="vou"> Pretendo começar</label>
+          <label><input type="radio" name="ads" value="nao"> Não pretendo</label>
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">Existe GTM, Pixel, Analytics? IDs?</label>
+        <p class="hint">Se já tem alguma dessas tags rodando, cole os IDs.</p>
+        <textarea name="ids_tracking" rows="3" placeholder="GA4: G-XXXXXX&#10;Pixel Meta: 0000000000&#10;GTM: GTM-XXXXXX"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <span class="sec-num">09 — Documentação legal</span>
+      <h2>LGPD e exigências da área de saúde</h2>
+      <div class="field">
+        <label class="lbl">CPF ou CNPJ que aparecerá nos termos</label>
+        <p class="hint">Não fica visível, fica nos termos legais.</p>
+        <input type="text" name="documento">
+      </div>
+      <div class="field"><label class="lbl">E-mail oficial para LGPD</label><input type="email" name="email_lgpd"></div>
+      <div class="field"><label class="lbl">Tem secretária/assistente que responde paciente?</label><textarea name="assistente" rows="2"></textarea></div>
+      <div class="field"><label class="lbl">Razão social (se PJ)</label><input type="text" name="razao_social"></div>
+      <div class="field">
+        <label class="lbl">O que NÃO pode aparecer no site (compliance, conselho, ética)?</label>
+        <p class="hint">Restrições do seu conselho profissional, palavras proibidas, promessas vedadas.</p>
+        <textarea name="compliance" rows="4"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <span class="sec-num">10 — Objetivo do site</span>
+      <h2>O que você espera</h2>
+      <div class="field">
+        <label class="lbl">Principal objetivo?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="objetivo" value="agendar"> Gerar agendamentos</label>
+          <label><input type="radio" name="objetivo" value="autoridade"> Autoridade / posicionamento</label>
+          <label><input type="radio" name="objetivo" value="ambos" checked> Os dois</label>
+        </div>
+      </div>
+      <div class="field"><label class="lbl">Pacientes/mês hoje</label><input type="text" name="pacientes_hoje"></div>
+      <div class="field"><label class="lbl">Pacientes/mês meta</label><input type="text" name="pacientes_meta"></div>
+      <div class="field"><label class="lbl">Sazonalidade</label><textarea name="sazonalidade" rows="2"></textarea></div>
+      <div class="field">
+        <label class="lbl">Quem aprova copy do seu lado?</label>
+        <p class="hint">Uma pessoa só, ou comitê (você + parceiro + secretária etc)?</p>
+        <input type="text" name="aprova_copy">
+      </div>
+      <div class="field">
+        <label class="lbl">Como vai medir sucesso 90 dias após o site no ar?</label>
+        <p class="hint">Mais agendamentos, mais autoridade percebida, mais inbound de Instagram, etc.</p>
+        <textarea name="sucesso_90d" rows="3"></textarea>
+      </div>
+      <div class="field"><label class="lbl">Algo mais que eu precise saber?</label><textarea name="livre" rows="6"></textarea></div>
+    </section>
+
+    <section class="submit-section">
+      <span class="sec-num">Pronto?</span>
+      <h2>Salve suas respostas e me envie</h2>
+      <p class="sec-hint">Use um dos botões abaixo. O mais simples é "Baixar como TXT" — gera um arquivo que você anexa no WhatsApp.</p>
+      <div class="btn-row">
+        <button type="button" class="btn" onclick="enviarEmail()">Enviar por e-mail</button>
+        <button type="button" class="btn btn-alt" onclick="baixarTxt()">Baixar como TXT</button>
+        <button type="button" class="btn btn-alt" onclick="copiarRespostas()">Copiar respostas</button>
+        <button type="button" class="btn btn-alt" onclick="mostrarTexto()">Mostrar em texto</button>
+      </div>
+      <div id="status"></div>
+      <textarea id="exportOutput" readonly></textarea>
+    </section>
+
+    </form>
+  </div>
+</main>
+
+<footer>Briefing estratégico — Dra. Danusa Pires • desenvolvido por Gehrke Intelligence</footer>
+
+<script>
+(function(){
+  function getRadio(name){
+    try{
+      var el = document.querySelector('input[name="'+name+'"]:checked');
+      return el ? el.value : '';
+    }catch(e){return ''}
+  }
+  function val(name){
+    try{
+      var els = document.getElementsByName(name);
+      if(!els || !els.length) return '';
+      if(els[0].type === 'radio') return getRadio(name);
+      return (els[0].value || '').toString().trim();
+    }catch(e){return ''}
+  }
+  function line(label, value){
+    if(!value || value.toString().trim() === '') return '';
+    return label + ':\n' + value + '\n\n';
+  }
+  function gerarTexto(){
+    var sep = '======================================================\n';
+    var data = new Date();
+    var dataStr = data.toLocaleDateString('pt-BR');
+    var out = sep + '  BRIEFING ESTRATEGICO - SITE DRA. DANUSA PIRES\n  ' + dataStr + '\n' + sep + '\n';
+
+    out += '--- 01 - IDENTIDADE PROFISSIONAL ---\n\n';
+    out += line('Nome', val('nome_status') === 'atualizar' ? val('nome_atualizado') : 'Dra. Danusa Pires (manter)');
+    out += line('Conselho', val('conselho'));
+    out += line('Formacao', val('formacao'));
+    out += line('Anos de experiencia', val('anos_experiencia'));
+    out += line('Pacientes total', val('pacientes_total'));
+    out += line('Bio curta', val('bio_curta'));
+    out += line('Bio media', val('bio_media'));
+    out += line('Bio completa', val('bio_completa'));
+
+    out += '\n--- 02 - POSICIONAMENTO ---\n\n';
+    out += line('Frase-sintese', val('frase_sintese'));
+    out += line('Paciente ideal', val('persona'));
+    out += line('Frases de impacto', val('frases_impacto'));
+    out += line('Tagline', val('tagline'));
+    out += line('Diferenciais', val('diferenciais'));
+    out += line('O que evitar', val('evitar'));
+
+    out += '\n--- 03 - AREAS DE ATUACAO ---\n\n';
+    out += line('Servicos atuais', val('servicos_atuais'));
+    out += line('Observacao servicos atuais', val('servicos_atuais_obs'));
+    out += line('Lista completa de servicos', val('servicos_completo'));
+    out += line('O que e HOF', val('hof_explicacao'));
+    out += line('Antes/depois', val('antes_depois'));
+    out += line('Exibicao de precos', val('precos'));
+    out += line('Observacao precos', val('precos_obs'));
+
+    out += '\n--- 04 - ATENDIMENTO ---\n\n';
+    out += line('Endereco principal', val('endereco_principal'));
+    out += line('Multiplos locais', val('multi_local'));
+    out += line('Outros enderecos', val('enderecos_extras'));
+    out += line('Horarios', val('horarios'));
+    out += line('WhatsApp', val('whats_status') === 'atualizar' ? val('whats_novo') : '+55 51 98016-4433 (manter)');
+    out += line('Outros contatos', val('outros_contatos'));
+    out += line('Online', val('online'));
+    out += line('Convenios', val('convenios'));
+    out += line('Cidades', val('cidades'));
+
+    out += '\n--- 05 - PROVAS SOCIAIS ---\n\n';
+    out += line('Depoimentos', val('depoimentos'));
+    out += line('Midias', val('midias'));
+    out += line('Certificacoes', val('certificacoes'));
+    out += line('Parcerias', val('parcerias'));
+    out += line('Numeros relevantes', val('numeros'));
+
+    out += '\n--- 06 - BLOG ---\n\n';
+    out += line('Posts atuais', val('posts_atuais'));
+    out += line('Observacao posts', val('posts_atuais_obs'));
+    out += line('Continuar blog', val('blog_continua'));
+    out += line('Proximos temas', val('temas_blog'));
+    out += line('Videos curtos', val('videos'));
+
+    out += '\n--- 07 - IDENTIDADE VISUAL ---\n\n';
+    out += line('Logo', val('logo_status'));
+    out += line('Observacao logo', val('logo_obs'));
+    out += line('3 palavras visuais', val('palavras_visuais'));
+    out += line('Cores que ama', val('cores_amor'));
+    out += line('Cores a evitar', val('cores_evitar'));
+    out += line('Referencias esteticas', val('referencias'));
+    out += line('Fotos profissionais', val('fotos_pro'));
+
+    out += '\n--- 08 - REDES SOCIAIS ---\n\n';
+    out += line('Manter grupo WhatsApp', val('grupo_whats'));
+    out += line('Instagram', val('instagram'));
+    out += line('Facebook', val('facebook'));
+    out += line('TikTok', val('tiktok'));
+    out += line('LinkedIn', val('linkedin'));
+    out += line('YouTube', val('youtube'));
+    out += line('Outras', val('outras_redes'));
+    out += line('Anuncios pagos', val('ads'));
+    out += line('IDs de tracking', val('ids_tracking'));
+
+    out += '\n--- 09 - LEGAL ---\n\n';
+    out += line('CPF/CNPJ', val('documento'));
+    out += line('Email LGPD', val('email_lgpd'));
+    out += line('Assistente', val('assistente'));
+    out += line('Razao social', val('razao_social'));
+    out += line('Compliance / o que nao pode', val('compliance'));
+
+    out += '\n--- 10 - OBJETIVO ---\n\n';
+    out += line('Objetivo principal', val('objetivo'));
+    out += line('Pacientes/mes hoje', val('pacientes_hoje'));
+    out += line('Pacientes/mes meta', val('pacientes_meta'));
+    out += line('Sazonalidade', val('sazonalidade'));
+    out += line('Quem aprova copy', val('aprova_copy'));
+    out += line('Sucesso 90 dias', val('sucesso_90d'));
+    out += line('Observacoes finais', val('livre'));
+
+    out += '\n' + sep + '  Fim do briefing.\n' + sep;
+    return out;
+  }
+
+  function setStatus(msg, kind){
+    var s = document.getElementById('status');
+    if(!s) return;
+    s.textContent = msg;
+    s.className = kind || '';
+  }
+
+  window.baixarTxt = function(){
+    try{
+      var texto = gerarTexto();
+      var blob = new Blob([texto], {type: 'text/plain;charset=utf-8'});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'briefing-danusa-pires.txt';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function(){
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 200);
+      setStatus('Arquivo baixado. Anexe no WhatsApp do Gustavo.', 'ok');
+    }catch(e){
+      setStatus('Nao foi possivel baixar. Use o botao "Mostrar em texto" e copie manualmente. Erro: ' + e.message, 'err');
+      window.mostrarTexto();
+    }
+  };
+
+  window.copiarRespostas = function(){
+    try{
+      var texto = gerarTexto();
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(texto).then(function(){
+          setStatus('Respostas copiadas. Cole no WhatsApp do Gustavo.', 'ok');
+        }).catch(function(err){
+          fallbackCopy(texto);
+        });
+      } else {
+        fallbackCopy(texto);
+      }
+    }catch(e){
+      setStatus('Nao foi possivel copiar. Use o botao "Mostrar em texto". Erro: ' + e.message, 'err');
+      window.mostrarTexto();
+    }
+  };
+
+  function fallbackCopy(texto){
+    var ta = document.getElementById('exportOutput');
+    ta.style.display = 'block';
+    ta.value = texto;
+    ta.focus();
+    ta.select();
+    try{
+      var ok = document.execCommand('copy');
+      if(ok){
+        setStatus('Respostas copiadas. Cole no WhatsApp do Gustavo.', 'ok');
+      } else {
+        setStatus('Selecione todo o texto abaixo (Ctrl+A ou Cmd+A) e copie manualmente.', 'err');
+      }
+    }catch(e){
+      setStatus('Selecione todo o texto abaixo (Ctrl+A ou Cmd+A) e copie manualmente.', 'err');
+    }
+  }
+
+  window.enviarEmail = function(){
+    try{
+      var texto = gerarTexto();
+      var assunto = 'Briefing Estrategico - Site Dra. Danusa Pires';
+      var maxLen = 1800;
+      var corpo = texto.length > maxLen ? texto.substring(0, maxLen) + '\n\n[CONTINUA - texto truncado para caber no e-mail. Use tambem o botao Baixar como TXT.]' : texto;
+      var url = 'mailto:mdgustavogehrke@gmail.com?subject=' + encodeURIComponent(assunto) + '&body=' + encodeURIComponent(corpo);
+      window.location.href = url;
+      setStatus('Abrindo seu app de e-mail. Se nao abrir, use Baixar como TXT.', 'ok');
+    }catch(e){
+      setStatus('Nao foi possivel abrir e-mail. Use Baixar como TXT. Erro: ' + e.message, 'err');
+    }
+  };
+
+  window.mostrarTexto = function(){
+    try{
+      var texto = gerarTexto();
+      var ta = document.getElementById('exportOutput');
+      ta.style.display = 'block';
+      ta.value = texto;
+      ta.scrollIntoView({behavior:'smooth', block:'center'});
+      setTimeout(function(){ ta.focus(); ta.select(); }, 300);
+      setStatus('Selecione todo o texto e copie (Ctrl+A, Ctrl+C).', 'ok');
+    }catch(e){
+      setStatus('Erro ao gerar texto: ' + e.message, 'err');
+    }
+  };
+})();
+</script>
+</body>
+</html>
