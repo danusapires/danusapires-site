@@ -48,14 +48,14 @@ const dominios = getDominiosCount();
 
   <!-- SISTEMA SORO-MATCH -->
   <section id="match" class="section-cream">
-    <div style="max-width:780px">
+    <div class="sm-wrap">
       <p class="lbl r">sistema smart.soro</p>
       <h2 class="section-title r d1">Digite sua queixa. <em>Veja</em> os ativos pertinentes.</h2>
-      <p class="section-subtitle r d2">{queixas.length} quadros cobertos em {dominios} domínios: capilar, energia, sono, hormonal, performance, imunidade, pele, intestino, longevidade, perioperatório, gestação, pós-viral.</p>
+      <p class="section-subtitle r d2">{queixas.length} quadros cobertos em {dominios} domínios. Sistema multi-domínio: capilar, energia, sono, hormonal, performance, imunidade, pele, intestino, longevidade, perioperatório, pós-bariátrico, emagrecimento.</p>
     </div>
 
     <!-- AVISO ÉTICO DESTACADO -->
-    <div class="sm-ethical-notice r d1" style="max-width:780px;margin-top:var(--space-lg)">
+    <div class="sm-ethical-notice r d1 sm-wrap" style="margin-top:var(--space-lg)">
       <p class="sm-ethical-title">⚠ Importante &mdash; leia antes de usar</p>
       <ul class="sm-ethical-list">
         <li><strong>Não é diagnóstico.</strong> Esta ferramenta lista ativos com plausibilidade técnica para cada quadro. Não substitui consulta, exame ou prescrição.</li>
@@ -65,40 +65,80 @@ const dominios = getDominiosCount();
       </ul>
     </div>
 
-    <div class="sm-search-container r d2" style="margin-top:var(--space-lg);max-width:780px">
+    <div class="sm-search-container r d2 sm-wrap" style="margin-top:var(--space-lg)">
+      <label for="sm-search" class="sm-search-label">O que você está sentindo?</label>
       <input
         type="text"
         id="sm-search"
         class="sm-search-input"
-        placeholder="Ex: dor de cabeça, queda, ansiedade, sono, libido, treino, menopausa, jet lag..."
-        aria-label="Buscar queixa"
+        placeholder="Ex: dor de cabeça forte, acordo cansado, queda capilar, libido baixa, compulsão por doce..."
+        aria-label="Buscar queixa em linguagem natural"
         autocomplete="off"
       />
-      <div class="sm-search-hint">Comece digitando para ver as sugestões. Aceita sinônimos.</div>
+      <p class="sm-search-hint">Escreva como você falaria com a médica. Aceita acento ou sem.</p>
+
+      <!-- CHIPS DE SUGESTÃO -->
+      <div class="sm-chips" role="group" aria-label="Sugestões de busca">
+        <button type="button" class="sm-chip" data-q="queda capilar">queda capilar</button>
+        <button type="button" class="sm-chip" data-q="acordo cansado">acordo cansado</button>
+        <button type="button" class="sm-chip" data-q="dor de cabeça">dor de cabeça</button>
+        <button type="button" class="sm-chip" data-q="compulsão por doce">compulsão por doce</button>
+        <button type="button" class="sm-chip" data-q="memória ruim">memória ruim</button>
+        <button type="button" class="sm-chip" data-q="emagrecimento">emagrecimento</button>
+        <button type="button" class="sm-chip" data-q="menopausa">menopausa</button>
+        <button type="button" class="sm-chip" data-q="pós bariátrica">pós bariátrica</button>
+        <button type="button" class="sm-chip" data-q="longevidade">longevidade</button>
+        <button type="button" class="sm-chip" data-q="performance">performance</button>
+      </div>
+
+      <!-- CONTADOR -->
+      <p id="sm-counter" class="sm-counter" aria-live="polite">{queixas.length} quadros disponíveis</p>
     </div>
 
-    <div class="sm-results-container r d2" style="margin-top:var(--space-lg);max-width:780px">
-      {queixas.map((q, i) => (
-        <div class="sm-result-item" data-queixa={q.slug} data-search={[q.label, ...q.tags].join(' | ').toLowerCase()}>
-          <p class="sm-panel-eyebrow">ativos potencialmente pertinentes</p>
-          <h3 class="sm-panel-title">{q.label}</h3>
+    <div class="sm-results-container r d2 sm-wrap" style="margin-top:var(--space-lg)">
+      {queixas.map((q) => (
+        <article
+          class="sm-result-item"
+          data-queixa={q.slug}
+          data-dominio={q.dominio}
+          data-search={[q.label, ...q.tags].join(' | ').toLowerCase()}
+        >
+          <header class="sm-result-head">
+            <p class="sm-panel-eyebrow">{q.dominio.replace(/-/g, ' · ')}</p>
+            <h3 class="sm-panel-title">{q.label}</h3>
+          </header>
+
           <ul class="sm-ativos">
             {q.ativos.map(a => (
-              <li>
-                <strong>{a.nome}</strong>
-                <span>{a.observacao || a.mecanismo}</span>
+              <li class="sm-ativo">
+                <div class="sm-ativo-head">
+                  <strong class="sm-ativo-nome">{a.nome}</strong>
+                  <span class="sm-ativo-cat">{a.categoria}</span>
+                </div>
+                <p class="sm-ativo-mec">{a.observacao || a.mecanismo}</p>
+                <details class="sm-ativo-more">
+                  <summary>indicação de uso</summary>
+                  <p>{a.indicacaoUso}</p>
+                </details>
               </li>
             ))}
           </ul>
+
           <p class="sm-disclaimer">
             A combinação, doses e via de administração são definidas em avaliação clínica. Resposta variável conforme padrão fisiológico individual.
           </p>
-        </div>
+        </article>
       ))}
     </div>
 
-    <div id="sm-no-results" class="sm-no-results" style="display:none;margin-top:var(--space-lg);text-align:center">
-      <p style="font-size:16px;color:rgba(11,11,11,.6)">Nenhuma queixa encontrada com esses termos. <a href="/agendamento" style="color:var(--c-gold);text-decoration:underline">Fale com a equipe</a> &mdash; o cardápio coberto aqui não é exaustivo.</p>
+    <!-- EMPTY STATE / CTA WHATSAPP -->
+    <div id="sm-no-results" class="sm-no-results sm-wrap" style="display:none;margin-top:var(--space-lg)">
+      <p class="sm-no-results-title">Não encontrei correspondência para o que você digitou.</p>
+      <p class="sm-no-results-lead">O cardápio coberto aqui não é exaustivo. A composição certa para você pode existir mesmo que a queixa exata não esteja mapeada.</p>
+      <div class="sm-no-results-actions">
+        <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="btn btn-primary">falar pelo WhatsApp</a>
+        <a href="/agendamento" class="sm-no-results-link">ou agendar avaliação →</a>
+      </div>
     </div>
   </section>
 
@@ -150,77 +190,138 @@ const dominios = getDominiosCount();
   />
 
   <script>
-    const searchInput = document.getElementById('sm-search') as HTMLInputElement;
-    const resultItems = document.querySelectorAll('.sm-result-item');
-    const noResultsDiv = document.getElementById('sm-no-results');
+    /**
+     * smart.soro · busca em linguagem natural
+     * - normaliza acentos
+     * - filtra stopwords PT-BR + qualificadores
+     * - tokeniza por whitespace + pontuação
+     * - match AND (todas as palavras precisam aparecer)
+     * - fallback OR se zero matches (mostra "aproximados")
+     * - empty state com CTA WhatsApp
+     * - chips de sugestão clicáveis
+     * - contador ao vivo
+     */
 
-    // Stopwords PT-BR comuns — removidas antes do match para reduzir ruído.
-    // Inclui artigos, preposições, pronomes, verbos auxiliares e qualificadores
-    // intensidade/frequência ("forte", "intenso", "muito", "sempre", "às vezes").
+    const searchInput = document.getElementById('sm-search') as HTMLInputElement | null;
+    const resultItems = Array.from(document.querySelectorAll<HTMLElement>('.sm-result-item'));
+    const noResultsDiv = document.getElementById('sm-no-results');
+    const counter = document.getElementById('sm-counter');
+    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.sm-chip'));
+
+    const TOTAL = resultItems.length;
+
     const STOPWORDS = new Set([
-      // artigos / contrações
-      'de', 'da', 'do', 'das', 'dos', 'a', 'o', 'as', 'os', 'um', 'uma', 'uns', 'umas',
-      // preposições
-      'para', 'pra', 'pro', 'por', 'pelo', 'pela', 'pelos', 'pelas',
-      'com', 'sem', 'em', 'no', 'na', 'nos', 'nas', 'num', 'numa',
-      // conectivos
-      'e', 'ou', 'mas', 'que', 'se', 'ao', 'aos',
-      // pronomes
-      'meu', 'minha', 'seu', 'sua', 'eu', 'me', 'te', 'lhe', 'nos', 'isso', 'isto', 'aquilo',
-      // intensidade / quantidade
-      'muito', 'muita', 'muitos', 'muitas', 'pouco', 'pouca', 'poucos', 'poucas',
-      'mais', 'menos', 'tao', 'tão', 'bem', 'mal',
-      // qualificadores de sintoma (paciente descreve, não é sintoma em si)
-      'forte', 'fraco', 'fraca', 'leve', 'severo', 'severa', 'grave', 'pesado', 'pesada',
-      'intenso', 'intensa', 'horrível', 'horrivel', 'terrível', 'terrivel',
-      // frequência
-      'sempre', 'nunca', 'jamais', 'frequente', 'frequentemente',
-      // verbos auxiliares e copulativos
-      'estou', 'esta', 'está', 'sou', 'sinto', 'sentindo',
-      'tenho', 'tem', 'tinha', 'foi', 'ser', 'estar', 'fica', 'fico', 'ando',
-      'preciso', 'quero', 'queria', 'gostaria',
-      // negações / auxiliares
-      'nao', 'não', 'consigo', 'consegue', 'pode', 'posso',
-      // qualificadores adicionais
-      'extremo', 'extrema', 'pequeno', 'pequena', 'grande', 'pouquinho',
-      // prefixos/preposições isoladas que o paciente escreve
-      'pre', 'pré', 'pós', 'pos',
-      // saudações genéricas
-      'oi', 'olá', 'ola', 'bom', 'dia', 'tarde', 'noite',
+      'de','da','do','das','dos','a','o','as','os','um','uma','uns','umas',
+      'para','pra','pro','por','pelo','pela','pelos','pelas',
+      'com','sem','em','no','na','nos','nas','num','numa',
+      'e','ou','mas','que','se','ao','aos',
+      'meu','minha','seu','sua','eu','me','te','lhe','isso','isto','aquilo',
+      'muito','muita','muitos','muitas','pouco','pouca','poucos','poucas',
+      'mais','menos','tao','tão','bem','mal',
+      'forte','fraco','fraca','leve','severo','severa','grave','pesado','pesada',
+      'intenso','intensa','horrível','horrivel','terrível','terrivel',
+      'sempre','nunca','jamais','frequente','frequentemente',
+      'estou','esta','está','sou','sinto','sentindo',
+      'tenho','tem','tinha','foi','ser','estar','fica','fico','ando',
+      'preciso','quero','queria','gostaria',
+      'nao','não','consigo','consegue','pode','posso',
+      'extremo','extrema','pequeno','pequena','grande','pouquinho',
+      'pre','pré','pós','pos',
+      'oi','olá','ola','bom','dia','tarde','noite',
     ]);
 
-    // Normaliza string: minúsculas + remove acentos
-    function normalize(s: string): string {
-      return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-    }
+    const normalize = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 
-    // Tokeniza query em palavras significativas (>=3 chars, sem stopwords).
-    // Split também em pontuação para que "oi, sinto..." vire ["oi", "sinto", ...]
-    function tokenize(s: string): string[] {
-      return normalize(s)
+    const tokenize = (s: string): string[] =>
+      normalize(s)
         .split(/[\s,.;!?:()\-]+/)
         .filter(w => w.length >= 3 && !STOPWORDS.has(w));
-    }
 
-    searchInput?.addEventListener('input', (e) => {
-      const raw = (e.target as HTMLInputElement).value.trim();
+    const setVisible = (el: HTMLElement, on: boolean, approx = false) => {
+      el.style.display = on ? 'block' : 'none';
+      el.classList.toggle('sm-approx', approx);
+    };
+
+    const updateCounter = (matchCount: number, tokens: string[], mode: 'all' | 'exact' | 'approx' | 'none') => {
+      if (!counter) return;
+      if (mode === 'all') {
+        counter.textContent = `${TOTAL} quadros disponíveis`;
+        counter.className = 'sm-counter';
+      } else if (mode === 'exact') {
+        counter.textContent = `${matchCount} ${matchCount === 1 ? 'quadro encontrado' : 'quadros encontrados'} para "${tokens.join(' ')}"`;
+        counter.className = 'sm-counter sm-counter-exact';
+      } else if (mode === 'approx') {
+        counter.textContent = `Sem match exato. Mostrando ${matchCount} ${matchCount === 1 ? 'quadro aproximado' : 'quadros aproximados'}.`;
+        counter.className = 'sm-counter sm-counter-approx';
+      } else {
+        counter.textContent = `Nenhum quadro casa com "${tokens.join(' ')}". Fale com a equipe.`;
+        counter.className = 'sm-counter sm-counter-none';
+      }
+    };
+
+    const runSearch = (raw: string) => {
       const tokens = tokenize(raw);
-      let visibleCount = 0;
 
-      resultItems.forEach(item => {
-        const haystack = normalize(item.getAttribute('data-search') || '');
-        // Sem query (ou só stopwords): mostra tudo.
-        // Com query: todas as palavras significativas precisam aparecer no haystack.
-        const matches = tokens.length === 0 || tokens.every(t => haystack.includes(t));
+      // Sem tokens significativos: exibe tudo.
+      if (tokens.length === 0) {
+        resultItems.forEach(el => setVisible(el, true, false));
+        if (noResultsDiv) noResultsDiv.style.display = 'none';
+        updateCounter(TOTAL, [], 'all');
+        return;
+      }
 
-        (item as HTMLElement).style.display = matches ? 'block' : 'none';
-        if (matches) visibleCount++;
+      // 1ª passada: AND estrito (todas as palavras precisam aparecer)
+      const matchesAnd: HTMLElement[] = [];
+      const matchesOr: HTMLElement[] = [];
+      resultItems.forEach(el => {
+        const haystack = normalize(el.getAttribute('data-search') || '');
+        const allTokens = tokens.every(t => haystack.includes(t));
+        const anyToken = tokens.some(t => haystack.includes(t));
+        if (allTokens) matchesAnd.push(el);
+        else if (anyToken) matchesOr.push(el);
       });
 
-      if (noResultsDiv) {
-        noResultsDiv.style.display = (visibleCount === 0 && tokens.length > 0) ? 'block' : 'none';
+      if (matchesAnd.length > 0) {
+        // Exibe AND-matches em modo exato
+        resultItems.forEach(el => setVisible(el, matchesAnd.includes(el), false));
+        if (noResultsDiv) noResultsDiv.style.display = 'none';
+        updateCounter(matchesAnd.length, tokens, 'exact');
+      } else if (matchesOr.length > 0) {
+        // Fallback: mostra OR-matches como "aproximados"
+        resultItems.forEach(el => setVisible(el, matchesOr.includes(el), true));
+        if (noResultsDiv) noResultsDiv.style.display = 'none';
+        updateCounter(matchesOr.length, tokens, 'approx');
+      } else {
+        // Zero matches: esconde tudo + mostra empty state com CTA
+        resultItems.forEach(el => setVisible(el, false, false));
+        if (noResultsDiv) noResultsDiv.style.display = 'block';
+        updateCounter(0, tokens, 'none');
       }
+    };
+
+    // input do usuário (com debounce leve via requestAnimationFrame)
+    let raf = 0;
+    searchInput?.addEventListener('input', (e) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => runSearch((e.target as HTMLInputElement).value.trim()));
     });
+
+    // chips clicáveis preenchem o input e disparam busca
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const q = chip.getAttribute('data-q') || '';
+        if (searchInput) {
+          searchInput.value = q;
+          searchInput.focus();
+        }
+        runSearch(q);
+        // scroll suave para os resultados
+        document.querySelector('.sm-results-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // estado inicial
+    updateCounter(TOTAL, [], 'all');
   </script>
 
   <style>
@@ -445,57 +546,258 @@ const dominios = getDominiosCount();
       font-weight: 600;
     }
 
+    /* WRAPPER COMUM */
+    .sm-wrap { max-width: 920px; margin-left: auto; margin-right: auto; }
+
     /* SEARCH INTERFACE */
     .sm-search-container {
       position: relative;
     }
+    .sm-search-label {
+      display: block;
+      font-family: var(--font-primary);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-black);
+      margin-bottom: 10px;
+    }
     .sm-search-input {
       width: 100%;
-      padding: 18px 20px;
+      padding: 20px 22px;
       font-family: var(--font-primary);
-      font-size: 16px;
+      font-size: 17px;
       border: 2px solid rgba(11,11,11,.12);
       border-radius: 2px;
       background: var(--c-white);
       color: var(--c-black);
-      transition: border-color var(--transition-base);
+      transition: border-color var(--transition-base), box-shadow var(--transition-base);
     }
     .sm-search-input:focus {
       outline: none;
       border-color: var(--c-gold);
+      box-shadow: 0 0 0 4px rgba(198,168,90,.12);
     }
-    .sm-search-input::placeholder {
-      color: rgba(11,11,11,.45);
-    }
+    .sm-search-input::placeholder { color: rgba(11,11,11,.42); }
     .sm-search-hint {
-      margin-top: 10px;
+      margin: 10px 0 0;
       font-size: 13px;
       color: rgba(11,11,11,.55);
       font-style: italic;
     }
 
+    /* CHIPS DE SUGESTÃO */
+    .sm-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: var(--space-md);
+    }
+    .sm-chip {
+      font-family: var(--font-primary);
+      font-size: 13px;
+      padding: 8px 14px;
+      background: var(--c-white);
+      color: var(--c-black);
+      border: 1px solid rgba(11,11,11,.18);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    }
+    .sm-chip:hover {
+      background: var(--c-black);
+      color: var(--c-beige);
+      border-color: var(--c-black);
+    }
+    .sm-chip:focus-visible {
+      outline: 2px solid var(--c-gold);
+      outline-offset: 2px;
+    }
+
+    /* CONTADOR */
+    .sm-counter {
+      margin: var(--space-md) 0 0;
+      font-family: var(--font-primary);
+      font-size: 13px;
+      color: rgba(11,11,11,.6);
+      letter-spacing: .02em;
+    }
+    .sm-counter-exact { color: var(--c-black); font-weight: 500; }
+    .sm-counter-approx { color: var(--c-gold); }
+    .sm-counter-none { color: #8a2a2a; }
+
+    /* RESULTADOS */
     .sm-results-container {
       display: flex;
       flex-direction: column;
-      gap: var(--space-lg);
+      gap: var(--space-md);
     }
     .sm-result-item {
       padding: var(--space-lg);
       background: var(--c-white);
       border: 1px solid rgba(11,11,11,.08);
+      border-left: 4px solid var(--c-gold);
       border-radius: 2px;
       transition: border-color var(--transition-base), background var(--transition-base);
     }
     .sm-result-item:hover {
-      border-color: var(--c-gold);
       background: rgba(198,168,90,.02);
     }
+    .sm-result-item.sm-approx {
+      border-left-color: rgba(198,168,90,.4);
+      background: rgba(198,168,90,.04);
+    }
+    .sm-result-item.sm-approx::before {
+      content: 'aproximado';
+      display: inline-block;
+      font-family: var(--font-primary);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      background: rgba(198,168,90,.12);
+      padding: 4px 10px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+    }
 
-    .sm-no-results {
-      padding: var(--space-lg);
-      background: rgba(11,11,11,.03);
+    .sm-result-head { margin-bottom: var(--space-md); }
+    .sm-panel-eyebrow {
+      font-family: var(--font-primary);
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin: 0 0 6px;
+    }
+    .sm-panel-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(20px, 2vw, 24px);
+      line-height: 1.25;
+      color: var(--c-black);
+      margin: 0;
+    }
+
+    /* LISTA DE ATIVOS */
+    .sm-ativos {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .sm-ativo {
+      padding: 14px 16px;
+      background: var(--c-beige);
       border-radius: 2px;
-      text-align: center;
+    }
+    .sm-ativo-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .sm-ativo-nome {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--c-black);
+    }
+    .sm-ativo-cat {
+      font-family: var(--font-primary);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      background: rgba(198,168,90,.1);
+      padding: 4px 9px;
+      border-radius: 100px;
+    }
+    .sm-ativo-mec {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: rgba(11,11,11,.72);
+      margin: 0;
+    }
+    .sm-ativo-more {
+      margin-top: 8px;
+    }
+    .sm-ativo-more summary {
+      list-style: none;
+      cursor: pointer;
+      font-family: var(--font-primary);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+      display: inline-block;
+      transition: border-color var(--transition-fast);
+    }
+    .sm-ativo-more summary::-webkit-details-marker { display: none; }
+    .sm-ativo-more summary::after { content: ' +'; }
+    .sm-ativo-more[open] summary::after { content: ' −'; }
+    .sm-ativo-more summary:hover { border-bottom-color: var(--c-gold); }
+    .sm-ativo-more p {
+      margin: 10px 0 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(11,11,11,.7);
+      padding: 12px;
+      background: var(--c-white);
+      border-left: 2px solid var(--c-gold);
+    }
+
+    .sm-disclaimer {
+      margin: var(--space-md) 0 0;
+      font-size: 12px;
+      line-height: 1.6;
+      color: rgba(11,11,11,.55);
+      font-style: italic;
+    }
+
+    /* EMPTY STATE */
+    .sm-no-results {
+      padding: var(--space-xl);
+      background: var(--c-white);
+      border-left: 4px solid #8a2a2a;
+      border-radius: 2px;
+    }
+    .sm-no-results-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 1.2;
+      color: var(--c-black);
+      margin: 0 0 10px;
+    }
+    .sm-no-results-lead {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: rgba(11,11,11,.72);
+      margin: 0 0 var(--space-md);
+    }
+    .sm-no-results-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+    .sm-no-results-link {
+      font-family: var(--font-primary);
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      border-bottom: 1px solid var(--c-gold);
+      padding-bottom: 3px;
     }
 
     @media (max-width: 800px) {

@@ -67,7 +67,7 @@ export const QUEIXAS: Queixa[] = [
     slug: 'unhas-fracas',
     label: 'Unhas fracas, quebradiças, com estrias',
     dominio: 'capilar',
-    tags: ['unha', 'unhas', 'quebradiça', 'quebradica', 'fina', 'descamando', 'cuticula', 'cutícula'],
+    tags: ['unha', 'unhas', 'quebradiça', 'quebradica', 'quebrando', 'quebram', 'rachando', 'fina', 'finas', 'descamando', 'descamação', 'descamacao', 'cuticula', 'cutícula', 'lasca', 'lascam', 'estria', 'estrias'],
     ativos: [
       { nome: 'Biotina' },
       { nome: 'Silício orgânico' },
@@ -166,6 +166,8 @@ export const QUEIXAS: Queixa[] = [
       'cansado ao acordar', 'cansada ao acordar',
       // descansar
       'não descanso', 'nao descanso', 'não descansa', 'nao descansa', 'sem descansar',
+      // overlap com fadiga (paciente conecta cansaço a sono)
+      'cansaço', 'cansaco',
     ],
     ativos: [
       { nome: 'GABA', observacao: 'Modulação de excitabilidade neuronal noturna' },
@@ -176,7 +178,7 @@ export const QUEIXAS: Queixa[] = [
     slug: 'memoria-foco',
     label: 'Memória, foco, concentração e névoa mental',
     dominio: 'energia-sns',
-    tags: ['memória', 'memoria', 'esquecida', 'esquecido', 'esquecimento', 'foco', 'concentração', 'concentracao', 'névoa mental', 'nevoa mental', 'brain fog', 'cognição', 'cognicao', 'raciocínio', 'raciocinio', 'desempenho cerebral'],
+    tags: ['memória', 'memoria', 'memoria ruim', 'memoria fraca', 'esquecida', 'esquecido', 'esquecimento', 'esqueço', 'esqueco', 'foco', 'sem foco', 'concentração', 'concentracao', 'sem concentração', 'sem concentracao', 'distraído', 'distraido', 'névoa mental', 'nevoa mental', 'brain fog', 'cognição', 'cognicao', 'raciocínio', 'raciocinio', 'lento', 'lerdo', 'desempenho cerebral', 'cabeça lenta', 'cabeca lenta'],
     ativos: [
       { nome: 'Alpha GPC' },
       { nome: 'Piracetam' },
@@ -206,7 +208,7 @@ export const QUEIXAS: Queixa[] = [
     slug: 'melasma-manchas',
     label: 'Melasma, manchas, hiperpigmentação',
     dominio: 'pele',
-    tags: ['melasma', 'mancha', 'manchas', 'pele manchada', 'pele com manchas', 'hiperpigmentação', 'hiperpigmentacao', 'pano', 'cloasma', 'escurecimento'],
+    tags: ['melasma', 'mancha', 'manchas', 'pele manchada', 'pele com manchas', 'manchas no rosto', 'mancha no rosto', 'rosto manchado', 'rosto', 'face', 'hiperpigmentação', 'hiperpigmentacao', 'pano', 'cloasma', 'escurecimento', 'sardas', 'tom desigual'],
     ativos: [
       { nome: 'Glutationa', observacao: 'Modulação indireta de melanogênese' },
       { nome: 'Vitamina C', observacao: 'Modulação de tirosinase' },
@@ -507,9 +509,9 @@ export const QUEIXAS: Queixa[] = [
   // ============ DIGESTIVO ============
   {
     slug: 'intestino-disbiose',
-    label: 'Intestino, disbiose, inflamação intestinal',
+    label: 'Intestino, disbiose, inflamação intestinal e inchaço abdominal',
     dominio: 'digestivo',
-    tags: ['intestino', 'disbiose', 'inchaço', 'inchaco', 'gases', 'digestão', 'digestao', 'constipação', 'constipacao', 'refluxo', 'sii', 'colite', 'pulmonar'],
+    tags: ['intestino', 'intestinal', 'disbiose', 'inchaço', 'inchaco', 'inchaço abdominal', 'inchaco abdominal', 'inchada', 'inchado', 'abdominal', 'barriga', 'estômago', 'estomago', 'gases', 'gasoso', 'digestão', 'digestao', 'mal digestao', 'constipação', 'constipacao', 'preso', 'presa', 'refluxo', 'azia', 'sii', 'colite', 'intolerância', 'intolerancia'],
     ativos: [
       { nome: 'N-Acetilcisteína', observacao: 'Modulação de disbiose e inflamação' },
       { nome: 'Pool de Aminoácidos', observacao: 'Substrato glutamina para enterócitos' },
