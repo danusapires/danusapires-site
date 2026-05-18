@@ -46,98 +46,80 @@ const dominios = getDominiosCount();
     </div>
   </section>
 
-  <!-- SISTEMA SORO-MATCH -->
-  <section id="match" class="section-cream">
-    <div class="sm-wrap">
-      <p class="lbl r">sistema smart.soro</p>
-      <h2 class="section-title r d1">Digite sua queixa. <em>Veja</em> os ativos pertinentes.</h2>
-      <p class="section-subtitle r d2">{queixas.length} quadros cobertos em {dominios} domínios. Sistema multi-domínio: capilar, energia, sono, hormonal, performance, imunidade, pele, intestino, longevidade, perioperatório, pós-bariátrico, emagrecimento.</p>
-    </div>
+  <!-- SISTEMA SORO-MATCH (premium minimalista) -->
+  <section id="match" class="sm-section">
+    <div class="sm-wrap sm-stage">
+      <!-- INPUT GIGANTE COMO PROTAGONISTA -->
+      <div class="sm-search-block r">
+        <input
+          type="text"
+          id="sm-search"
+          class="sm-search-input"
+          placeholder="qual sua queixa?"
+          aria-label="Digite sua queixa em linguagem natural"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <span class="sm-search-cursor" aria-hidden="true"></span>
+      </div>
 
-    <!-- AVISO ÉTICO DESTACADO -->
-    <div class="sm-ethical-notice r d1 sm-wrap" style="margin-top:var(--space-lg)">
-      <p class="sm-ethical-title">⚠ Importante &mdash; leia antes de usar</p>
-      <ul class="sm-ethical-list">
-        <li><strong>Não é diagnóstico.</strong> Esta ferramenta lista ativos com plausibilidade técnica para cada quadro. Não substitui consulta, exame ou prescrição.</li>
-        <li><strong>Não inicie protocolo por conta própria.</strong> A composição final, dose, via de administração, frequência e contraindicações são definidas por profissional habilitado em avaliação clínica presencial.</li>
-        <li><strong>Há contraindicações sérias.</strong> Função renal, função hepática, alergias, gestação, lactação e uso de medicamentos podem inviabilizar ativos listados aqui.</li>
-        <li><strong>Casos urgentes:</strong> dor intensa, febre persistente, sintomas neurológicos novos &mdash; procure pronto-atendimento, não soroterapia.</li>
-      </ul>
-    </div>
-
-    <div class="sm-search-container r d2 sm-wrap" style="margin-top:var(--space-lg)">
-      <label for="sm-search" class="sm-search-label">O que você está sentindo?</label>
-      <input
-        type="text"
-        id="sm-search"
-        class="sm-search-input"
-        placeholder="Ex: dor de cabeça forte, acordo cansado, queda capilar, libido baixa, compulsão por doce..."
-        aria-label="Buscar queixa em linguagem natural"
-        autocomplete="off"
-      />
-      <p class="sm-search-hint">Escreva como você falaria com a médica. Aceita acento ou sem.</p>
-
-      <!-- CHIPS DE SUGESTÃO -->
-      <div class="sm-chips" role="group" aria-label="Sugestões de busca">
+      <!-- CHIPS DISCRETOS -->
+      <div class="sm-chips r d1" role="group" aria-label="Sugestões">
         <button type="button" class="sm-chip" data-q="queda capilar">queda capilar</button>
         <button type="button" class="sm-chip" data-q="acordo cansado">acordo cansado</button>
         <button type="button" class="sm-chip" data-q="dor de cabeça">dor de cabeça</button>
-        <button type="button" class="sm-chip" data-q="compulsão por doce">compulsão por doce</button>
-        <button type="button" class="sm-chip" data-q="memória ruim">memória ruim</button>
+        <button type="button" class="sm-chip" data-q="memória">memória</button>
         <button type="button" class="sm-chip" data-q="emagrecimento">emagrecimento</button>
         <button type="button" class="sm-chip" data-q="menopausa">menopausa</button>
-        <button type="button" class="sm-chip" data-q="pós bariátrica">pós bariátrica</button>
         <button type="button" class="sm-chip" data-q="longevidade">longevidade</button>
-        <button type="button" class="sm-chip" data-q="performance">performance</button>
       </div>
 
-      <!-- CONTADOR -->
-      <p id="sm-counter" class="sm-counter" aria-live="polite">{queixas.length} quadros disponíveis</p>
-    </div>
+      <!-- LINK DISCRETO PARA O AVISO ÉTICO -->
+      <details class="sm-ethical r d2">
+        <summary>ler antes de usar</summary>
+        <ul>
+          <li><strong>Não é diagnóstico.</strong> Lista ativos com plausibilidade técnica. Não substitui consulta, exame ou prescrição.</li>
+          <li><strong>Não inicie protocolo sozinha.</strong> Composição, dose, via e frequência são definidas em avaliação clínica presencial.</li>
+          <li><strong>Há contraindicações.</strong> Função renal, hepática, alergias, gestação, lactação e medicamentos podem inviabilizar ativos.</li>
+          <li><strong>Casos urgentes</strong> (dor intensa, febre persistente, sintomas neurológicos novos): procure pronto-atendimento.</li>
+        </ul>
+      </details>
 
-    <div class="sm-results-container r d2 sm-wrap" style="margin-top:var(--space-lg)">
-      {queixas.map((q) => (
-        <article
-          class="sm-result-item"
-          data-queixa={q.slug}
-          data-dominio={q.dominio}
-          data-search={[q.label, ...q.tags].join(' | ').toLowerCase()}
-        >
-          <header class="sm-result-head">
-            <p class="sm-panel-eyebrow">{q.dominio.replace(/-/g, ' · ')}</p>
-            <h3 class="sm-panel-title">{q.label}</h3>
-          </header>
+      <!-- RESULTADOS (sem cabeçalho, surgem direto) -->
+      <div class="sm-results">
+        {queixas.map((q) => (
+          <article
+            class="sm-result"
+            data-queixa={q.slug}
+            data-dominio={q.dominio}
+            data-search={[q.label, ...q.tags].join(' | ').toLowerCase()}
+          >
+            <h3 class="sm-result-title">{q.label}</h3>
+            <ul class="sm-ativos">
+              {q.ativos.map(a => (
+                <li class="sm-ativo">
+                  <button type="button" class="sm-ativo-btn" aria-expanded="false">
+                    <span class="sm-ativo-nome">{a.nome}</span>
+                    <span class="sm-ativo-mec">{a.observacao || a.mecanismo}</span>
+                  </button>
+                  <div class="sm-ativo-panel" hidden>
+                    <p class="sm-ativo-cat">{a.categoria}</p>
+                    <p class="sm-ativo-ind">{a.indicacaoUso}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
 
-          <ul class="sm-ativos">
-            {q.ativos.map(a => (
-              <li class="sm-ativo">
-                <div class="sm-ativo-head">
-                  <strong class="sm-ativo-nome">{a.nome}</strong>
-                  <span class="sm-ativo-cat">{a.categoria}</span>
-                </div>
-                <p class="sm-ativo-mec">{a.observacao || a.mecanismo}</p>
-                <details class="sm-ativo-more">
-                  <summary>indicação de uso</summary>
-                  <p>{a.indicacaoUso}</p>
-                </details>
-              </li>
-            ))}
-          </ul>
-
-          <p class="sm-disclaimer">
-            A combinação, doses e via de administração são definidas em avaliação clínica. Resposta variável conforme padrão fisiológico individual.
-          </p>
-        </article>
-      ))}
-    </div>
-
-    <!-- EMPTY STATE / CTA WHATSAPP -->
-    <div id="sm-no-results" class="sm-no-results sm-wrap" style="display:none;margin-top:var(--space-lg)">
-      <p class="sm-no-results-title">Não encontrei correspondência para o que você digitou.</p>
-      <p class="sm-no-results-lead">O cardápio coberto aqui não é exaustivo. A composição certa para você pode existir mesmo que a queixa exata não esteja mapeada.</p>
-      <div class="sm-no-results-actions">
-        <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="btn btn-primary">falar pelo WhatsApp</a>
-        <a href="/agendamento" class="sm-no-results-link">ou agendar avaliação →</a>
+      <!-- EMPTY STATE -->
+      <div id="sm-no-results" class="sm-empty" style="display:none">
+        <p>Não encontrei correspondência. O cardápio aqui não esgota o que pode entrar em soro.</p>
+        <div class="sm-empty-actions">
+          <a href={WA_DEFAULT} target="_blank" rel="noopener noreferrer" class="btn btn-primary">falar pelo WhatsApp</a>
+          <a href="/agendamento">ou agendar avaliação →</a>
+        </div>
       </div>
     </div>
   </section>
@@ -191,24 +173,18 @@ const dominios = getDominiosCount();
 
   <script>
     /**
-     * smart.soro · busca em linguagem natural
-     * - normaliza acentos
-     * - filtra stopwords PT-BR + qualificadores
-     * - tokeniza por whitespace + pontuação
-     * - match AND (todas as palavras precisam aparecer)
-     * - fallback OR se zero matches (mostra "aproximados")
-     * - empty state com CTA WhatsApp
-     * - chips de sugestão clicáveis
-     * - contador ao vivo
+     * smart.soro · busca em linguagem natural (premium minimalista)
+     * - normaliza acentos, filtra stopwords PT-BR + qualificadores
+     * - match AND com fallback OR (resultados aproximados)
+     * - estado inicial: nenhum resultado visível (paciente DIGITA pra ver)
+     * - chips disparam busca + scroll
+     * - clicar em ativo expande contexto (categoria + indicação)
      */
 
     const searchInput = document.getElementById('sm-search') as HTMLInputElement | null;
-    const resultItems = Array.from(document.querySelectorAll<HTMLElement>('.sm-result-item'));
+    const resultItems = Array.from(document.querySelectorAll<HTMLElement>('.sm-result'));
     const noResultsDiv = document.getElementById('sm-no-results');
-    const counter = document.getElementById('sm-counter');
     const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.sm-chip'));
-
-    const TOTAL = resultItems.length;
 
     const STOPWORDS = new Set([
       'de','da','do','das','dos','a','o','as','os','um','uma','uns','umas',
@@ -242,71 +218,49 @@ const dominios = getDominiosCount();
       el.classList.toggle('sm-approx', approx);
     };
 
-    const updateCounter = (matchCount: number, tokens: string[], mode: 'all' | 'exact' | 'approx' | 'none') => {
-      if (!counter) return;
-      if (mode === 'all') {
-        counter.textContent = `${TOTAL} quadros disponíveis`;
-        counter.className = 'sm-counter';
-      } else if (mode === 'exact') {
-        counter.textContent = `${matchCount} ${matchCount === 1 ? 'quadro encontrado' : 'quadros encontrados'} para "${tokens.join(' ')}"`;
-        counter.className = 'sm-counter sm-counter-exact';
-      } else if (mode === 'approx') {
-        counter.textContent = `Sem match exato. Mostrando ${matchCount} ${matchCount === 1 ? 'quadro aproximado' : 'quadros aproximados'}.`;
-        counter.className = 'sm-counter sm-counter-approx';
-      } else {
-        counter.textContent = `Nenhum quadro casa com "${tokens.join(' ')}". Fale com a equipe.`;
-        counter.className = 'sm-counter sm-counter-none';
-      }
+    const hideAll = () => {
+      resultItems.forEach(el => setVisible(el, false, false));
+      if (noResultsDiv) noResultsDiv.style.display = 'none';
     };
 
     const runSearch = (raw: string) => {
       const tokens = tokenize(raw);
 
-      // Sem tokens significativos: exibe tudo.
+      // Estado inicial / vazio: nada visível, deixa o ar respirar
       if (tokens.length === 0) {
-        resultItems.forEach(el => setVisible(el, true, false));
-        if (noResultsDiv) noResultsDiv.style.display = 'none';
-        updateCounter(TOTAL, [], 'all');
+        hideAll();
         return;
       }
 
-      // 1ª passada: AND estrito (todas as palavras precisam aparecer)
+      // AND estrito → OR fallback
       const matchesAnd: HTMLElement[] = [];
       const matchesOr: HTMLElement[] = [];
       resultItems.forEach(el => {
         const haystack = normalize(el.getAttribute('data-search') || '');
-        const allTokens = tokens.every(t => haystack.includes(t));
-        const anyToken = tokens.some(t => haystack.includes(t));
-        if (allTokens) matchesAnd.push(el);
-        else if (anyToken) matchesOr.push(el);
+        if (tokens.every(t => haystack.includes(t))) matchesAnd.push(el);
+        else if (tokens.some(t => haystack.includes(t))) matchesOr.push(el);
       });
 
       if (matchesAnd.length > 0) {
-        // Exibe AND-matches em modo exato
         resultItems.forEach(el => setVisible(el, matchesAnd.includes(el), false));
         if (noResultsDiv) noResultsDiv.style.display = 'none';
-        updateCounter(matchesAnd.length, tokens, 'exact');
       } else if (matchesOr.length > 0) {
-        // Fallback: mostra OR-matches como "aproximados"
         resultItems.forEach(el => setVisible(el, matchesOr.includes(el), true));
         if (noResultsDiv) noResultsDiv.style.display = 'none';
-        updateCounter(matchesOr.length, tokens, 'approx');
       } else {
-        // Zero matches: esconde tudo + mostra empty state com CTA
         resultItems.forEach(el => setVisible(el, false, false));
         if (noResultsDiv) noResultsDiv.style.display = 'block';
-        updateCounter(0, tokens, 'none');
       }
     };
 
-    // input do usuário (com debounce leve via requestAnimationFrame)
+    // input com debounce via rAF
     let raf = 0;
     searchInput?.addEventListener('input', (e) => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => runSearch((e.target as HTMLInputElement).value.trim()));
     });
 
-    // chips clicáveis preenchem o input e disparam busca
+    // chips disparam busca
     chips.forEach(chip => {
       chip.addEventListener('click', () => {
         const q = chip.getAttribute('data-q') || '';
@@ -315,13 +269,25 @@ const dominios = getDominiosCount();
           searchInput.focus();
         }
         runSearch(q);
-        // scroll suave para os resultados
-        document.querySelector('.sm-results-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.querySelector('.sm-results')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
 
-    // estado inicial
-    updateCounter(TOTAL, [], 'all');
+    // toggle de ativo: clique expande/recolhe contexto (categoria + indicação)
+    document.querySelectorAll<HTMLButtonElement>('.sm-ativo-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const li = btn.closest('.sm-ativo');
+        const panel = li?.querySelector<HTMLElement>('.sm-ativo-panel');
+        if (!panel) return;
+        const wasOpen = !panel.hidden;
+        panel.hidden = wasOpen;
+        btn.setAttribute('aria-expanded', String(!wasOpen));
+        li?.classList.toggle('sm-ativo-open', !wasOpen);
+      });
+    });
+
+    // estado inicial: nada visível, paciente precisa digitar ou clicar chip
+    hideAll();
   </script>
 
   <style>
@@ -503,308 +469,221 @@ const dominios = getDominiosCount();
       border-top: 1px solid rgba(11,11,11,.08);
     }
 
-    /* ETHICAL NOTICE BOX */
-    .sm-ethical-notice {
-      background: #1a1208;
-      color: #f0e4cd;
-      padding: clamp(1.25rem, 3vw, 1.75rem);
-      border-left: 4px solid var(--c-gold);
+    /* ===================================================
+       SMART.SORO PREMIUM MINIMALISTA
+       Input gigante como protagonista. Sem cabeçalhos.
+       Ativos limpos, contexto expansível ao clique.
+       =================================================== */
+    .sm-section {
+      background: var(--c-beige);
+      padding: clamp(5rem, 12vh, 10rem) 0;
+      min-height: 80vh;
     }
-    .sm-ethical-title {
+    .sm-wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 3rem);
+    }
+    .sm-stage > * + * { margin-top: var(--space-lg); }
+
+    /* INPUT GIGANTE */
+    .sm-search-block {
+      position: relative;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(11,11,11,.18);
+      transition: border-color var(--transition-base);
+    }
+    .sm-search-block:focus-within { border-bottom-color: var(--c-gold); }
+    .sm-search-input {
+      width: 100%;
+      padding: 4px 0;
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(28px, 4.5vw, 56px);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: var(--c-black);
+      background: transparent;
+      border: 0;
+      outline: 0;
+      caret-color: var(--c-gold);
+    }
+    .sm-search-input::placeholder { color: rgba(11,11,11,.32); font-style: italic; }
+
+    /* CHIPS DISCRETOS */
+    .sm-chips { display: flex; flex-wrap: wrap; gap: 6px 12px; }
+    .sm-chip {
+      font-family: var(--font-primary);
+      font-size: 13px;
+      padding: 4px 0;
+      background: transparent;
+      color: rgba(11,11,11,.55);
+      border: 0;
+      cursor: pointer;
+      transition: color var(--transition-fast);
+    }
+    .sm-chip::before { content: '· '; opacity: 0.5; }
+    .sm-chip:first-child::before { content: ''; }
+    .sm-chip:hover, .sm-chip:focus-visible { color: var(--c-gold); outline: 0; }
+
+    /* AVISO ÉTICO COLAPSADO */
+    .sm-ethical { max-width: 620px; }
+    .sm-ethical summary {
+      list-style: none;
+      cursor: pointer;
       font-family: var(--font-primary);
       font-size: 12px;
-      font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--c-gold);
-      margin: 0 0 12px;
+      color: rgba(11,11,11,.5);
+      padding-bottom: 4px;
+      border-bottom: 1px solid transparent;
+      display: inline-block;
+      transition: color var(--transition-fast), border-color var(--transition-fast);
     }
-    .sm-ethical-list {
-      list-style: none;
+    .sm-ethical summary::-webkit-details-marker { display: none; }
+    .sm-ethical summary::after { content: ' +'; }
+    .sm-ethical[open] summary::after { content: ' −'; }
+    .sm-ethical summary:hover { color: var(--c-black); border-bottom-color: rgba(11,11,11,.3); }
+    .sm-ethical ul {
+      margin: var(--space-md) 0 0;
       padding: 0;
-      margin: 0;
+      list-style: none;
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
-    .sm-ethical-list li {
-      font-size: 13.5px;
+    .sm-ethical li {
+      font-size: 13px;
       line-height: 1.65;
-      color: rgba(240, 228, 205, 0.85);
+      color: rgba(11,11,11,.62);
       padding-left: 14px;
       position: relative;
     }
-    .sm-ethical-list li::before {
+    .sm-ethical li::before {
       content: '·';
       position: absolute;
       left: 0;
       color: var(--c-gold);
       font-weight: 700;
     }
-    .sm-ethical-list strong {
-      color: #f0e4cd;
-      font-weight: 600;
-    }
+    .sm-ethical strong { color: var(--c-black); font-weight: 500; }
 
-    /* WRAPPER COMUM */
-    .sm-wrap { max-width: 920px; margin-left: auto; margin-right: auto; }
-
-    /* SEARCH INTERFACE */
-    .sm-search-container {
-      position: relative;
-    }
-    .sm-search-label {
-      display: block;
-      font-family: var(--font-primary);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--c-black);
-      margin-bottom: 10px;
-    }
-    .sm-search-input {
-      width: 100%;
-      padding: 20px 22px;
-      font-family: var(--font-primary);
-      font-size: 17px;
-      border: 2px solid rgba(11,11,11,.12);
-      border-radius: 2px;
-      background: var(--c-white);
-      color: var(--c-black);
-      transition: border-color var(--transition-base), box-shadow var(--transition-base);
-    }
-    .sm-search-input:focus {
-      outline: none;
-      border-color: var(--c-gold);
-      box-shadow: 0 0 0 4px rgba(198,168,90,.12);
-    }
-    .sm-search-input::placeholder { color: rgba(11,11,11,.42); }
-    .sm-search-hint {
-      margin: 10px 0 0;
-      font-size: 13px;
-      color: rgba(11,11,11,.55);
-      font-style: italic;
-    }
-
-    /* CHIPS DE SUGESTÃO */
-    .sm-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: var(--space-md);
-    }
-    .sm-chip {
-      font-family: var(--font-primary);
-      font-size: 13px;
-      padding: 8px 14px;
-      background: var(--c-white);
-      color: var(--c-black);
-      border: 1px solid rgba(11,11,11,.18);
-      border-radius: 100px;
-      cursor: pointer;
-      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
-    }
-    .sm-chip:hover {
-      background: var(--c-black);
-      color: var(--c-beige);
-      border-color: var(--c-black);
-    }
-    .sm-chip:focus-visible {
-      outline: 2px solid var(--c-gold);
-      outline-offset: 2px;
-    }
-
-    /* CONTADOR */
-    .sm-counter {
-      margin: var(--space-md) 0 0;
-      font-family: var(--font-primary);
-      font-size: 13px;
-      color: rgba(11,11,11,.6);
-      letter-spacing: .02em;
-    }
-    .sm-counter-exact { color: var(--c-black); font-weight: 500; }
-    .sm-counter-approx { color: var(--c-gold); }
-    .sm-counter-none { color: #8a2a2a; }
-
-    /* RESULTADOS */
-    .sm-results-container {
+    /* RESULTADOS — sem cabeçalho, ar entre eles */
+    .sm-results {
       display: flex;
       flex-direction: column;
-      gap: var(--space-md);
+      gap: clamp(2.5rem, 5vw, 4rem);
     }
-    .sm-result-item {
-      padding: var(--space-lg);
-      background: var(--c-white);
-      border: 1px solid rgba(11,11,11,.08);
-      border-left: 4px solid var(--c-gold);
-      border-radius: 2px;
-      transition: border-color var(--transition-base), background var(--transition-base);
+    .sm-result { animation: smFade 0.3s ease-out; }
+    @keyframes smFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    .sm-result-item:hover {
-      background: rgba(198,168,90,.02);
-    }
-    .sm-result-item.sm-approx {
-      border-left-color: rgba(198,168,90,.4);
-      background: rgba(198,168,90,.04);
-    }
-    .sm-result-item.sm-approx::before {
-      content: 'aproximado';
-      display: inline-block;
-      font-family: var(--font-primary);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--c-gold);
-      background: rgba(198,168,90,.12);
-      padding: 4px 10px;
-      border-radius: 100px;
-      margin-bottom: 12px;
-    }
-
-    .sm-result-head { margin-bottom: var(--space-md); }
-    .sm-panel-eyebrow {
-      font-family: var(--font-primary);
-      font-size: 11px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--c-gold);
-      margin: 0 0 6px;
-    }
-    .sm-panel-title {
+    .sm-result.sm-approx { opacity: 0.78; }
+    .sm-result-title {
       font-family: var(--font-serif);
       font-weight: 400;
-      font-size: clamp(20px, 2vw, 24px);
-      line-height: 1.25;
-      color: var(--c-black);
-      margin: 0;
+      font-style: italic;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.3;
+      color: rgba(11,11,11,.55);
+      margin: 0 0 var(--space-md);
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(11,11,11,.1);
     }
 
-    /* LISTA DE ATIVOS */
+    /* ATIVOS — botão que expande */
     .sm-ativos {
       list-style: none;
       padding: 0;
       margin: 0;
       display: flex;
       flex-direction: column;
-      gap: 14px;
     }
-    .sm-ativo {
-      padding: 14px 16px;
-      background: var(--c-beige);
-      border-radius: 2px;
+    .sm-ativo { border-bottom: 1px solid rgba(11,11,11,.07); }
+    .sm-ativo:last-child { border-bottom: 0; }
+    .sm-ativo-btn {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      text-align: left;
+      padding: 18px 0;
+      display: grid;
+      grid-template-columns: minmax(160px, 220px) 1fr;
+      gap: 24px;
+      align-items: baseline;
+      transition: padding-left var(--transition-fast);
     }
-    .sm-ativo-head {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
+    .sm-ativo-btn:hover, .sm-ativo-btn:focus-visible { outline: 0; padding-left: 6px; }
     .sm-ativo-nome {
       font-family: var(--font-serif);
-      font-size: 17px;
+      font-size: 19px;
       font-weight: 400;
       color: var(--c-black);
+      transition: color var(--transition-fast);
     }
+    .sm-ativo-btn:hover .sm-ativo-nome { color: var(--c-gold); }
+    .sm-ativo-mec {
+      font-family: var(--font-primary);
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(11,11,11,.6);
+    }
+    .sm-ativo-panel { padding: 0 0 22px; animation: smFade 0.25s ease-out; }
     .sm-ativo-cat {
       font-family: var(--font-primary);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--c-gold);
-      background: rgba(198,168,90,.1);
-      padding: 4px 9px;
-      border-radius: 100px;
-    }
-    .sm-ativo-mec {
-      font-size: 13.5px;
-      line-height: 1.6;
-      color: rgba(11,11,11,.72);
-      margin: 0;
-    }
-    .sm-ativo-more {
-      margin-top: 8px;
-    }
-    .sm-ativo-more summary {
-      list-style: none;
-      cursor: pointer;
-      font-family: var(--font-primary);
       font-size: 11px;
-      letter-spacing: .12em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--c-gold);
-      padding-bottom: 2px;
-      border-bottom: 1px solid transparent;
-      display: inline-block;
-      transition: border-color var(--transition-fast);
-    }
-    .sm-ativo-more summary::-webkit-details-marker { display: none; }
-    .sm-ativo-more summary::after { content: ' +'; }
-    .sm-ativo-more[open] summary::after { content: ' −'; }
-    .sm-ativo-more summary:hover { border-bottom-color: var(--c-gold); }
-    .sm-ativo-more p {
-      margin: 10px 0 0;
-      font-size: 13px;
-      line-height: 1.7;
-      color: rgba(11,11,11,.7);
-      padding: 12px;
-      background: var(--c-white);
-      border-left: 2px solid var(--c-gold);
-    }
-
-    .sm-disclaimer {
-      margin: var(--space-md) 0 0;
-      font-size: 12px;
-      line-height: 1.6;
-      color: rgba(11,11,11,.55);
-      font-style: italic;
-    }
-
-    /* EMPTY STATE */
-    .sm-no-results {
-      padding: var(--space-xl);
-      background: var(--c-white);
-      border-left: 4px solid #8a2a2a;
-      border-radius: 2px;
-    }
-    .sm-no-results-title {
-      font-family: var(--font-serif);
-      font-weight: 400;
-      font-size: 24px;
-      line-height: 1.2;
-      color: var(--c-black);
       margin: 0 0 10px;
     }
-    .sm-no-results-lead {
-      font-size: 14.5px;
-      line-height: 1.7;
+    .sm-ativo-ind {
+      font-size: 14px;
+      line-height: 1.75;
       color: rgba(11,11,11,.72);
+      margin: 0;
+      max-width: 620px;
+    }
+    .sm-ativo-open .sm-ativo-nome { color: var(--c-gold); }
+
+    /* EMPTY STATE — calmo */
+    .sm-empty {
+      max-width: 620px;
+      padding: var(--space-xl) 0;
+      border-top: 1px solid rgba(11,11,11,.12);
+      border-bottom: 1px solid rgba(11,11,11,.12);
+    }
+    .sm-empty p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.4;
+      color: rgba(11,11,11,.7);
       margin: 0 0 var(--space-md);
     }
-    .sm-no-results-actions {
+    .sm-empty-actions {
       display: flex;
       align-items: center;
-      gap: var(--space-md);
+      gap: 24px;
       flex-wrap: wrap;
     }
-    .sm-no-results-link {
+    .sm-empty-actions a:last-child {
       font-family: var(--font-primary);
       font-size: 12px;
-      letter-spacing: .14em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--c-gold);
       border-bottom: 1px solid var(--c-gold);
       padding-bottom: 3px;
     }
 
-    @media (max-width: 800px) {
-      .sm-wrap { grid-template-columns: 1fr; }
-      .sm-results { padding: 32px 28px; }
-      .sm-ativos li { grid-template-columns: 1fr; gap: 4px; }
-      .sm-search-input { font-size: 16px; padding: 16px 18px; }
+    @media (max-width: 720px) {
+      .sm-ativo-btn { grid-template-columns: 1fr; gap: 6px; }
+      .sm-ativo-mec { font-size: 13px; }
     }
 
     /* FLOW */
