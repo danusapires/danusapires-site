@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { PILLARS, WA_DEFAULT } from '../data/site';
+
+// Sub-conjunto: o que é especificamente "saúde capilar".
+// Soroterapia e Terapias integrativas têm páginas próprias no nav.
+const CAPILAR_SLUGS = [
+  'queda-feminina',
+  'alopecia-androgenetica',
+  'efluvio-telogeno',
+  'outras-alopecias',
+  'pos-transplante',
+  'fortalecimento',
+  'trichotest',
+];
+
+const condicoes = PILLARS.filter(p => CAPILAR_SLUGS.includes(p.slug));
+---
+
+<BaseLayout
+  title="Saúde Capilar | Condições tratadas"
+  description="Quadros que respondem ao protocolo clínico estruturado: queda capilar feminina, alopecia androgenética, eflúvio telógeno, outras alopecias, pós-transplante, fortalecimento e densidade, análise genética TrichoTest. Cada quadro com investigação dirigida."
+  currentPage="saude-capilar"
+  breadcrumbs={[{ name: 'Saúde Capilar', url: '/saude-capilar' }]}
+>
+
+  <!-- HERO -->
+  <section class="sc-hero">
+    <div class="sc-hero-content">
+      <p class="lbl r">saúde capilar</p>
+      <h1 class="sc-hero-title r d1">
+        O cabelo é o sintoma. A investigação <em>vem antes</em>.
+      </h1>
+      <p class="sc-hero-lead r d2">
+        Cada quadro capilar tem mecanismo dominante distinto. Eflúvio telógeno não se trata como alopecia androgenética. Pós-transplante exige um plano que cirurgia nenhuma sozinha entrega. Aqui estão os quadros que tratamos com investigação dirigida — e o que cada um precisa antes de qualquer protocolo cosmético.
+      </p>
+    </div>
+  </section>
+
+  <!-- LISTAGEM -->
+  <section>
+    <div style="max-width:840px">
+      <p class="lbl r">quadros tratados</p>
+      <h2 class="section-title r d1">Sete frentes clínicas.</h2>
+      <p class="section-subtitle r d2">Cada uma com leitura clínica específica, exames de rotina e plano calibrado conforme mecanismo dominante.</p>
+    </div>
+
+    <div class="g3" style="margin-top:var(--space-xl);gap:18px">
+      {condicoes.map((p, i) => (
+        <article class="pillar-card r" style={`transition-delay:${i*0.05}s`}>
+          <h3>{p.name}</h3>
+          <p class="pillar-subtitle">{p.subtitle}</p>
+          <p>{p.description}</p>
+          <a href={p.href} class="pillar-link">saber mais →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- CONEXÃO COM PILARES ADJACENTES -->
+  <section class="section-cream">
+    <div style="max-width:760px;margin:0 auto">
+      <p class="lbl r">cuidado adjacente</p>
+      <h2 class="section-title r d1">Saúde capilar também é <em>saúde sistêmica</em>.</h2>
+      <p class="section-subtitle r d2">Em parte dos casos, o quadro capilar pede leitura além do couro cabeludo. Duas frentes complementares operam no protocolo da casa:</p>
+
+      <div class="sc-adjacent">
+        <a href="/soroterapia" class="sc-adj-card r">
+          <p class="sc-adj-lbl">soroterapia</p>
+          <h3>smart.soro</h3>
+          <p>Prescrição clínica de soros intramusculares (vitamina C, trio metilador, coenzima Q10, ativos individualizados conforme análise laboratorial) como suporte sistêmico ao protocolo local.</p>
+          <span class="sc-adj-link">conhecer →</span>
+        </a>
+        <a href="/saude-integrativa" class="sc-adj-card r d1">
+          <p class="sc-adj-lbl">saúde integrativa</p>
+          <h3>Biorressonância + leitura funcional</h3>
+          <p>Camada energético-funcional conduzida por Adriana Melo. Indicada para quadros crônicos sem causa identificada nos exames convencionais ou com componente sistêmico evidente.</p>
+          <span class="sc-adj-link">conhecer →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection
+    heading="Avaliação <em>capilar</em> com método clínico estruturado."
+    subtext="Conduta definida conforme leitura individual. Evolução dependente de causa, adesão, tempo e resposta. Conversa pelo WhatsApp adianta a triagem antes da avaliação presencial."
+  />
+
+  <style is:inline>
+    /* HERO ============================================ */
+    .sc-hero {
+      background: var(--c-black);
+      padding: clamp(7rem, 14vh, 10rem) clamp(2rem, 6vw, 5rem) clamp(4rem, 10vh, 7rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sc-hero-content {
+      max-width: 820px;
+    }
+    .sc-hero-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(34px, 4.8vw, 64px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--c-beige);
+      margin: var(--space-md) 0;
+    }
+    .sc-hero-title em { font-style: italic; color: var(--c-gold); }
+    .sc-hero-lead {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--color-ink-soft);
+      max-width: 720px;
+      margin: 0;
+    }
+
+    /* ADJACENT CARDS =================================== */
+    .sc-adjacent {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+    @media (min-width: 720px) {
+      .sc-adjacent { grid-template-columns: 1fr 1fr; }
+    }
+    .sc-adj-card {
+      display: block;
+      padding: var(--space-lg);
+      background: var(--c-white);
+      border-left: 4px solid var(--c-gold);
+      text-decoration: none;
+      color: inherit;
+      transition: transform var(--transition-fast);
+    }
+    .sc-adj-card:hover { transform: translateY(-2px); }
+    .sc-adj-lbl {
+      font-family: var(--font-primary);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin: 0 0 8px;
+    }
+    .sc-adj-card h3 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 1.2;
+      color: var(--c-black);
+      margin: 0 0 10px;
+    }
+    .sc-adj-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(11,11,11,.72);
+      margin: 0 0 var(--space-md);
+    }
+    .sc-adj-link {
+      font-family: var(--font-primary);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      border-bottom: 1px solid var(--c-gold);
+      padding-bottom: 3px;
+    }
+  </style>
+
+</BaseLayout>

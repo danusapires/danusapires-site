@@ -284,7 +284,7 @@ export const PILLARS = [
     subtitle: 'Leitura sistêmica do organismo',
     description:
       'Avaliação integrada além do cabelo. Nutrição. Sono. Estresse. Microbioma. Inflamação sistêmica. Hormônios e metabolismo. Quando o cabelo reflete um problema sistêmico, tratamos a causa. Direcionamento a especialistas quando indicado.',
-    href: '/terapias-integrativas',
+    href: '/saude-integrativa',
   },
 ];
 
@@ -294,8 +294,9 @@ export const PILLARS = [
 export const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Sobre', href: '/sobre' },
-  { label: 'Profissionais', href: '/profissionais' },
-  { label: 'Serviços', href: '/servicos' },
+  { label: 'Soroterapia', href: '/soroterapia' },
+  { label: 'Saúde Capilar', href: '/saude-capilar' },
+  { label: 'Saúde Integrativa', href: '/saude-integrativa' },
   { label: 'Blog', href: '/blog' },
   { label: 'Agendamento', href: '/agendamento', cta: true },
 ];
