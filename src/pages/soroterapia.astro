@@ -154,14 +154,52 @@ const dominios = getDominiosCount();
     const resultItems = document.querySelectorAll('.sm-result-item');
     const noResultsDiv = document.getElementById('sm-no-results');
 
+    // Stopwords PT-BR comuns — removidas antes do match para reduzir ruído.
+    // Inclui artigos, preposições, pronomes, verbos auxiliares e qualificadores
+    // intensidade/frequência ("forte", "intenso", "muito", "sempre", "às vezes").
+    const STOPWORDS = new Set([
+      // artigos / contrações
+      'de', 'da', 'do', 'das', 'dos', 'a', 'o', 'as', 'os', 'um', 'uma', 'uns', 'umas',
+      // preposições
+      'para', 'pra', 'pro', 'por', 'pelo', 'pela', 'pelos', 'pelas',
+      'com', 'sem', 'em', 'no', 'na', 'nos', 'nas', 'num', 'numa',
+      // conectivos
+      'e', 'ou', 'mas', 'que', 'se', 'ao', 'aos',
+      // pronomes
+      'meu', 'minha', 'seu', 'sua', 'eu', 'me', 'te', 'lhe', 'nos', 'isso', 'isto', 'aquilo',
+      // intensidade / quantidade
+      'muito', 'muita', 'muitos', 'muitas', 'pouco', 'pouca', 'poucos', 'poucas',
+      'mais', 'menos', 'tao', 'tão', 'bem', 'mal',
+      // qualificadores de sintoma (paciente descreve, não é sintoma em si)
+      'forte', 'fraco', 'fraca', 'leve', 'severo', 'severa', 'grave', 'pesado', 'pesada',
+      'intenso', 'intensa', 'horrível', 'horrivel', 'terrível', 'terrivel',
+      // frequência
+      'sempre', 'nunca', 'jamais', 'frequente', 'frequentemente',
+      // verbos auxiliares e copulativos
+      'estou', 'esta', 'está', 'sou', 'sinto', 'sentindo',
+      'tenho', 'tem', 'tinha', 'foi', 'ser', 'estar', 'fica', 'fico', 'ando',
+      'preciso', 'quero', 'queria', 'gostaria',
+      // negações / auxiliares
+      'nao', 'não', 'consigo', 'consegue', 'pode', 'posso',
+      // qualificadores adicionais
+      'extremo', 'extrema', 'pequeno', 'pequena', 'grande', 'pouquinho',
+      // prefixos/preposições isoladas que o paciente escreve
+      'pre', 'pré', 'pós', 'pos',
+      // saudações genéricas
+      'oi', 'olá', 'ola', 'bom', 'dia', 'tarde', 'noite',
+    ]);
+
     // Normaliza string: minúsculas + remove acentos
     function normalize(s: string): string {
       return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
     }
 
-    // Tokeniza query em palavras (>=2 chars)
+    // Tokeniza query em palavras significativas (>=3 chars, sem stopwords).
+    // Split também em pontuação para que "oi, sinto..." vire ["oi", "sinto", ...]
     function tokenize(s: string): string[] {
-      return normalize(s).split(/\s+/).filter(w => w.length >= 2);
+      return normalize(s)
+        .split(/[\s,.;!?:()\-]+/)
+        .filter(w => w.length >= 3 && !STOPWORDS.has(w));
     }
 
     searchInput?.addEventListener('input', (e) => {
@@ -171,7 +209,8 @@ const dominios = getDominiosCount();
 
       resultItems.forEach(item => {
         const haystack = normalize(item.getAttribute('data-search') || '');
-        // Sem query: mostra tudo. Com query: todas as palavras precisam aparecer no haystack.
+        // Sem query (ou só stopwords): mostra tudo.
+        // Com query: todas as palavras significativas precisam aparecer no haystack.
         const matches = tokens.length === 0 || tokens.every(t => haystack.includes(t));
 
         (item as HTMLElement).style.display = matches ? 'block' : 'none';

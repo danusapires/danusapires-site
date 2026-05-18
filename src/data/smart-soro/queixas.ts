@@ -81,7 +81,17 @@ export const QUEIXAS: Queixa[] = [
     slug: 'fadiga-disposicao',
     label: 'Fadiga, baixa disposição, cansaço crônico',
     dominio: 'energia-sns',
-    tags: ['cansaço', 'cansaco', 'fadiga', 'esgotada', 'esgotado', 'esgotamento', 'sem energia', 'preguiça', 'preguica', 'moleza', 'apatia', 'burnout', 'exaustão', 'exaustao'],
+    tags: [
+      // direto
+      'fadiga', 'cansaço', 'cansaco', 'cansado', 'cansada',
+      // sinônimos
+      'esgotada', 'esgotado', 'esgotamento', 'exausto', 'exausta', 'exaustão', 'exaustao',
+      'sem energia', 'baixa energia', 'pouca energia', 'sem disposição', 'sem disposicao', 'baixa disposição', 'baixa disposicao',
+      'preguiça', 'preguica', 'moleza', 'apatia', 'desânimo', 'desanimo', 'burnout',
+      // variações de "acordo cansado" — overlap com sono mas válido aqui também
+      'acordo cansado', 'acordo cansada', 'acordo sem energia', 'acordo exausto', 'acordo exausta',
+      'cansado o dia todo', 'cansada o dia todo',
+    ],
     ativos: [
       { nome: 'Coenzima Q10' },
       { nome: 'NADH' },
@@ -107,6 +117,25 @@ export const QUEIXAS: Queixa[] = [
     ],
   },
   {
+    slug: 'dor-de-cabeca',
+    label: 'Dor de cabeça, enxaqueca e cefaleia tensional',
+    dominio: 'energia-sns',
+    tags: [
+      'dor', 'dor de cabeça', 'dor de cabeca', 'cabeça', 'cabeca',
+      'cefaleia', 'cefaléia',
+      'enxaqueca', 'enxaquecas', 'migrânea', 'migranea',
+      'tensional', 'cefaleia tensional',
+      'pressão na cabeça', 'pressao na cabeca', 'cabeça doendo', 'cabeca doendo',
+      'dor cabeça', 'dor cabeca', 'dor de cabeça frequente', 'dor de cabeca frequente',
+    ],
+    ativos: [
+      { nome: 'Coenzima Q10', observacao: 'Modulação mitocondrial com evidência em profilaxia de migrânea' },
+      { nome: 'Complexo B', observacao: 'B2 (riboflavina) com evidência em profilaxia de enxaqueca' },
+      { nome: 'PQQ', observacao: 'Suporte mitocondrial complementar' },
+      { nome: 'Pool de minerais', observacao: 'Cofatores neuromusculares' },
+    ],
+  },
+  {
     slug: 'ansiedade-estresse',
     label: 'Ansiedade, estresse crônico e irritabilidade',
     dominio: 'energia-sns',
@@ -119,9 +148,25 @@ export const QUEIXAS: Queixa[] = [
   },
   {
     slug: 'sono-insonia',
-    label: 'Insônia, sono fragmentado, dificuldade de dormir',
+    label: 'Insônia, sono fragmentado, acordar cansado, dificuldade para dormir',
     dominio: 'energia-sns',
-    tags: ['sono', 'insônia', 'insonia', 'não consigo dormir', 'nao consigo dormir', 'dormir mal', 'acorda', 'acordar', 'noite ruim', 'dormindo mal', 'pesadelo', 'sono leve'],
+    tags: [
+      // gatilhos diretos
+      'sono', 'insônia', 'insonia', 'dormir', 'dormindo',
+      // dificuldades para iniciar/manter
+      'dificuldade', 'dificuldade dormir', 'dificuldade para dormir', 'demoro pra dormir', 'demoro para dormir',
+      'não consigo dormir', 'nao consigo dormir', 'não durmo', 'nao durmo', 'sem sono', 'pego no sono',
+      'dormir mal', 'dormindo mal', 'noite ruim', 'sono leve', 'sono ruim', 'sono péssimo', 'sono pessimo',
+      'sono fragmentado', 'sono picado', 'acordo várias vezes', 'acordo varias vezes',
+      // qualidade do sono
+      'pesadelo', 'pesadelos', 'sono não restaurador', 'sono nao restaurador',
+      // acordar mal — chave para muitos pacientes
+      'acordar', 'acorda', 'acordo', 'acordo cansado', 'acordo cansada', 'acordo exausto', 'acordo exausta',
+      'acordo sem energia', 'acordo morto', 'acordo morta', 'levanto cansado', 'levanto cansada',
+      'cansado ao acordar', 'cansada ao acordar',
+      // descansar
+      'não descanso', 'nao descanso', 'não descansa', 'nao descansa', 'sem descansar',
+    ],
     ativos: [
       { nome: 'GABA', observacao: 'Modulação de excitabilidade neuronal noturna' },
       { nome: 'Complexo B' },
@@ -161,7 +206,7 @@ export const QUEIXAS: Queixa[] = [
     slug: 'melasma-manchas',
     label: 'Melasma, manchas, hiperpigmentação',
     dominio: 'pele',
-    tags: ['melasma', 'mancha', 'manchas', 'hiperpigmentação', 'hiperpigmentacao', 'pano', 'cloasma', 'escurecimento'],
+    tags: ['melasma', 'mancha', 'manchas', 'pele manchada', 'pele com manchas', 'hiperpigmentação', 'hiperpigmentacao', 'pano', 'cloasma', 'escurecimento'],
     ativos: [
       { nome: 'Glutationa', observacao: 'Modulação indireta de melanogênese' },
       { nome: 'Vitamina C', observacao: 'Modulação de tirosinase' },
@@ -430,7 +475,7 @@ export const QUEIXAS: Queixa[] = [
     slug: 'pos-bariatrico',
     label: 'Pós-bariátrico, deficiências e queda capilar pós-cirurgia',
     dominio: 'pos-bariatrico',
-    tags: ['bariátrica', 'bariatrica', 'bariátrico', 'bariatrico', 'pós bariátrica', 'pos bariatrica', 'gastroplastia', 'sleeve', 'bypass', 'queda pós bariátrica', 'queda pos bariatrica'],
+    tags: ['bariátrica', 'bariatrica', 'bariátrico', 'bariatrico', 'pós bariátrica', 'pos bariatrica', 'gastroplastia', 'sleeve', 'bypass', 'queda pós bariátrica', 'queda pos bariatrica', 'queda capilar pós parto', 'queda capilar pos parto', 'pós parto', 'pos parto', 'puerpério', 'puerperio', 'amamentação', 'amamentacao', 'parto'],
     ativos: [
       { nome: 'Trio Metilador', observacao: 'Suporte de metilação frequentemente comprometido' },
       { nome: 'Metilcobalamina', observacao: 'Reposição de B12 quase sempre necessária' },
