@@ -29,8 +29,8 @@ To disable temporarily, edit `.claude/settings.json` or run `/hooks` in the CLI.
 - `npm run build` — production build to `dist/`
 - `npm run preview` — serve the built `dist/`
 - Node `>=22.12.0` is required (engines field; CI uses Node 22).
-- There is no test runner, linter, or formatter configured. The only quality gate beyond `astro build` is Lighthouse CI (`lighthouserc.json`), which runs against `./dist` in `.github/workflows/lighthouse.yml` on PRs to `main`. To reproduce locally: `npm run build` then run `lhci autorun` against `lighthouserc.json`.
-- Deploy is automatic on push to `main` via `.github/workflows/deploy.yml` (GitHub Pages).
+- There is no test runner, linter, or formatter configured. `lighthouserc.json` defines the performance budget (perf ≥ 0.90, a11y ≥ 0.90, SEO ≥ 0.95, LCP ≤ 2500ms, CLS ≤ 0.1, TBT ≤ 300ms) — to reproduce locally: `npm run build` then `lhci autorun` against `lighthouserc.json`. No automated CI gate currently runs this on PRs.
+- Deploy: **Cloudflare Pages** on push to `main`. Build command `npm run build`, output `dist/`, root directory `SITE DANUSA PIRES/site`. Custom domain `www.danusapires.com.br`. See `/CLOUDFLARE_DEPLOY.md` at repo root for setup steps.
 
 ## Architecture
 

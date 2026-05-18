@@ -9,7 +9,7 @@ Status em Maio/2026. Tudo aqui bloqueia ou condiciona partes específicas do sit
 ### 1. Email comercial oficial
 - **Bloqueia:** política de privacidade, termos de uso, schema MedicalBusiness, footer, contato form, assinatura de email
 - **Status:** não respondido (pergunta 69 do briefing veio apenas com a palavra "email" sem domínio)
-- **Provisório aceitável:** `contato@dradanusa.com.br` (não usar sem confirmação)
+- **Provisório aceitável:** `contato@danusapires.com.br` (não usar sem confirmação)
 
 ### 2. Google Tag Manager ID
 - **Bloqueia:** rastreamento de eventos, conversões via WhatsApp, integração com Meta Pixel

@@ -274,6 +274,11 @@
   transition: color var(--transition-base);
   white-space: nowrap;
 }
+.nav-brand-italic {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--c-gold);
+}
 .nav-brand-divider {
   display: none;
 }

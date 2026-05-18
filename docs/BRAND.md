@@ -13,7 +13,7 @@ Sistema: Obsidian Clinical · Versão: 4.0 · Atualização: Maio 2026 · Direç
 - Razão social: Mincorp Saúde e Estética Ltda.
 - Nome fantasia jurídico (registrado em cartório): Danusa Pires Saúde e Estética
 - CNPJ: 47.698.087/0001-86
-- Site: dradanusa.com.br
+- Site: www.danusapires.com.br
 - Meta Pixel ID: 1326953349366151
 
 **Regra de nomenclatura:** sempre "Danusa Pires". Nunca apenas "Danusa". O título "Dra." pode aparecer em contextos pontuais de credibilidade externa (reportagens, palestras, depoimentos de terceiros), mas **não** na marca principal do site, header, CTAs, impressos ou material institucional.
