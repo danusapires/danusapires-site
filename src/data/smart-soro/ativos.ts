@@ -2,398 +2,236 @@
  * smart.soro · catálogo de ATIVOS disponíveis
  *
  * Fonte única de verdade dos ativos que a clínica trabalha em soroterapia.
- * Cada ativo aqui é uma "molécula" cadastrada — pode ser referenciada por N queixas
- * em queixas.ts via seu `slug`.
+ * Cada ativo aqui é uma "molécula" cadastrada — pode ser referenciada por N
+ * queixas em queixas.ts via seu `nome`.
  *
  * REGRAS DE CADASTRO:
- *  - slug: identificador único, kebab-case, sem acento, estável (NUNCA renomear depois).
- *    Se quiser renomear o nome de exibição, troque `nome` e mantenha `slug`.
- *  - nome: como aparece para o paciente (com acento, formal).
- *  - mecanismo: 1 frase técnica curta. Evitar marketing.
- *  - via: rotas comuns de administração. Apenas referência — não é prescrição.
- *  - contraindicacoes: lista de cenários que invalidam o ativo. NUNCA omitir
- *    quando aplicável (gravidez, função renal, alergia, interação).
- *  - notas: texto livre opcional para detalhes clínicos relevantes.
+ *  - nome: identificador único e como aparece para o paciente. Estável.
+ *    Se renomear, é obrigatório atualizar referências em queixas.ts.
+ *  - mecanismo: 1 frase técnica curta. Sem marketing.
+ *  - categoria: agrupamento clínico-funcional para auditoria e filtros.
+ *  - indicacaoUso: cenários clínicos onde o ativo pode ser pertinente.
+ *    Texto orientativo, não-prescritivo, sempre começando por
+ *    "Pode ajudar em...".
  *
  * Quando adicionar ativo novo: cadastre aqui PRIMEIRO, depois referencie em
  * queixas.ts. Isso garante que a busca não quebra silenciosamente.
  */
 
-export type Via = 'IV' | 'IM' | 'SC' | 'oral' | 'topica';
-
-export interface Ativo {
-  slug: string;
-  nome: string;
-  mecanismo: string;
-  via?: Via[];
-  contraindicacoes?: string[];
-  notas?: string;
+export type Ativo = {
+  nome: string
+  mecanismo: string
+  categoria: string
+  indicacaoUso: string
 }
 
-export const ATIVOS: Ativo[] = [
-  // ===== AMINOÁCIDOS E PROTEÍNAS =====
+export const ativos: Ativo[] = [
   {
-    slug: 'aminoacidos-essenciais',
-    nome: 'Aminoácidos essenciais',
-    mecanismo: 'Substrato para reparo tecidual e síntese proteica',
-    via: ['IV'],
+    nome: "Coenzima Q10",
+    mecanismo: "Participa da cadeia transportadora de elétrons mitocondrial, auxiliando a produção de ATP e reduzindo estresse oxidativo celular.",
+    categoria: "Mitocondrial / energia / envelhecimento",
+    indicacaoUso: "Pode ajudar em queixas de fadiga crônica, baixa energia celular, disfunção mitocondrial, envelhecimento, suporte cardiovascular e queda capilar associada à baixa energia folicular."
   },
   {
-    slug: 'arginina',
-    nome: 'L-Arginina',
-    mecanismo: 'Substrato de óxido nítrico, vasodilatação periférica',
-    via: ['IV', 'oral'],
-    contraindicacoes: ['Herpes ativo (pode ativar replicação)', 'Pós-IAM recente'],
+    nome: "PQQ",
+    mecanismo: "Atua como modulador redox e pode favorecer biogênese mitocondrial, com suporte à função energética celular.",
+    categoria: "Mitocondrial / cognição / longevidade",
+    indicacaoUso: "Pode ajudar em fadiga persistente, baixa resposta a tratamentos, envelhecimento celular e queixas cognitivas."
   },
   {
-    slug: 'bcaa',
-    nome: 'BCAA (aminoácidos de cadeia ramificada)',
-    mecanismo: 'Reparo muscular pós-treino, síntese proteica',
-    via: ['IV', 'oral'],
+    nome: "D-Ribose",
+    mecanismo: "Fornece substrato para síntese de nucleotídeos e reposição energética celular, especialmente relacionada ao metabolismo de ATP.",
+    categoria: "Energia / performance / recuperação",
+    indicacaoUso: "Pode ajudar em fadiga intensa, baixa performance física, fibromialgia e recuperação energética."
   },
   {
-    slug: 'cisteina-metionina',
-    nome: 'Cisteína / Metionina',
-    mecanismo: 'Aminoácidos sulfurados estruturais do fio',
-    via: ['IV'],
+    nome: "Metilcobalamina",
+    mecanismo: "Forma ativa da vitamina B12, participa da metilação, síntese neurológica, formação de células sanguíneas e metabolismo energético.",
+    categoria: "Metilação / neurologia / energia",
+    indicacaoUso: "Pode ajudar em déficit de B12, queda capilar, fadiga, neuropatias, cognição e suporte pós-bariátrico."
   },
   {
-    slug: 'glicina',
-    nome: 'Glicina',
-    mecanismo: 'Indução e qualidade do sono profundo, glicina-receptor',
-    via: ['oral'],
+    nome: "Complexo B",
+    mecanismo: "Conjunto de vitaminas envolvidas como cofatores em metabolismo energético, função neurológica, síntese celular e resposta ao estresse.",
+    categoria: "Metabolismo / energia / estresse",
+    indicacaoUso: "Pode ajudar em suporte metabólico global, estresse crônico, queda capilar, fadiga e deficiências nutricionais."
   },
   {
-    slug: 'glutamina',
-    nome: 'L-Glutamina',
-    mecanismo: 'Substrato primário dos enterócitos, reparo da barreira intestinal',
-    via: ['IV', 'oral'],
+    nome: "Alpha GPC",
+    mecanismo: "Fonte biodisponível de colina, relacionada à síntese de acetilcolina e suporte à comunicação neuronal.",
+    categoria: "Cognição / foco / performance mental",
+    indicacaoUso: "Pode ajudar em queixas de cognição, memória, foco e performance mental."
   },
   {
-    slug: 'taurina',
-    nome: 'Taurina',
-    mecanismo: 'Modulação do estresse oxidativo e função osmótica',
-    via: ['IV', 'oral'],
+    nome: "Piracetam",
+    mecanismo: "Modula função neuronal e propriedades de membrana, sendo usado como suporte nootrópico em contextos de desempenho cognitivo.",
+    categoria: "Cognição / neuroproteção / performance cerebral",
+    indicacaoUso: "Pode ajudar em déficit cognitivo, memória, performance cerebral e neuroproteção."
   },
   {
-    slug: 'triptofano',
-    nome: 'L-Triptofano',
-    mecanismo: 'Precursor de serotonina e melatonina',
-    via: ['oral'],
-    contraindicacoes: ['Uso de ISRS (risco síndrome serotoninérgica)', 'IMAO'],
+    nome: "Ácido alfa-lipóico",
+    mecanismo: "Atua como antioxidante metabólico, participa da função mitocondrial e pode modular estresse oxidativo e sensibilidade insulínica.",
+    categoria: "Metabólico / antioxidante / sensibilidade insulínica",
+    indicacaoUso: "Pode ajudar em resistência insulínica, inflamação sistêmica, neuropatia, estresse oxidativo e síndrome metabólica."
   },
   {
-    slug: 'tirosina',
-    nome: 'L-Tirosina',
-    mecanismo: 'Precursor de dopamina, noradrenalina e hormônio tireoidiano',
-    via: ['oral'],
-    contraindicacoes: ['Feocromocitoma', 'Hipertireoidismo'],
-  },
-
-  // ===== VITAMINAS =====
-  {
-    slug: 'biotina',
-    nome: 'Biotina (B7)',
-    mecanismo: 'Cofator no metabolismo da queratina e síntese proteica',
-    via: ['IV', 'IM', 'oral'],
-    notas: 'Pode interferir em exames laboratoriais de tireoide e troponina — suspender 48-72h antes de coleta.',
+    nome: "Curcumina",
+    mecanismo: "Modula vias inflamatórias e oxidativas, com ação anti-inflamatória sistêmica e suporte ao controle do estresse oxidativo.",
+    categoria: "Anti-inflamatório / antioxidante / dor crônica",
+    indicacaoUso: "Pode ajudar em inflamação crônica, queda capilar inflamatória, doenças autoimunes e dor crônica."
   },
   {
-    slug: 'complexo-b',
-    nome: 'Complexo B',
-    mecanismo: 'Suporte energético mitocondrial e síntese de neurotransmissores',
-    via: ['IV', 'IM'],
+    nome: "Glutationa",
+    mecanismo: "Principal antioxidante intracelular, participa da defesa redox e de processos de detoxificação hepática.",
+    categoria: "Antioxidante / detoxificação / pele",
+    indicacaoUso: "Pode ajudar em detox hepático, estresse oxidativo, envelhecimento, saúde da pele e inflamação sistêmica."
   },
   {
-    slug: 'vitamina-b1',
-    nome: 'Vitamina B1 (tiamina)',
-    mecanismo: 'Função nervosa periférica e metabolismo de carboidratos',
-    via: ['IV', 'IM', 'oral'],
+    nome: "N-Acetilcisteína",
+    mecanismo: "Precursor de cisteína e glutationa, favorecendo defesa antioxidante, detoxificação e modulação inflamatória.",
+    categoria: "Antioxidante / detoxificação / inflamação",
+    indicacaoUso: "Pode ajudar em detox hepático, disbiose, inflamação, compulsão alimentar e saúde pulmonar."
   },
   {
-    slug: 'vitamina-b2',
-    nome: 'Vitamina B2 (riboflavina, alta dose)',
-    mecanismo: 'Profilaxia de migrânea com evidência clínica',
-    via: ['oral'],
+    nome: "L-Carnitina",
+    mecanismo: "Participa do transporte de ácidos graxos para a mitocôndria, favorecendo oxidação de gordura e produção energética.",
+    categoria: "Metabolismo de gordura / energia / performance",
+    indicacaoUso: "Pode ajudar em emagrecimento, fadiga, baixa oxidação de gordura e performance física."
   },
   {
-    slug: 'vitamina-b6',
-    nome: 'Vitamina B6',
-    mecanismo: 'Conversão de triptofano a serotonina e modulação de prostaglandinas',
-    via: ['IV', 'oral'],
+    nome: "HMB",
+    mecanismo: "Metabólito da leucina associado à preservação de massa muscular, síntese proteica e redução de catabolismo muscular.",
+    categoria: "Massa muscular / sarcopenia / recuperação",
+    indicacaoUso: "Pode ajudar em preservação de massa muscular, sarcopenia, pós-bariátrico e recuperação muscular."
   },
   {
-    slug: 'vitamina-b12',
-    nome: 'Vitamina B12 (metilcobalamina)',
-    mecanismo: 'Função neurológica, mielinização e hematopoese',
-    via: ['IM', 'IV', 'oral'],
+    nome: "Cafeína",
+    mecanismo: "Estimula o sistema nervoso central e aumenta sinalização adrenérgica, favorecendo alerta, termogênese e desempenho.",
+    categoria: "Estímulo / termogênese / performance",
+    indicacaoUso: "Pode ajudar em fadiga, termogênese e performance."
   },
   {
-    slug: 'acido-folico',
-    nome: 'Ácido fólico (5-MTHF metilado)',
-    mecanismo: 'Cofator hematopoético e metilação',
-    via: ['IV', 'oral'],
+    nome: "Cromo picolinato",
+    mecanismo: "Mineral associado à sinalização insulínica e ao metabolismo de glicose.",
+    categoria: "Metabólico / glicemia / compulsão por açúcar",
+    indicacaoUso: "Pode ajudar em resistência insulínica, compulsão por açúcar e síndrome metabólica."
   },
   {
-    slug: 'vitamina-c',
-    nome: 'Vitamina C',
-    mecanismo: 'Cofator do colágeno, antioxidante, suporte adrenal e imune',
-    via: ['IV', 'IM', 'oral'],
-    contraindicacoes: ['Deficiência de G6PD (risco hemólise em alta dose IV)', 'Litíase oxálica ativa'],
+    nome: "Vanádio",
+    mecanismo: "Oligoelemento com ação insulinomimética descrita, relacionado ao metabolismo glicêmico.",
+    categoria: "Metabólico / glicemia / sensibilidade insulínica",
+    indicacaoUso: "Pode ajudar em controle glicêmico e resistência insulínica."
   },
   {
-    slug: 'vitamina-d3',
-    nome: 'Vitamina D3 (colecalciferol)',
-    mecanismo: 'Modulação imune, ciclo folicular, saúde óssea',
-    via: ['oral', 'IM'],
-    notas: 'Reposição sempre conforme dosagem de 25-OH sérico.',
+    nome: "Pool de minerais",
+    mecanismo: "Combinação de minerais cofatores de enzimas envolvidas em metabolismo, imunidade, antioxidantes e estrutura capilar.",
+    categoria: "Minerais / imunidade / suporte capilar",
+    indicacaoUso: "Pode ajudar em deficiências minerais, queda capilar, imunidade e fadiga."
   },
   {
-    slug: 'vitamina-e',
-    nome: 'Vitamina E',
-    mecanismo: 'Antioxidante de membrana e modulação de fogachos',
-    via: ['oral'],
+    nome: "Biotina",
+    mecanismo: "Vitamina do complexo B envolvida em carboxilases, metabolismo energético e suporte estrutural de cabelo e unhas.",
+    categoria: "Capilar / unhas / metabolismo",
+    indicacaoUso: "Pode ajudar em queda capilar, fragilidade ungueal e suporte estrutural capilar."
   },
   {
-    slug: 'vitamina-k2',
-    nome: 'Vitamina K2 (MK-7)',
-    mecanismo: 'Direcionamento ósseo do cálcio mobilizado por vitamina D',
-    via: ['oral'],
-    contraindicacoes: ['Uso de varfarina'],
+    nome: "D-Pantenol",
+    mecanismo: "Pró-vitamina B5 relacionada ao metabolismo celular, hidratação tecidual e suporte à regeneração.",
+    categoria: "Capilar / hidratação / regeneração",
+    indicacaoUso: "Pode ajudar em saúde capilar, hidratação celular e regeneração."
   },
   {
-    slug: 'vitamina-a',
-    nome: 'Vitamina A (palmitato, dose clínica)',
-    mecanismo: 'Regulação de queratinização e função imune',
-    via: ['oral'],
-    contraindicacoes: ['Gestação (teratogenicidade em doses altas)'],
-  },
-
-  // ===== MINERAIS =====
-  {
-    slug: 'magnesio',
-    nome: 'Magnésio quelado (glicinato/treonato)',
-    mecanismo: 'Cofator de 300+ reações enzimáticas, neuromuscular, sono',
-    via: ['IV', 'oral'],
-    contraindicacoes: ['Insuficiência renal grave'],
+    nome: "Vitamina C",
+    mecanismo: "Antioxidante hidrossolúvel, cofator para síntese de colágeno e suporte à função imune.",
+    categoria: "Antioxidante / imunidade / pele",
+    indicacaoUso: "Pode ajudar em imunidade, suporte antioxidante, pele e recuperação."
   },
   {
-    slug: 'zinco',
-    nome: 'Zinco quelado',
-    mecanismo: 'Suporte enzimático folicular, imune, cicatrização, função sexual',
-    via: ['IV', 'oral'],
-    notas: 'Reposição prolongada exige cobre concomitante.',
+    nome: "ADEK",
+    mecanismo: "Combinação de vitaminas lipossolúveis envolvidas em imunidade, metabolismo ósseo, sinalização hormonal e controle inflamatório.",
+    categoria: "Vitaminas lipossolúveis / imunidade / inflamação",
+    indicacaoUso: "Pode ajudar em imunidade, saúde óssea, regulação hormonal e inflamação."
   },
   {
-    slug: 'selenio',
-    nome: 'Selênio',
-    mecanismo: 'Conversão T4→T3, modulação autoimune tireoidiana, defesa antioxidante',
-    via: ['oral'],
-    contraindicacoes: ['Selênio sérico já elevado'],
+    nome: "Vitamina D",
+    mecanismo: "Secosteroide com ação sobre imunidade, metabolismo ósseo, função muscular, inflamação e sinalização hormonal.",
+    categoria: "Imunometabólico / hormonal / capilar",
+    indicacaoUso: "Pode ajudar em imunidade, queda capilar, inflamação e saúde hormonal."
   },
   {
-    slug: 'ferro-bisglicinato',
-    nome: 'Ferro bisglicinato',
-    mecanismo: 'Reposição de ferro com alta biodisponibilidade e tolerabilidade',
-    via: ['IV', 'oral'],
-    notas: 'IV apenas com ferritina documentada baixa e contraindicação a oral.',
-    contraindicacoes: ['Hemocromatose', 'Talassemia'],
+    nome: "DMAE",
+    mecanismo: "Composto relacionado ao metabolismo colinérgico e ao suporte de foco, cognição e tônus tecidual.",
+    categoria: "Cognição / foco / estética",
+    indicacaoUso: "Pode ajudar em foco, cognição e flacidez como suporte indireto."
   },
   {
-    slug: 'calcio-ionico',
-    nome: 'Cálcio iônico',
-    mecanismo: 'Acoplamento excitação-contração muscular',
-    via: ['IV', 'oral'],
-    contraindicacoes: ['Hipercalcemia', 'Cálculos renais cálcicos ativos'],
+    nome: "GABA",
+    mecanismo: "Neurotransmissor inibitório associado à modulação de excitabilidade neuronal, relaxamento e regulação do estresse.",
+    categoria: "Sono / ansiedade / estresse",
+    indicacaoUso: "Pode ajudar em ansiedade, sono e estresse."
   },
   {
-    slug: 'potassio',
-    nome: 'Potássio',
-    mecanismo: 'Equilíbrio eletrolítico e função neuromuscular',
-    via: ['IV', 'oral'],
-    contraindicacoes: ['Insuficiência renal', 'Uso de poupadores de potássio'],
+    nome: "NADH",
+    mecanismo: "Forma reduzida da nicotinamida adenina dinucleotídeo, participa de reações energéticas mitocondriais e metabolismo redox.",
+    categoria: "Mitocondrial / energia / cognição",
+    indicacaoUso: "Pode ajudar em fadiga intensa e refratária, disfunção mitocondrial, envelhecimento celular, baixa performance cognitiva, síndrome metabólica e pacientes com baixa resposta a protocolos básicos."
   },
   {
-    slug: 'cromo',
-    nome: 'Cromo (picolinato)',
-    mecanismo: 'Potencialização da ação insulínica',
-    via: ['oral'],
+    nome: "Resveratrol",
+    mecanismo: "Polifenol associado à modulação inflamatória, sinalização redox e vias relacionadas a sirtuínas.",
+    categoria: "Longevidade / anti-inflamatório / cardiovascular",
+    indicacaoUso: "Pode ajudar em longevidade, inflamação crônica, saúde cardiovascular, resistência insulínica e envelhecimento cutâneo."
   },
   {
-    slug: 'silica-organica',
-    nome: 'Sílica orgânica',
-    mecanismo: 'Mineralização do tecido ósseo, capilar e ungueal',
-    via: ['oral'],
-  },
-
-  // ===== ANTIOXIDANTES E DETOX =====
-  {
-    slug: 'glutationa',
-    nome: 'Glutationa',
-    mecanismo: 'Antioxidante mestre, conjugação hepática fase II',
-    via: ['IV', 'IM'],
+    nome: "Trio Metilador",
+    mecanismo: "Combinação usual de B12 ativa, metilfolato e B6 ativa, voltada ao suporte da metilação e metabolismo da homocisteína.",
+    categoria: "Metilação / homocisteína / energia",
+    indicacaoUso: "Pode ajudar em deficiência de metilação, queda capilar, fadiga, alterações hormonais, homocisteína elevada, pós-bariátrico e pacientes com baixa resposta inflamatória ou detox prejudicado."
   },
   {
-    slug: 'nac',
-    nome: 'NAC (N-acetilcisteína)',
-    mecanismo: 'Precursor de glutationa, mucolítico, modulação PCOS-acne',
-    via: ['IV', 'oral'],
+    nome: "Pool de Aminoácidos",
+    mecanismo: "Fornece aminoácidos como substratos para síntese proteica, reparo tecidual, massa muscular e estrutura capilar.",
+    categoria: "Aminoácidos / massa muscular / recuperação tecidual",
+    indicacaoUso: "Pode ajudar em queda capilar, pós-operatório, sarcopenia, baixa massa muscular, recuperação tecidual e desnutrição funcional."
   },
   {
-    slug: 'acido-alfa-lipoico',
-    nome: 'Ácido alfa-lipoico',
-    mecanismo: 'Antioxidante hidro e lipossolúvel, regenera vit C e E',
-    via: ['IV', 'oral'],
+    nome: "Vitamina B1",
+    mecanismo: "Tiamina, cofator essencial no metabolismo de carboidratos e produção energética, com papel no sistema nervoso.",
+    categoria: "Energia / neurologia / metabolismo de carboidratos",
+    indicacaoUso: "Pode ajudar em fadiga, baixa produção de energia, suporte neurológico, pacientes pós-bariátricos e metabolismo de carboidratos."
   },
   {
-    slug: 'silimarina',
-    nome: 'Silimarina',
-    mecanismo: 'Proteção hepatocitária contra estresse oxidativo',
-    via: ['oral'],
+    nome: "Morusil",
+    mecanismo: "Extrato padronizado de Morus alba associado a modulação metabólica e composição corporal.",
+    categoria: "Metabólico / gordura visceral / emagrecimento",
+    indicacaoUso: "Pode ajudar em redução de gordura visceral, síndrome metabólica, resistência insulínica e dificuldade de perda de gordura."
   },
   {
-    slug: 'colina',
-    nome: 'Colina',
-    mecanismo: 'Metabolismo lipídico hepático e síntese de acetilcolina',
-    via: ['oral', 'IV'],
-  },
-
-  // ===== MITOCONDRIAIS =====
-  {
-    slug: 'coq10',
-    nome: 'Coenzima Q10',
-    mecanismo: 'Cadeia respiratória mitocondrial, suporte energético',
-    via: ['oral', 'IV'],
+    nome: "Tripeptídeo-41",
+    mecanismo: "Peptídeo usado em protocolos estéticos com foco em lipólise e suporte à redução de gordura localizada.",
+    categoria: "Emagrecimento / lipólise / gordura localizada",
+    indicacaoUso: "Pode ajudar em lipólise, redução de gordura localizada, emagrecimento assistido e potencialização em pacientes em uso de análogos de GLP-1."
   },
   {
-    slug: 'nad-precursores',
-    nome: 'NAD+ precursores (NMN/NR)',
-    mecanismo: 'Suporte mitocondrial e vias de longevidade',
-    via: ['IV', 'oral'],
-    notas: 'Evidência mais forte em vias preclínicas; aplicação clínica em desenvolvimento.',
+    nome: "Pill Food",
+    mecanismo: "Associação nutricional voltada ao suporte de matriz capilar, estrutura do fio e reposição de micronutrientes relacionados ao cabelo.",
+    categoria: "Capilar / fortalecimento / suporte nutricional",
+    indicacaoUso: "Pode ajudar em queda capilar difusa, fortalecimento dos fios, deficiência nutricional capilar e suporte adjuvante em AAG e eflúvio."
   },
   {
-    slug: 'l-carnitina',
-    nome: 'L-Carnitina',
-    mecanismo: 'Transporte de ácidos graxos para mitocôndria',
-    via: ['IV', 'oral'],
-  },
-  {
-    slug: 'acetil-carnitina',
-    nome: 'Acetil-L-Carnitina',
-    mecanismo: 'Transporte energético neuronal, atravessa BHE',
-    via: ['oral'],
-  },
-
-  // ===== ÁCIDOS GRAXOS =====
-  {
-    slug: 'omega-3',
-    nome: 'Ômega 3 (EPA/DHA)',
-    mecanismo: 'Modulação inflamatória, estrutura neuronal, modulação cardiovascular',
-    via: ['oral'],
-    contraindicacoes: ['Uso concomitante de anticoagulantes (avaliar)'],
-  },
-
-  // ===== MODULADORES NEURO / METABÓLICOS =====
-  {
-    slug: 'l-teanina',
-    nome: 'L-Teanina',
-    mecanismo: 'Modulação de ondas alfa cerebrais, ansiolítico não-sedativo',
-    via: ['oral'],
-  },
-  {
-    slug: 'inositol',
-    nome: 'Inositol (myo + d-chiro)',
-    mecanismo: 'Sensibilização à insulina, modulação serotoninérgica, evidência em SOP',
-    via: ['oral'],
-  },
-  {
-    slug: 'fosfatidilserina',
-    nome: 'Fosfatidilserina',
-    mecanismo: 'Suporte de membrana neuronal, modulação de cortisol',
-    via: ['oral'],
-  },
-  {
-    slug: 'melatonina',
-    nome: 'Melatonina',
-    mecanismo: 'Reorganização do ciclo circadiano',
-    via: ['oral'],
-    notas: 'Uso clínico controlado. Dose e horário fazem toda a diferença.',
-  },
-  {
-    slug: 'berberina',
-    nome: 'Berberina',
-    mecanismo: 'Modulação de glicemia, perfil lipídico e microbioma',
-    via: ['oral'],
-    contraindicacoes: ['Gestação', 'Lactação', 'Uso de ciclosporina'],
-  },
-
-  // ===== ESTÉTICOS / TECIDUAIS =====
-  {
-    slug: 'colageno-tipo-2',
-    nome: 'Colágeno tipo II hidrolisado',
-    mecanismo: 'Suporte cartilaginoso, oral coadjuvante em artropatias',
-    via: ['oral'],
-  },
-  {
-    slug: 'msm',
-    nome: 'MSM (metilsulfonilmetano)',
-    mecanismo: 'Doador de enxofre, suporte antiinflamatório articular',
-    via: ['oral'],
-  },
-  {
-    slug: 'acido-tranexamico',
-    nome: 'Ácido tranexâmico (uso clínico)',
-    mecanismo: 'Modulação vascular do melasma, coadjuvante oral',
-    via: ['oral', 'topica'],
-    contraindicacoes: ['Histórico de tromboembolismo', 'Trombofilia conhecida'],
-  },
-  {
-    slug: 'polypodium',
-    nome: 'Polypodium leucotomos',
-    mecanismo: 'Fotoproteção sistêmica oral coadjuvante',
-    via: ['oral'],
-  },
-  {
-    slug: 'resveratrol',
-    nome: 'Resveratrol',
-    mecanismo: 'Modulação de vias de longevidade (sirtuínas), antioxidante',
-    via: ['oral'],
-  },
-  {
-    slug: 'arnica',
-    nome: 'Arnica (homeopática coadjuvante)',
-    mecanismo: 'Modulação de equimose e edema pós-procedimento',
-    via: ['oral', 'topica'],
-  },
-
-  // ===== HIDRATAÇÃO / SUPORTE =====
-  {
-    slug: 'hidratacao-isotonica',
-    nome: 'Hidratação isotônica + eletrólitos',
-    mecanismo: 'Reposição volêmica e correção hidroeletrolítica',
-    via: ['IV'],
-  },
-  {
-    slug: 'multivitaminico-ev',
-    nome: 'Multivitamínico EV',
-    mecanismo: 'Reposição programada conforme avaliação laboratorial',
-    via: ['IV'],
-  },
-  {
-    slug: 'zinco-carnosina',
-    nome: 'Zinco-carnosina',
-    mecanismo: 'Reparo da mucosa gástrica e proteção contra úlcera',
-    via: ['oral'],
-  },
-];
+    nome: "Silício orgânico",
+    mecanismo: "Participa do suporte à matriz extracelular, síntese de colágeno e estrutura de pele, cabelo e unhas.",
+    categoria: "Capilar / colágeno / pele e unhas",
+    indicacaoUso: "Pode ajudar em fortalecimento capilar, produção de colágeno, elasticidade da pele, unhas frágeis e envelhecimento cutâneo."
+  }
+]
 
 /**
- * Helper: busca ativo por slug (para uso em queixas.ts).
- * Lança erro se não encontrar — força catálogo atualizado.
+ * Helper: busca ativo por nome exato (usado em queixas.ts).
+ * Lança erro se não encontrar — garante consistência com o catálogo.
  */
-export function getAtivo(slug: string): Ativo {
-  const a = ATIVOS.find(x => x.slug === slug);
-  if (!a) throw new Error(`[smart.soro] Ativo "${slug}" não cadastrado em ativos.ts`);
+export function getAtivo(nome: string): Ativo {
+  const a = ativos.find(x => x.nome === nome);
+  if (!a) throw new Error(`[smart.soro] Ativo "${nome}" não cadastrado em ativos.ts`);
   return a;
 }

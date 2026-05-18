@@ -11,7 +11,7 @@ Sistema de orientação de soroterapia individualizada. O paciente digita uma qu
 ```
 src/data/smart-soro/
 ├── ativos.ts        ← catálogo de ativos disponíveis (fonte única)
-├── queixas.ts       ← mapeamento queixa → ativos (referencia ativos por slug)
+├── queixas.ts       ← mapeamento queixa → ativos (referencia ativos por nome)
 ├── index.ts         ← exports
 └── README.md        ← este documento
 ```
@@ -20,36 +20,63 @@ A página que consome esta base de dados é `src/pages/soroterapia.astro` — ma
 
 ### Por que separar `ativos` de `queixas`?
 
-- **Ativos** = catálogo da clínica. O que a Danusa Pires **dispõe** (ou está disposta a prescrever em soro). Cada ativo cadastrado uma única vez, com mecanismo, vias possíveis, contraindicações, notas.
-- **Queixas** = mapeamento clínico. Para cada quadro do paciente, qual subconjunto de ativos é pertinente. Cada queixa referencia ativos por `slug`.
+- **Ativos** = catálogo da clínica. O que a Danusa Pires **dispõe** (ou está disposta a prescrever em soro). Cada ativo cadastrado uma única vez, com `nome`, `mecanismo`, `categoria` e `indicacaoUso`.
+- **Queixas** = mapeamento clínico. Para cada quadro do paciente, qual subconjunto de ativos é pertinente. Cada queixa referencia ativos por `nome` (string exata).
 
 Vantagens:
-1. Atualizar mecanismo/contraindicação de um ativo → muda em **todas** as queixas que o usam.
-2. Adicionar/remover ativo do catálogo → impacto rastreável (TypeScript falha o build se um slug não existir).
+1. Atualizar mecanismo/categoria de um ativo → muda em **todas** as queixas que o usam.
+2. Adicionar/remover ativo do catálogo → impacto rastreável (build falha se um nome não existir).
 3. Auditoria clínica fica em um lugar só (revisão dos ativos).
-4. Pode-se gerar relatórios automáticos: "todas as queixas que usam vitamina C", "ativos com contraindicação em gestantes", etc.
+4. Pode-se gerar relatórios automáticos: "todas as queixas que usam Vitamina C", "ativos da categoria mitocondrial", etc.
+
+---
+
+## Modelo de dados
+
+### `Ativo`
+
+```ts
+export type Ativo = {
+  nome: string          // identificador único + exibição
+  mecanismo: string     // 1 frase técnica curta
+  categoria: string     // agrupamento clínico-funcional
+  indicacaoUso: string  // "Pode ajudar em..." (texto orientativo)
+}
+```
+
+### `Queixa`
+
+```ts
+export interface Queixa {
+  slug: string                // kebab-case, estável
+  label: string               // como aparece para o paciente
+  dominio: Dominio            // categoria larga (ver lista abaixo)
+  tags: string[]              // sinônimos para busca
+  ativos: AtivoEmQueixa[]     // referências por nome
+}
+
+export interface AtivoEmQueixa {
+  nome: string         // tem que existir em ativos.ts
+  observacao?: string  // sobrescreve mecanismo no contexto desta queixa
+}
+```
 
 ---
 
 ## Como adicionar **um ativo novo** (catálogo)
 
-Edite `ativos.ts`. Adicione um item ao array `ATIVOS`:
+Edite `ativos.ts`. Adicione um item ao array `ativos`:
 
 ```ts
 {
-  slug: 'meu-ativo',          // kebab-case, sem acento, ESTÁVEL — nunca renomeie depois.
-  nome: 'Meu Ativo (forma X)', // como aparece para o paciente.
-  mecanismo: '1 frase técnica curta. Sem marketing.',
-  via: ['IV', 'oral'],         // opcional. Tipos: 'IV' | 'IM' | 'SC' | 'oral' | 'topica'.
-  contraindicacoes: [          // opcional, mas NÃO omita quando aplicável.
-    'Gestação',
-    'Função renal grave',
-  ],
-  notas: 'Texto livre opcional para detalhe clínico relevante.',
-},
+  nome: "Nome do Ativo",
+  mecanismo: "1 frase técnica curta. Sem marketing.",
+  categoria: "Categoria1 / categoria2 / categoria3",
+  indicacaoUso: "Pode ajudar em [cenários clínicos], [outro cenário], [...]."
+}
 ```
 
-Build (`npm run build`) — se houver erro de tipo, corrija antes de commitar.
+Depois rode `npm run build` — se houver erro de tipo, corrija antes de commitar.
 
 ## Como adicionar **uma queixa nova** (mapeamento)
 
@@ -59,8 +86,8 @@ Edite `queixas.ts`. Adicione um item ao array `QUEIXAS`:
 {
   slug: 'minha-queixa',
   label: 'Como aparece para o paciente (com acento, formal)',
-  dominio: 'energia-sns',          // ver lista de domínios abaixo
-  tags: [                          // SINÔNIMOS para a busca casar
+  dominio: 'energia-sns',                  // ver lista de domínios abaixo
+  tags: [                                  // SINÔNIMOS para a busca casar
     'palavra natural',
     'palavra sem acento',
     'sinônimo médico',
@@ -68,8 +95,8 @@ Edite `queixas.ts`. Adicione um item ao array `QUEIXAS`:
     'sigla',
   ],
   ativos: [
-    { slug: 'magnesio' },                                    // mecanismo padrão do catálogo
-    { slug: 'vitamina-b6', observacao: 'Contexto local' },   // sobrescreve mecanismo neste contexto
+    { nome: 'Coenzima Q10' },                                    // usa mecanismo padrão
+    { nome: 'Vitamina C', observacao: 'Contexto local' },        // sobrescreve no contexto
   ],
 },
 ```
@@ -84,10 +111,10 @@ Domínios atuais (`type Dominio`):
 - `nutricao`
 - `performance`
 - `perioperatorio`
-- `viagem`
-- `gestacao-puerperio`
 - `longevidade`
 - `digestivo`
+- `emagrecimento`
+- `pos-bariatrico`
 
 Para adicionar um domínio novo, edite o tipo `Dominio` em `queixas.ts`.
 
@@ -131,7 +158,7 @@ Sugestão de cadência:
 | Cadência | O que revisar |
 |---|---|
 | **Trimestral** | Texto de cada `mecanismo` no catálogo (evidência atualizou?) |
-| **Trimestral** | Contraindicações novas reportadas em literatura |
+| **Trimestral** | `indicacaoUso` atualizada conforme prática clínica |
 | **Semestral** | Tags de cada queixa (alguém digitou algo que não casou? adicionar) |
 | **Anual** | Lista completa de queixas — alguma deve ser removida? alguma falta? |
 | **Anual** | Lista completa de ativos — clínica deixou de oferecer algum? |
@@ -139,8 +166,8 @@ Sugestão de cadência:
 Toda revisão deve ser commitada com mensagem clara:
 ```
 data(smart-soro): adicionar [ativo|queixa|tag] X em Y
-data(smart-soro): atualizar mecanismo de [slug] conforme evidência [referência]
-data(smart-soro): remover [slug] por descontinuação na clínica
+data(smart-soro): atualizar mecanismo de [nome] conforme evidência [referência]
+data(smart-soro): remover [nome] por descontinuação na clínica
 ```
 
 ---
@@ -149,9 +176,9 @@ data(smart-soro): remover [slug] por descontinuação na clínica
 
 ```ts
 import {
-  ATIVOS,            // array completo do catálogo
-  getAtivo,          // (slug) → Ativo  (throw se não existir)
-  QUEIXAS,           // array raw com ativos por slug
+  ativos,            // array completo do catálogo
+  getAtivo,          // (nome) → Ativo  (throw se não existir)
+  QUEIXAS,           // array raw com ativos por nome
   resolveQueixas,    // QueixaResolvida[] — ativos já resolvidos para a UI
   getDominiosCount,  // número de domínios distintos cobertos
 } from '../data/smart-soro';
@@ -162,7 +189,9 @@ import {
 ## Roadmap (sugestões futuras)
 
 - [ ] Filtro por **domínio** na UI (chips no topo: "capilar", "hormonal", etc.)
-- [ ] Página interna `/smart-soro/ativos` com catálogo público (educacional, com cuidados éticos)
+- [ ] Filtro por **categoria** de ativo
+- [ ] Página interna `/smart-soro/ativos` com catálogo público (educacional)
+- [ ] Mostrar `indicacaoUso` em modo expandido
 - [ ] Tag de **evidência** por ativo (`['RCT', 'consenso', 'mecanístico']`) com filtro
 - [ ] Integração com prontuário (quando houver) para puxar ativos prescritos com mais frequência
 - [ ] Export estruturado (JSON) do catálogo para uso em outros canais (Instagram, e-mail)

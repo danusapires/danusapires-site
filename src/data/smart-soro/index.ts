@@ -5,7 +5,7 @@
  *   import { resolveQueixas, getDominiosCount } from '../data/smart-soro';
  */
 
-export { ATIVOS, getAtivo, type Ativo, type Via } from './ativos';
+export { ativos, getAtivo, type Ativo } from './ativos';
 export {
   QUEIXAS,
   resolveQueixas,

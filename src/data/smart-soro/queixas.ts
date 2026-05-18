@@ -1,25 +1,22 @@
 /**
  * smart.soro · mapeamento de QUEIXAS para ATIVOS
  *
- * Cada queixa aqui referencia ativos por slug (definidos em ativos.ts).
+ * Cada queixa aqui referencia ativos por `nome` (definidos em ativos.ts).
  * O catálogo de ativos é fonte única — esta tabela apenas mapeia.
  *
  * REGRAS DE CADASTRO:
- *  - slug: identificador único, kebab-case, estável.
- *  - label: como aparece para o paciente (com acento).
- *  - dominio: categoria larga para agrupamento (capilar, energia, hormonal, etc).
+ *  - slug: identificador único, kebab-case, sem acento, estável.
+ *  - label: como aparece para o paciente (com acento, formal).
+ *  - dominio: categoria larga para agrupamento.
  *  - tags: SINÔNIMOS para a busca casar. Inclua grafia sem acento, gírias,
  *    nomes médicos populares. Quanto mais tags, mais resiliente a busca.
- *  - ativos: array de { slug: <slug do ativo>, observacao?: string }.
- *    A observacao SOBREESCREVE o mecanismo padrão do ativo nesse contexto.
- *    Use observacao para contextualizar o ativo dentro da queixa específica.
- *
- * NÃO esqueça de cadastrar tags com grafia sem acento — a busca normaliza,
- * mas é boa prática para clareza ao revisar.
+ *  - ativos: array de { nome: <nome exato do ativo>, observacao?: string }.
+ *    A observacao SOBRESCREVE o mecanismo padrão do ativo nesse contexto.
+ *    Use observacao apenas para contextualizar o ativo dentro da queixa.
  */
 
 import type { Ativo } from './ativos';
-import { ATIVOS, getAtivo } from './ativos';
+import { ativos as CATALOGO, getAtivo } from './ativos';
 
 export type Dominio =
   | 'capilar'
@@ -30,14 +27,14 @@ export type Dominio =
   | 'nutricao'
   | 'performance'
   | 'perioperatorio'
-  | 'viagem'
-  | 'gestacao-puerperio'
   | 'longevidade'
-  | 'digestivo';
+  | 'digestivo'
+  | 'emagrecimento'
+  | 'pos-bariatrico';
 
 export interface AtivoEmQueixa {
-  slug: string;
-  observacao?: string; // sobrescreve mecanismo do ativo no contexto desta queixa
+  nome: string;          // referência ao nome exato em ativos.ts
+  observacao?: string;   // sobrescreve mecanismo do ativo no contexto desta queixa
 }
 
 export interface Queixa {
@@ -49,18 +46,21 @@ export interface Queixa {
 }
 
 export const QUEIXAS: Queixa[] = [
-  // ===== CAPILAR =====
+  // ============ CAPILAR ============
   {
     slug: 'queda-capilar',
     label: 'Queda capilar e fragilidade dos fios',
     dominio: 'capilar',
-    tags: ['cabelo', 'queda', 'capilar', 'eflúvio', 'efluvio', 'caindo', 'careca', 'calvície', 'calvicie', 'alopecia', 'fio fino', 'cabelo fraco', 'cabelo ralo'],
+    tags: ['cabelo', 'queda', 'capilar', 'eflúvio', 'efluvio', 'caindo', 'careca', 'calvície', 'calvicie', 'alopecia', 'fio fino', 'cabelo fraco', 'cabelo ralo', 'aag'],
     ativos: [
-      { slug: 'biotina', observacao: 'Cofator no metabolismo da queratina' },
-      { slug: 'zinco', observacao: 'Suporte enzimático ao folículo' },
-      { slug: 'vitamina-d3', observacao: 'Modulação do ciclo folicular' },
-      { slug: 'cisteina-metionina' },
-      { slug: 'ferro-bisglicinato', observacao: 'Quando há ferritina baixa documentada' },
+      { nome: 'Biotina' },
+      { nome: 'Pill Food', observacao: 'Suporte nutricional dedicado à matriz capilar' },
+      { nome: 'Pool de minerais', observacao: 'Cofatores enzimáticos do folículo' },
+      { nome: 'Vitamina D' },
+      { nome: 'Pool de Aminoácidos', observacao: 'Substrato proteico para o fio' },
+      { nome: 'Coenzima Q10', observacao: 'Suporte energético ao folículo' },
+      { nome: 'Trio Metilador' },
+      { nome: 'Silício orgânico' },
     ],
   },
   {
@@ -69,37 +69,41 @@ export const QUEIXAS: Queixa[] = [
     dominio: 'capilar',
     tags: ['unha', 'unhas', 'quebradiça', 'quebradica', 'fina', 'descamando', 'cuticula', 'cutícula'],
     ativos: [
-      { slug: 'biotina', observacao: 'Estrutura da queratina ungueal' },
-      { slug: 'silica-organica' },
-      { slug: 'zinco' },
-      { slug: 'vitamina-e' },
+      { nome: 'Biotina' },
+      { nome: 'Silício orgânico' },
+      { nome: 'Pool de minerais' },
+      { nome: 'Pool de Aminoácidos' },
     ],
   },
 
-  // ===== ENERGIA E SISTEMA NERVOSO =====
+  // ============ ENERGIA E SISTEMA NERVOSO ============
   {
     slug: 'fadiga-disposicao',
     label: 'Fadiga, baixa disposição, cansaço crônico',
     dominio: 'energia-sns',
     tags: ['cansaço', 'cansaco', 'fadiga', 'esgotada', 'esgotado', 'esgotamento', 'sem energia', 'preguiça', 'preguica', 'moleza', 'apatia', 'burnout', 'exaustão', 'exaustao'],
     ativos: [
-      { slug: 'complexo-b', observacao: 'Suporte energético mitocondrial' },
-      { slug: 'magnesio' },
-      { slug: 'vitamina-c', observacao: 'Antioxidante e suporte adrenal' },
-      { slug: 'taurina' },
-      { slug: 'coq10' },
+      { nome: 'Coenzima Q10' },
+      { nome: 'NADH' },
+      { nome: 'D-Ribose' },
+      { nome: 'Complexo B' },
+      { nome: 'Vitamina C', observacao: 'Suporte adrenal e antioxidante' },
+      { nome: 'L-Carnitina' },
+      { nome: 'Vitamina B1' },
     ],
   },
   {
-    slug: 'dor-de-cabeca',
-    label: 'Dor de cabeça, enxaqueca e tensional',
+    slug: 'fadiga-refrataria',
+    label: 'Fadiga intensa, refratária e disfunção mitocondrial',
     dominio: 'energia-sns',
-    tags: ['dor de cabeça', 'dor de cabeca', 'cefaleia', 'cefaléia', 'enxaqueca', 'migrânea', 'migranea', 'tensional', 'pressão cabeça', 'cabeça doendo'],
+    tags: ['fadiga refratária', 'fadiga refrataria', 'fibromialgia', 'sfc', 'síndrome da fadiga', 'sindrome da fadiga', 'cansaço extremo', 'cansaco extremo', 'baixa resposta'],
     ativos: [
-      { slug: 'magnesio', observacao: 'Profilaxia de enxaqueca, relaxamento vascular' },
-      { slug: 'vitamina-b2' },
-      { slug: 'coq10' },
-      { slug: 'hidratacao-isotonica', observacao: 'Correção de desidratação como gatilho' },
+      { nome: 'NADH', observacao: 'Indicado em fadiga refratária a protocolos básicos' },
+      { nome: 'PQQ' },
+      { nome: 'D-Ribose' },
+      { nome: 'Coenzima Q10' },
+      { nome: 'Ácido alfa-lipóico' },
+      { nome: 'Trio Metilador' },
     ],
   },
   {
@@ -108,10 +112,9 @@ export const QUEIXAS: Queixa[] = [
     dominio: 'energia-sns',
     tags: ['ansiedade', 'ansiosa', 'ansioso', 'estresse', 'estressada', 'stress', 'nervosa', 'nervoso', 'irritação', 'irritacao', 'tensão', 'tensao', 'preocupação', 'preocupacao'],
     ativos: [
-      { slug: 'magnesio', observacao: 'Treonato/glicinato — modulação do SNC' },
-      { slug: 'l-teanina' },
-      { slug: 'complexo-b', observacao: 'Suporte à síntese de neurotransmissores' },
-      { slug: 'inositol', observacao: 'Modulação serotoninérgica' },
+      { nome: 'GABA' },
+      { nome: 'Complexo B' },
+      { nome: 'Vitamina C', observacao: 'Suporte adrenal' },
     ],
   },
   {
@@ -120,36 +123,38 @@ export const QUEIXAS: Queixa[] = [
     dominio: 'energia-sns',
     tags: ['sono', 'insônia', 'insonia', 'não consigo dormir', 'nao consigo dormir', 'dormir mal', 'acorda', 'acordar', 'noite ruim', 'dormindo mal', 'pesadelo', 'sono leve'],
     ativos: [
-      { slug: 'magnesio', observacao: 'Glicinato — relaxamento muscular e neural noturno' },
-      { slug: 'glicina' },
-      { slug: 'triptofano' },
-      { slug: 'vitamina-b6' },
+      { nome: 'GABA', observacao: 'Modulação de excitabilidade neuronal noturna' },
+      { nome: 'Complexo B' },
     ],
   },
   {
     slug: 'memoria-foco',
     label: 'Memória, foco, concentração e névoa mental',
     dominio: 'energia-sns',
-    tags: ['memória', 'memoria', 'esquecida', 'esquecido', 'esquecimento', 'foco', 'concentração', 'concentracao', 'névoa mental', 'nevoa mental', 'brain fog', 'cognição', 'cognicao', 'raciocínio', 'raciocinio'],
+    tags: ['memória', 'memoria', 'esquecida', 'esquecido', 'esquecimento', 'foco', 'concentração', 'concentracao', 'névoa mental', 'nevoa mental', 'brain fog', 'cognição', 'cognicao', 'raciocínio', 'raciocinio', 'desempenho cerebral'],
     ativos: [
-      { slug: 'vitamina-b12' },
-      { slug: 'omega-3' },
-      { slug: 'fosfatidilserina' },
-      { slug: 'acetil-carnitina' },
+      { nome: 'Alpha GPC' },
+      { nome: 'Piracetam' },
+      { nome: 'DMAE' },
+      { nome: 'NADH' },
+      { nome: 'PQQ' },
+      { nome: 'Metilcobalamina' },
     ],
   },
 
-  // ===== PELE =====
+  // ============ PELE E ESTÉTICA ============
   {
     slug: 'pele-envelhecimento',
     label: 'Pele, envelhecimento, oxidação e brilho',
     dominio: 'pele',
     tags: ['pele', 'rosto', 'envelhecimento', 'rugas', 'flacidez', 'oxidação', 'oxidacao', 'antioxidante', 'glow', 'brilho', 'idade', 'jovem'],
     ativos: [
-      { slug: 'glutationa' },
-      { slug: 'acido-alfa-lipoico' },
-      { slug: 'vitamina-c', observacao: 'Cofator do colágeno' },
-      { slug: 'selenio' },
+      { nome: 'Glutationa' },
+      { nome: 'Ácido alfa-lipóico' },
+      { nome: 'Vitamina C', observacao: 'Cofator do colágeno' },
+      { nome: 'Resveratrol' },
+      { nome: 'Silício orgânico' },
+      { nome: 'DMAE', observacao: 'Suporte indireto ao tônus tecidual' },
     ],
   },
   {
@@ -158,10 +163,10 @@ export const QUEIXAS: Queixa[] = [
     dominio: 'pele',
     tags: ['melasma', 'mancha', 'manchas', 'hiperpigmentação', 'hiperpigmentacao', 'pano', 'cloasma', 'escurecimento'],
     ativos: [
-      { slug: 'glutationa', observacao: 'Inibição indireta de melanogênese' },
-      { slug: 'vitamina-c', observacao: 'Modulação de tirosinase' },
-      { slug: 'acido-tranexamico' },
-      { slug: 'polypodium' },
+      { nome: 'Glutationa', observacao: 'Modulação indireta de melanogênese' },
+      { nome: 'Vitamina C', observacao: 'Modulação de tirosinase' },
+      { nome: 'Resveratrol' },
+      { nome: 'Ácido alfa-lipóico' },
     ],
   },
   {
@@ -170,24 +175,25 @@ export const QUEIXAS: Queixa[] = [
     dominio: 'pele',
     tags: ['acne', 'espinha', 'cravo', 'oleosa', 'pele oleosa', 'inflamação pele', 'inflamacao pele'],
     ativos: [
-      { slug: 'zinco', observacao: 'Modulação de 5α-redutase e inflamação' },
-      { slug: 'vitamina-a' },
-      { slug: 'omega-3' },
-      { slug: 'nac', observacao: 'Modulação de PCOS-acne em mulheres' },
+      { nome: 'N-Acetilcisteína', observacao: 'Modulação de PCOS-acne em mulheres' },
+      { nome: 'Pool de minerais', observacao: 'Zinco e outros cofatores' },
+      { nome: 'Curcumina' },
+      { nome: 'ADEK', observacao: 'Vitamina A e D pertinentes ao quadro' },
     ],
   },
 
-  // ===== IMUNIDADE =====
+  // ============ IMUNIDADE ============
   {
     slug: 'imunidade-recorrencia',
     label: 'Imunidade baixa ou episódios virais recorrentes',
     dominio: 'imunidade',
     tags: ['imunidade', 'imune', 'gripe', 'resfriado', 'virose', 'vivo doente', 'sempre doente', 'baixa imunidade', 'defesa'],
     ativos: [
-      { slug: 'vitamina-d3', observacao: 'Modulação imune' },
-      { slug: 'zinco', observacao: 'Função de linfócitos T' },
-      { slug: 'vitamina-c', observacao: 'Suporte de neutrófilos' },
-      { slug: 'nac' },
+      { nome: 'Vitamina D' },
+      { nome: 'Vitamina C' },
+      { nome: 'N-Acetilcisteína' },
+      { nome: 'Pool de minerais' },
+      { nome: 'ADEK' },
     ],
   },
   {
@@ -196,11 +202,14 @@ export const QUEIXAS: Queixa[] = [
     dominio: 'imunidade',
     tags: ['covid', 'long covid', 'covid longa', 'pós covid', 'pos covid', 'pós viral', 'pos viral', 'fadiga pós', 'fadiga pos'],
     ativos: [
-      { slug: 'nad-precursores', observacao: 'Recuperação mitocondrial' },
-      { slug: 'coq10' },
-      { slug: 'vitamina-c', observacao: 'Modulação inflamatória pós-viral' },
-      { slug: 'glutationa' },
-      { slug: 'complexo-b' },
+      { nome: 'NADH' },
+      { nome: 'Coenzima Q10' },
+      { nome: 'Glutationa' },
+      { nome: 'N-Acetilcisteína' },
+      { nome: 'Vitamina C', observacao: 'Modulação inflamatória pós-viral' },
+      { nome: 'Complexo B' },
+      { nome: 'D-Ribose' },
+      { nome: 'PQQ' },
     ],
   },
   {
@@ -209,24 +218,24 @@ export const QUEIXAS: Queixa[] = [
     dominio: 'imunidade',
     tags: ['ressaca', 'hangover', 'álcool', 'alcool', 'bebida', 'após beber', 'apos beber', 'recuperação alcool', 'recuperacao alcool'],
     ativos: [
-      { slug: 'nac', observacao: 'Conjugação hepática do acetaldeído' },
-      { slug: 'glutationa' },
-      { slug: 'vitamina-b1', observacao: 'Reposição depletada pelo álcool' },
-      { slug: 'hidratacao-isotonica' },
+      { nome: 'N-Acetilcisteína', observacao: 'Conjugação hepática do acetaldeído' },
+      { nome: 'Glutationa' },
+      { nome: 'Vitamina B1', observacao: 'Reposição depletada pelo álcool' },
+      { nome: 'Complexo B' },
+      { nome: 'Vitamina C' },
     ],
   },
 
-  // ===== HORMONAL =====
+  // ============ HORMONAL E METABOLISMO ============
   {
     slug: 'tpm-colica',
     label: 'TPM, cólica menstrual e dor pélvica cíclica',
     dominio: 'hormonal',
     tags: ['tpm', 'menstruação', 'menstruacao', 'cólica', 'colica', 'ciclo menstrual', 'sangramento', 'mestrual', 'menstrual'],
     ativos: [
-      { slug: 'magnesio', observacao: 'Relaxamento da musculatura uterina' },
-      { slug: 'vitamina-b6', observacao: 'Modulação de prostaglandinas' },
-      { slug: 'omega-3' },
-      { slug: 'calcio-ionico', observacao: 'Modulação de sintomas pré-menstruais' },
+      { nome: 'Complexo B', observacao: 'Inclui B6, modulação de prostaglandinas' },
+      { nome: 'Curcumina', observacao: 'Modulação inflamatória' },
+      { nome: 'Pool de minerais' },
     ],
   },
   {
@@ -235,10 +244,11 @@ export const QUEIXAS: Queixa[] = [
     dominio: 'hormonal',
     tags: ['menopausa', 'climatério', 'climaterio', 'fogacho', 'fogachos', 'calorão', 'calorao', 'suor noturno', 'perimenopausa', '40+', '50+'],
     ativos: [
-      { slug: 'vitamina-e', observacao: 'Modulação de fogachos com evidência clínica' },
-      { slug: 'magnesio' },
-      { slug: 'complexo-b' },
-      { slug: 'omega-3' },
+      { nome: 'ADEK', observacao: 'Vitamina E com evidência em fogachos' },
+      { nome: 'Resveratrol' },
+      { nome: 'Complexo B' },
+      { nome: 'Vitamina D' },
+      { nome: 'DMAE', observacao: 'Suporte cognitivo no climatério' },
     ],
   },
   {
@@ -247,10 +257,10 @@ export const QUEIXAS: Queixa[] = [
     dominio: 'hormonal',
     tags: ['libido', 'sexo', 'desejo', 'sexual', 'disfunção', 'disfuncao', 'íntima', 'intima'],
     ativos: [
-      { slug: 'arginina' },
-      { slug: 'zinco', observacao: 'Suporte hormonal androgênico' },
-      { slug: 'vitamina-d3', observacao: 'Modulação hormonal' },
-      { slug: 'coq10' },
+      { nome: 'Vitamina D', observacao: 'Modulação hormonal' },
+      { nome: 'Coenzima Q10', observacao: 'Energia celular sistêmica' },
+      { nome: 'Pool de minerais', observacao: 'Zinco com suporte hormonal' },
+      { nome: 'L-Carnitina' },
     ],
   },
   {
@@ -259,47 +269,62 @@ export const QUEIXAS: Queixa[] = [
     dominio: 'hormonal',
     tags: ['tireoide', 'tireóide', 'hipotireoidismo', 'hashimoto', 'tsh', 't4', 't3'],
     ativos: [
-      { slug: 'selenio' },
-      { slug: 'zinco', observacao: 'Cofator de desiodases' },
-      { slug: 'tirosina' },
-      { slug: 'vitamina-d3', observacao: 'Modulação autoimune (Hashimoto)' },
+      { nome: 'Vitamina D', observacao: 'Modulação autoimune (Hashimoto)' },
+      { nome: 'Pool de minerais', observacao: 'Selênio e zinco como cofatores' },
+      { nome: 'Trio Metilador' },
     ],
   },
   {
     slug: 'resistencia-insulinica',
     label: 'Resistência insulínica, pré-diabetes, glicemia alterada',
     dominio: 'hormonal',
-    tags: ['insulina', 'resistência insulínica', 'resistencia insulinica', 'diabetes', 'pré-diabetes', 'pre-diabetes', 'glicemia', 'glicose', 'açúcar', 'acucar', 'sop', 'pcos'],
+    tags: ['insulina', 'resistência insulínica', 'resistencia insulinica', 'diabetes', 'pré-diabetes', 'pre-diabetes', 'glicemia', 'glicose', 'açúcar', 'acucar', 'sop', 'pcos', 'síndrome metabólica', 'sindrome metabolica'],
     ativos: [
-      { slug: 'inositol' },
-      { slug: 'berberina' },
-      { slug: 'magnesio', observacao: 'Cofator da sinalização insulínica' },
-      { slug: 'cromo' },
+      { nome: 'Ácido alfa-lipóico' },
+      { nome: 'Cromo picolinato' },
+      { nome: 'Vanádio' },
+      { nome: 'Morusil' },
+      { nome: 'Resveratrol' },
+      { nome: 'Curcumina' },
+    ],
+  },
+  {
+    slug: 'compulsao-acucar',
+    label: 'Compulsão por açúcar, fissura por doce, ânsia alimentar',
+    dominio: 'hormonal',
+    tags: ['compulsão', 'compulsao', 'compulsão açúcar', 'compulsao acucar', 'doce', 'fissura', 'vontade de doce', 'comer demais', 'binge'],
+    ativos: [
+      { nome: 'Cromo picolinato', observacao: 'Modulação da fissura por açúcar' },
+      { nome: 'Vanádio' },
+      { nome: 'N-Acetilcisteína', observacao: 'Modulação de compulsão alimentar' },
+      { nome: 'Ácido alfa-lipóico' },
+      { nome: 'Morusil' },
     ],
   },
 
-  // ===== NUTRIÇÃO =====
+  // ============ NUTRIÇÃO ============
   {
     slug: 'anemia-ferro-b12',
-    label: 'Anemia, ferro baixo, B12 baixa',
+    label: 'Anemia, deficiência de B12, baixa hemoglobina',
     dominio: 'nutricao',
-    tags: ['anemia', 'ferro', 'ferritina', 'b12', 'cobalamina', 'palidez', 'tontura', 'hemoglobina'],
+    tags: ['anemia', 'b12', 'cobalamina', 'palidez', 'tontura', 'hemoglobina', 'deficiência b12', 'deficiencia b12'],
     ativos: [
-      { slug: 'ferro-bisglicinato' },
-      { slug: 'vitamina-b12' },
-      { slug: 'acido-folico' },
-      { slug: 'vitamina-c', observacao: 'Otimização da absorção de ferro' },
+      { nome: 'Metilcobalamina', observacao: 'Reposição direta de B12 ativa' },
+      { nome: 'Trio Metilador' },
+      { nome: 'Complexo B' },
+      { nome: 'Vitamina C', observacao: 'Otimização da absorção de ferro' },
+      { nome: 'Pool de minerais' },
     ],
   },
   {
     slug: 'vitamina-d-baixa',
     label: 'Vitamina D baixa, deficiência documentada',
     dominio: 'nutricao',
-    tags: ['vitamina d', 'vitamina d3', 'd baixa', 'deficiência', 'deficiencia', '25-oh'],
+    tags: ['vitamina d', 'vitamina d3', 'd baixa', 'deficiência vitamina d', 'deficiencia vitamina d', '25-oh', 'sol pouco'],
     ativos: [
-      { slug: 'vitamina-d3' },
-      { slug: 'vitamina-k2' },
-      { slug: 'magnesio', observacao: 'Cofator da ativação da vitamina D' },
+      { nome: 'Vitamina D' },
+      { nome: 'ADEK' },
+      { nome: 'Pool de minerais' },
     ],
   },
   {
@@ -308,24 +333,41 @@ export const QUEIXAS: Queixa[] = [
     dominio: 'nutricao',
     tags: ['detox', 'desintoxicação', 'desintoxicacao', 'fígado', 'figado', 'esteatose', 'gordura no fígado', 'gordura no figado', 'limpeza'],
     ativos: [
-      { slug: 'glutationa', observacao: 'Conjugação hepática fase II' },
-      { slug: 'nac' },
-      { slug: 'silimarina' },
-      { slug: 'colina' },
+      { nome: 'Glutationa', observacao: 'Conjugação hepática fase II' },
+      { nome: 'N-Acetilcisteína' },
+      { nome: 'Ácido alfa-lipóico' },
+      { nome: 'Alpha GPC', observacao: 'Fonte de colina, metabolismo lipídico hepático' },
+      { nome: 'Curcumina' },
     ],
   },
 
-  // ===== PERFORMANCE =====
+  // ============ PERFORMANCE E MASSA MUSCULAR ============
   {
     slug: 'performance-esportiva',
     label: 'Performance esportiva, treino intenso, recuperação',
     dominio: 'performance',
     tags: ['treino', 'esporte', 'atleta', 'performance', 'academia', 'crossfit', 'corrida', 'maratona', 'recuperação', 'recuperacao'],
     ativos: [
-      { slug: 'bcaa' },
-      { slug: 'l-carnitina' },
-      { slug: 'coq10' },
-      { slug: 'magnesio' },
+      { nome: 'L-Carnitina' },
+      { nome: 'Coenzima Q10' },
+      { nome: 'HMB' },
+      { nome: 'Pool de Aminoácidos' },
+      { nome: 'D-Ribose' },
+      { nome: 'Cafeína' },
+      { nome: 'Vitamina B1' },
+    ],
+  },
+  {
+    slug: 'sarcopenia-massa-muscular',
+    label: 'Sarcopenia, perda de massa muscular, fragilidade',
+    dominio: 'performance',
+    tags: ['sarcopenia', 'massa muscular', 'perda muscular', 'magreza', 'fragilidade', 'idoso', 'sênior', 'senior', 'baixa massa magra'],
+    ativos: [
+      { nome: 'HMB', observacao: 'Preservação de massa muscular' },
+      { nome: 'Pool de Aminoácidos' },
+      { nome: 'L-Carnitina' },
+      { nome: 'Vitamina D' },
+      { nome: 'Silício orgânico' },
     ],
   },
   {
@@ -334,94 +376,100 @@ export const QUEIXAS: Queixa[] = [
     dominio: 'performance',
     tags: ['cãibra', 'cabra', 'caimbra', 'caibra', 'dor muscular', 'espasmo', 'músculo', 'musculo', 'tensão muscular', 'tensao muscular'],
     ativos: [
-      { slug: 'magnesio' },
-      { slug: 'potassio' },
-      { slug: 'calcio-ionico' },
-      { slug: 'vitamina-b1' },
+      { nome: 'Pool de minerais', observacao: 'Cálcio, potássio e cofatores neuromusculares' },
+      { nome: 'Vitamina B1' },
+      { nome: 'Pool de Aminoácidos' },
     ],
   },
   {
     slug: 'articulacao-dor',
-    label: 'Dor articular, artrose, articulações',
+    label: 'Dor articular, artrose, articulações, dor crônica',
     dominio: 'performance',
-    tags: ['articulação', 'articulacao', 'joelho', 'ombro', 'artrose', 'artrite', 'dor articular', 'rigidez'],
+    tags: ['articulação', 'articulacao', 'joelho', 'ombro', 'artrose', 'artrite', 'dor articular', 'rigidez', 'dor crônica', 'dor cronica'],
     ativos: [
-      { slug: 'colageno-tipo-2' },
-      { slug: 'omega-3', observacao: 'EPA com evidência inflamatória' },
-      { slug: 'vitamina-d3' },
-      { slug: 'msm' },
+      { nome: 'Curcumina', observacao: 'Modulação inflamatória articular' },
+      { nome: 'Vitamina D' },
+      { nome: 'Silício orgânico', observacao: 'Suporte à matriz extracelular' },
+      { nome: 'Resveratrol' },
     ],
   },
 
-  // ===== PERIOPERATÓRIO =====
+  // ============ EMAGRECIMENTO ============
+  {
+    slug: 'emagrecimento-gordura-localizada',
+    label: 'Emagrecimento, gordura localizada, lipólise',
+    dominio: 'emagrecimento',
+    tags: ['emagrecer', 'emagrecimento', 'gordura', 'gordura localizada', 'lipólise', 'lipolise', 'perder peso', 'magreza', 'celulite', 'glp-1', 'glp1', 'ozempic', 'mounjaro'],
+    ativos: [
+      { nome: 'Tripeptídeo-41', observacao: 'Lipólise e potencialização em pacientes com análogos de GLP-1' },
+      { nome: 'L-Carnitina', observacao: 'Oxidação de gordura' },
+      { nome: 'Morusil', observacao: 'Redução de gordura visceral' },
+      { nome: 'Cafeína', observacao: 'Termogênese' },
+      { nome: 'Cromo picolinato' },
+    ],
+  },
+
+  // ============ PERIOPERATÓRIO ============
   {
     slug: 'pre-pos-procedimento',
     label: 'Pré e pós-procedimento (estético, cirúrgico ou capilar)',
     dominio: 'perioperatorio',
     tags: ['cirurgia', 'pré cirurgia', 'pre cirurgia', 'pós cirurgia', 'pos cirurgia', 'procedimento', 'recuperação cirurgia', 'recuperacao cirurgia', 'cicatrização', 'cicatrizacao', 'transplante'],
     ativos: [
-      { slug: 'vitamina-c', observacao: 'Síntese de colágeno na cicatrização' },
-      { slug: 'aminoacidos-essenciais' },
-      { slug: 'glutationa' },
-      { slug: 'zinco', observacao: 'Cicatrização e reparo' },
-      { slug: 'arnica' },
+      { nome: 'Vitamina C', observacao: 'Síntese de colágeno na cicatrização' },
+      { nome: 'Pool de Aminoácidos', observacao: 'Substrato para reparo tecidual' },
+      { nome: 'Glutationa', observacao: 'Modulação inflamatória pós-procedimento' },
+      { nome: 'Pool de minerais', observacao: 'Zinco com papel em cicatrização' },
+      { nome: 'Silício orgânico' },
+      { nome: 'HMB', observacao: 'Preservação muscular em recuperação prolongada' },
     ],
   },
 
-  // ===== VIAGEM =====
+  // ============ PÓS-BARIÁTRICO ============
   {
-    slug: 'jet-lag-viagem',
-    label: 'Jet lag, viagem longa, mudança de fuso',
-    dominio: 'viagem',
-    tags: ['jet lag', 'viagem', 'fuso', 'avião', 'aviao', 'fusos', 'cansaço viagem', 'cansaco viagem'],
+    slug: 'pos-bariatrico',
+    label: 'Pós-bariátrico, deficiências e queda capilar pós-cirurgia',
+    dominio: 'pos-bariatrico',
+    tags: ['bariátrica', 'bariatrica', 'bariátrico', 'bariatrico', 'pós bariátrica', 'pos bariatrica', 'gastroplastia', 'sleeve', 'bypass', 'queda pós bariátrica', 'queda pos bariatrica'],
     ativos: [
-      { slug: 'melatonina' },
-      { slug: 'magnesio' },
-      { slug: 'complexo-b' },
-      { slug: 'vitamina-c' },
+      { nome: 'Trio Metilador', observacao: 'Suporte de metilação frequentemente comprometido' },
+      { nome: 'Metilcobalamina', observacao: 'Reposição de B12 quase sempre necessária' },
+      { nome: 'Pool de Aminoácidos', observacao: 'Substrato proteico em absorção reduzida' },
+      { nome: 'Vitamina B1' },
+      { nome: 'Complexo B' },
+      { nome: 'HMB', observacao: 'Preservação de massa muscular durante perda de peso' },
+      { nome: 'Pill Food', observacao: 'Suporte capilar específico pós-perda rápida' },
+      { nome: 'ADEK', observacao: 'Lipossolúveis com absorção comprometida' },
     ],
   },
 
-  // ===== GESTAÇÃO / PUERPÉRIO =====
-  {
-    slug: 'pos-parto-puerperio',
-    label: 'Pós-parto, puerpério, queda capilar pós-parto',
-    dominio: 'gestacao-puerperio',
-    tags: ['pós parto', 'pos parto', 'pós-parto', 'pos-parto', 'puerpério', 'puerperio', 'amamentando', 'amamentação', 'amamentacao', 'parto', 'bebê', 'bebe'],
-    ativos: [
-      { slug: 'ferro-bisglicinato', observacao: 'Reposição após perdas sanguíneas' },
-      { slug: 'vitamina-b12' },
-      { slug: 'acido-folico' },
-      { slug: 'omega-3', observacao: 'DHA — suporte materno-fetal na amamentação' },
-    ],
-  },
-
-  // ===== LONGEVIDADE =====
+  // ============ LONGEVIDADE ============
   {
     slug: 'longevidade',
     label: 'Longevidade, manutenção preventiva, antiaging',
     dominio: 'longevidade',
     tags: ['longevidade', 'antiaging', 'anti-aging', 'envelhecimento saudável', 'prevenção', 'prevencao', 'manutenção', 'manutencao', 'wellness'],
     ativos: [
-      { slug: 'nad-precursores' },
-      { slug: 'glutationa' },
-      { slug: 'coq10' },
-      { slug: 'multivitaminico-ev' },
-      { slug: 'resveratrol' },
+      { nome: 'NADH' },
+      { nome: 'Resveratrol' },
+      { nome: 'Glutationa' },
+      { nome: 'Coenzima Q10' },
+      { nome: 'PQQ' },
+      { nome: 'Ácido alfa-lipóico' },
     ],
   },
 
-  // ===== DIGESTIVO =====
+  // ============ DIGESTIVO ============
   {
     slug: 'intestino-disbiose',
-    label: 'Intestino, disbiose, inchaço, digestão',
+    label: 'Intestino, disbiose, inflamação intestinal',
     dominio: 'digestivo',
-    tags: ['intestino', 'disbiose', 'inchaço', 'inchaco', 'gases', 'digestão', 'digestao', 'constipação', 'constipacao', 'refluxo', 'sii', 'colite'],
+    tags: ['intestino', 'disbiose', 'inchaço', 'inchaco', 'gases', 'digestão', 'digestao', 'constipação', 'constipacao', 'refluxo', 'sii', 'colite', 'pulmonar'],
     ativos: [
-      { slug: 'glutamina', observacao: 'Substrato dos enterócitos' },
-      { slug: 'zinco-carnosina' },
-      { slug: 'vitamina-d3', observacao: 'Modulação da barreira intestinal' },
-      { slug: 'magnesio', observacao: 'Motilidade intestinal' },
+      { nome: 'N-Acetilcisteína', observacao: 'Modulação de disbiose e inflamação' },
+      { nome: 'Pool de Aminoácidos', observacao: 'Substrato glutamina para enterócitos' },
+      { nome: 'Vitamina D' },
+      { nome: 'Curcumina' },
     ],
   },
 ];
@@ -442,7 +490,7 @@ export function resolveQueixas(): QueixaResolvida[] {
   return QUEIXAS.map(q => ({
     ...q,
     ativos: q.ativos.map(a => {
-      const cat = getAtivo(a.slug);
+      const cat = getAtivo(a.nome);
       return { ...cat, observacao: a.observacao };
     }),
   }));
